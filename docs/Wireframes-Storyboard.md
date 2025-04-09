@@ -1,2 +1,2 @@
 ## Wireframe ##
-![Storyboard](images/wf_storyboard.jpeg.jpg)
+![Storyboard](images/wf_storyboard.jpg)
