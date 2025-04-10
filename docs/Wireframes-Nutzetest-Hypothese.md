@@ -21,7 +21,7 @@ Was ist ein Erfolg?
 •	Wenn der Test-Nutzer alles versteht, was die App macht und wie man sie benützt und evtl. noch 1-2 Inputs an Ideen bringt.
 
 Bewertungen in Form des Rasters mit den 4 Punkten
-"Nutzertest Wandas Mutter"
+## Nutzertest Wandas Mutter ##
 ![Nutzertest](images/wf_storyboard_user_WS.jpg)
 "Nutzertest Danas Mutter"
 ![Nutzertest]()
