@@ -1,6 +1,6 @@
 # BMLD-Inf2-AppV0
 
-Dies ist eine Gesundheits App für Menschen ab 50 Jahren
+Diese App dient der Erfassung und Analyse von Gesundheitsdaten für Menschen ab ca. 50 Jahren. Sie hilft Nutzer*innen dabei, ihre Ernährung, Bewegung und Schlafgewohnheiten zu verfolgen und somit ihre Gesundheit aktiv zu verbessern.
 
 ## Autor
 
