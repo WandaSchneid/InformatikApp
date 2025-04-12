@@ -1,64 +1,52 @@
-Produkt-Roadmap – Gesundheits-Tracking-App
+## Produkt-Roadmap – Gesundheits-Tracking-App ##
 
 Diese Roadmap zeigt die geplanten Entwicklungsschritte für unsere App zur Erfassung von Ernährung, Bewegung und Schlaf. Die Funktionen wurden nach Priorität und Umsetzbarkeit in vier aufeinanderfolgende Versionen gegliedert. Jede Version ist funktionsfähig und erweiterbar.
 
----
-
-Version 1.0 – MVP (Minimal Viable Product)
+### Version 1.0 – MVP (Minimal Viable Product) ###
 
 Ziel: Einfache Datenerfassung für tägliche Gesundheitswerte ermöglichen.
 
-- Login (Benutzername & Passwort)
 - Startseite mit Zugriff auf die Bereiche Ernährung, Bewegung und Schlaf
 - Ernährung:
-  - Eingabe der Trinkmenge (z. B. Gläser Wasser)
+  - Eingabe der Trinkmenge (z.B. Gläser Wasser)
+  - Auswahl in z.B. einer Ernährungspyramidenform der verschiedenen Lebensmittelgruppen
 - Bewegung:
-  - Eingabe von Sportart und Dauer
+  - Eingabe pro Tag von 1-2 Sportarten und Dauer, oder Laufzeit am Tag
 - Schlaf:
-  - Eingabe der geschlafenen Stunden
-- Tagesübersicht als einfache Textanzeige
+  - Pro Tag, Eingabe der geschlafenen Stunden
 
 Diese Version bildet die Basis für erste Tests und Feedback.
 
-
-
-Version 2.0 – Erweiterte Eingaben & erste Visualisierungen
+### Version 2.0 – Erweiterte Eingaben & erste Visualisierungen ###
 
 Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 
 - Ernährung:
-  - Auswahl nach Lebensmittelgruppen (z. B. Ernährungspyramide)
-  - Eingabe von Fleischmengen (z. B. Rind, Poulet, etc.)
+  - Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfelisch)
+  - Dateneingabe derund Mengen und Berechnung der kcal.
 - Bewegung:
-  - Darstellung der Wochenaktivität als Kreisdiagramm
+  - Berechnung der verbrauchten kcal und Dartellung auf der Seite Daten als Diagramm
 - Schlaf:
-  - Eingabe der Schlafqualität
+  - Pro Tag, Eingabe der Schlafqualität und speicherung zusammen mit den geschlafenen Stunden in Daten, die abrufbar pro Tag sind.
 - Daten:
-  - Erste Diagramme zur Darstellung der Tagesdaten
+  - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm.
 
----
-
-Version 3.0 – Ziele & Individualisierung
+### Version 3.0 – Ziele & Individualisierung ###
 
 Ziel: Motivation durch Zielverfolgung und Personalisierung.
 
-- Benutzerprofil (Name, Geschlecht)
-- Eingabe individueller Ziele (z. B. Trinkmenge, Schlafdauer, Bewegung)
-- Visuelle Darstellung des Ziel-Fortschritts
+- Benutzerprofil (Name, Geschlecht, Gewicht)
+- Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen)
+- Visuelle Darstellung des Ziel-Fortschritts, oder schlechte Tage werden farblich hervorgehoben.
 
----
-
-Version 4.0 – Speicherung & Mehrbenutzerfähigkeit
+### Version 4.0 – Speicherung & Mehrbenutzerfähigkeit ###
 
 Ziel: Daten dauerhaft sichern und mehrere Nutzer unterstützen.
 
-- Multi-User-Funktion (z. B. Familienmitglieder)
-- Speicherung der Daten (lokal oder über eine Schnittstelle)
+- Login (Benutzername & Passwort)
+- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe)
+- Speicherung der Daten (lokal für den Nutzer und online auf Switch Drive)
 
----
+## Entwicklung ##
 
-Entwicklung
-
-Version 1 enthält nur die wichtigsten Grundfunktionen. In den folgenden Versionen werden Eingabemöglichkeiten erweitert, Auswertungen ergänzt und die App zunehmend personalisierbar gemacht.
-
----
+Version 1 enthält nur die wichtigsten Grundfunktionen. In den folgenden Versionen werden Eingabemöglichkeiten erweitert, Auswertungen ergänzt und die App zunehmend nutzerfreundlich gestaltet.
