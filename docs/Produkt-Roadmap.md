@@ -54,7 +54,6 @@ Ziel: Daten dauerhaft sichern und mehrere Nutzer unterstützen.
 
 - Multi-User-Funktion (z. B. Familienmitglieder)
 - Speicherung der Daten (lokal oder über eine Schnittstelle)
-- Exportfunktion (z. B. als CSV oder PDF)
 
 ---
 
