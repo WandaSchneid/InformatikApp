@@ -32,7 +32,7 @@ Die App ist intuitiv zu bedienen.
 Die Farben waren sinnvoll eingesetzt um die Bereiche voneinander zu unterscheiden, es ist visuell ansprechen.
 
 ### Was war schlecht?
-* Dass es keine Vorgaben oder Auswahl in Verbindung mit den 3 Hauptkategorien (Ernährung, Bewegung und Schlaf) gab, um das Ziel zu definieren.
+* Dass es keine Vorgaben oder Auswahl in Verbindung mit den 3 Hauptkategorien (Ernährung, Bewegung und Schlaf) gab, um das Ziel einzugrenzen.
 
 ### Neue Ideen?
 * Bei der Seite "Schlafen", ein Feld um die "zu Bett geh Zeit" einzugeben.
@@ -50,7 +50,7 @@ Das Diagramm auf der Daten Seite auf die verbrauchten Kalorieen  zu definieren (
 Die App wurde als sehr intuitiv empfunden. Die Navigation war klar verständlich, sodass keine technischen Vorkenntnisse notwendig waren, um die Funktionen zu nutzen.
 
 * Gute Übersichtlichkeit:
-Die Struktur der App, insbesondere die Aufteilung in die drei Hauptbereiche Ernährung, Bewegung und Schlaf, wurde als logisch und übersichtlich beschrieben. Nutzer:innen finden sich schnell zurecht.
+Die Struktur der App, insbesondere die Aufteilung in die drei Hauptbereiche Ernährung, Bewegung und Schlaf, wurde als logisch und übersichtlich beschrieben. Die Testnutzerin fand sich schnell zurecht.
 
 * Ansprechendes Design:
 Die grafische Gestaltung wurde positiv erwähnt, insbesondere die Darstellung der Ernährung mit einer Ernährungspyramide. Das wird als hilfreich empfunden, um das eigene Essverhalten besser einschätzen zu können.
@@ -67,8 +67,8 @@ Es wäre sinnvoll, im Nutzerprofil zusätzlich das aktuelle Körpergewicht zu er
 Eine visuelle Rückmeldung in Form von Smileys, wenn persönliche Ziele erreicht werden, könnte die Motivation steigern. Verschiedene Smileys für „Ziel erreicht“, „fast erreicht“ oder „noch verbessern“ könnten die App spielerischer und motivierender gestalten.
 
 ### Neue Probleme ?
-Zielüberprüfung: automatisch oder manuell?
-Es stellt sich die Frage, ob die App anhand von hinterlegten Basisdaten (z. B. Körpergewicht und Geschlecht) automatisch ermitteln soll, ob gesetzte Ziele erreicht wurden, oder ob die Nutzer:innen ihre persönlichen Ziele manuell eingeben sollen.
+* Zielüberprüfung: automatisch oder manuell?
+Es stellt sich die Frage, ob die App anhand von hinterlegten Basisdaten (z. B. Körpergewicht und Geschlecht) automatisch (V1) ermitteln soll, ob gesetzte Ziele erreicht wurden, oder ob die Nutzer:innen ihre persönlichen Ziele manuell (V2) eingeben sollen.
 Variante 1 wäre bequemer, könnte aber zu Missverständnissen führen, wenn die automatische Einschätzung nicht den Erwartungen entspricht.
 Variante 2 gibt den Nutzer:innen mehr Kontrolle, erfordert aber zusätzliche Eingaben.
 
