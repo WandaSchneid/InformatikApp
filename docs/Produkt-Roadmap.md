@@ -27,7 +27,7 @@ Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 - Bewegung:
   - Berechnung der verbrauchten kcal und Dartellung auf der Seite Daten als Diagramm
 - Schlaf:
-  - Pro Tag, Eingabe der Schlafqualität und speicherung zusammen mit den geschlafenen Stunden in Daten, die abrufbar pro Tag sind.
+  - Pro Tag, Eingabe der Schlafqualität, zu Bettgeh Zeit und speicherung zusammen mit den geschlafenen Stunden in Daten, die abrufbar pro Tag sind.
 - Daten:
   - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm.
 
@@ -36,8 +36,8 @@ Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 Ziel: Motivation durch Zielverfolgung und Personalisierung.
 
 - Benutzerprofil (Name, Geschlecht, Gewicht)
-- Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen)
-- Visuelle Darstellung des Ziel-Fortschritts, oder schlechte Tage werden farblich hervorgehoben.
+- Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.)
+- Visuelle Darstellung des Ziel-Fortschritts, oder schlechte Tage werden farblich oder mit Emojis hervorgehoben.
 
 ### Version 4.0 – Speicherung & Mehrbenutzerfähigkeit ###
 
