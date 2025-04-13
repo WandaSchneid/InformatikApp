@@ -1,3 +1,4 @@
+## Persona-Beschrieb
 Die Persona ist 52 Jahre alt, weiblich und von schlanker Statur. 
 Sie arbeitet in einem Büro als Sachbearbeiterin mit einem Pensum von 70%.
 Ihre Lieblingsapp bis anhin ist Whatsapp, sie besitzt keine Smartwatch und gibt gerne Daten manuell ein.
