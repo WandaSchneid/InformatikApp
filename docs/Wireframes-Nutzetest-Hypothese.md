@@ -23,7 +23,6 @@ Wie sich die App auf das tatsächliche Gesundheitsverhalten auswirkt (z. B. Er
 ### Nutzertests ###
 
 ## Nutzertest Wandas Mutter ##
-### Bewertungen in Form des Rasters mit den 4 Punkten ###
 
 * Was war gut?
 Übersichtliche Darstellung auf den einzelnen Seiten.
