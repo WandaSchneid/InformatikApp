@@ -67,7 +67,7 @@ Es wäre sinnvoll, im Nutzerprofil zusätzlich das aktuelle Körpergewicht zu er
 Eine visuelle Rückmeldung in Form von Smileys, wenn persönliche Ziele erreicht werden, könnte die Motivation steigern. Verschiedene Smileys für „Ziel erreicht“, „fast erreicht“ oder „noch verbessern“ könnten die App spielerischer und motivierender gestalten.
 
 ### Neue Probleme ?
-Zielüberprüfung: automatisch oder manuell?
+* Zielüberprüfung: automatisch oder manuell?
 Es stellt sich die Frage, ob die App anhand von hinterlegten Basisdaten (z. B. Körpergewicht und Geschlecht) automatisch ermitteln soll, ob gesetzte Ziele erreicht wurden, oder ob die Nutzer:innen ihre persönlichen Ziele manuell eingeben sollen.
 Variante 1 wäre bequemer, könnte aber zu Missverständnissen führen, wenn die automatische Einschätzung nicht den Erwartungen entspricht.
 Variante 2 gibt den Nutzer:innen mehr Kontrolle, erfordert aber zusätzliche Eingaben.
