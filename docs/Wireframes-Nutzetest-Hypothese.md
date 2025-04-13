@@ -69,3 +69,18 @@ Zielüberprüfung: automatisch oder manuell?
 Es stellt sich die Frage, ob die App anhand von hinterlegten Basisdaten (z. B. Körpergewicht und Geschlecht) automatisch ermitteln soll, ob gesetzte Ziele erreicht wurden, oder ob die Nutzer:innen ihre persönlichen Ziele manuell eingeben sollen.
 Variante 1 wäre bequemer, könnte aber zu Missverständnissen führen, wenn die automatische Einschätzung nicht den Erwartungen entspricht.
 Variante 2 gibt den Nutzer:innen mehr Kontrolle, erfordert aber zusätzliche Eingaben.
+
+## Fazit Nutzertest:
+Nach den zwei Nutzertests mit Danas und Wandas Mutter sind wir zum Schluss gekommen, dass die geplante App im Grossen und Ganzen der Nutzerfreundlichkeit entspricht, die wir erreichen wollten.
+
+* Wir ergänzen jedoch folgende Punkte:
+
+* Beim Profil soll das Körpergewicht hinzugefügt werden.
+
+* Zusätzlich zu den geschlafenen Stunden soll auch die Einschlafzeit erfasst werden.
+
+* Die Ziele sollen genauer vordefiniert werden, damit das Programm besser versteht, wie die Rückmeldung an die Nutzerin oder den Nutzer erfolgen soll – zum Beispiel in Form von Smileys.
+
+* Das Diagramm der Daten muss klarer gestaltet werden: Es soll ersichtlich sein, auf welche Daten es sich bezieht und welche genau dargestellt werden.
+
+Neue Herausforderungen sehen wir in der Programmierung der Zielsetzung. Wir werden wohl erst im weiteren Verlauf feststellen, ob sich unsere Vorstellungen wie geplant umsetzen lassen.
