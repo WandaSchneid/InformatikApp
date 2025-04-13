@@ -23,7 +23,7 @@ Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 
 - Ernährung:
   - Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfleisch)
-  - Dateneingabe derund Mengen und Berechnung der kcal.
+  - Dateneingabe der Mengen und Berechnung der kcal.
 - Bewegung:
   - Berechnung der verbrauchten kcal und Dartellung auf der Seite Daten als Diagramm
 - Schlaf:
