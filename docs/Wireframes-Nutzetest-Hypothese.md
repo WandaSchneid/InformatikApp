@@ -20,10 +20,11 @@ Wie sich die App auf das tatsächliche Gesundheitsverhalten auswirkt (z. B. Er
 * Der Test-Nutzer kann sich vorstellen die App als Kontrolle im Alltag zu integrieren– z. B.: Habe ich genug Wasser getrunken?
 * Wenn der Test-Nutzer alles versteht, was die App macht und wie man sie benützt und evtl. noch 1-2 Inputs an Ideen bringt.
 
-###Nutzertests###
+### Nutzertests ###
 
-##Nutzertest Wandas Mutter##
+## Nutzertest Wandas Mutter ##
 ### Bewertungen in Form des Rasters mit den 4 Punkten ###
+
 * Was war gut?
 Übersichtliche Darstellung auf den einzelnen Seiten.
 Die App ist intuitiv zu bedienen.
@@ -61,7 +62,7 @@ Die grafische Auswertung der eingegebenen Daten war in ihrer aktuellen Form nich
 Körpergewicht im Profil ergänzen:
 Es wäre sinnvoll, im Nutzerprofil zusätzlich das aktuelle Körpergewicht zu erfassen. Das würde helfen, die Gesundheitsdaten besser einzuordnen und könnte z. B. zur Zielerreichung beitragen.
 
-Motivierendes Feedback durch Smileys:
+* Motivierendes Feedback durch Smileys:
 Eine visuelle Rückmeldung in Form von Smileys, wenn persönliche Ziele erreicht werden, könnte die Motivation steigern. Verschiedene Smileys für „Ziel erreicht“, „fast erreicht“ oder „noch verbessern“ könnten die App spielerischer und motivierender gestalten.
 
 * neue Probleme ?
