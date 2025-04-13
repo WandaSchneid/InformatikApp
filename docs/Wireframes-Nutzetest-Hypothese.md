@@ -33,13 +33,12 @@ Dass es keine Vorgaben oder Auswahl in Verbindung mit den 3 Hauptkategorien (Ern
 * Neue Ideen?
 Bei der Seite "Schlafen", ein Feld um die "zu Bett geh Zeit" einzugeben.
 Ein Feld um die Stundenanzahl aus zu wählen, anstatt ein zu tippen.
-Vorgabe der Schlafqualität, um von 3 (gut, mittel, schlecht) auszu wählen.
-Beim Profil auch da Gewicht dazu.
+Vorgabe der Schlafqualität, um von 3 (gut, mittel, schlecht) auszuwählen.
+Es wäre sinnvoll beim Profil eine Gewichtsangabe hinzuzufügen.
 Das Diagramm auf der Daten Seite auf die verbrauchten Kalorieen  zu definieren (wegen der Motivation)
 
 * Neue Probleme?
 Ich denke, dass bei der Zielsetzung das Programmieren etwas zu kompliziert werden könnte. Z,B. mit Farben, wenn man einen faulen ungesunden Tag hatte, dass es diesen in der Datenübersicht rot anzeigt, oder ungesund gegessen oder schlechte Schlafqualität. Aber das werden wir erst später herausfinden.
 
-## Nutzertest Dana ##
 
-## Nutzertest Riccardo ##
+
