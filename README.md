@@ -6,4 +6,4 @@ Diese App dient der Erfassung und Analyse von Gesundheitsdaten für Menschen ab 
 
 Wanda Schneid (schnewan@students.zhaw.ch)
 Riccardo Reich (reichri1@students.zhaw.ch)
-Dnana Schneckenburger (schned06@students.zhaw.ch)
+Dana Schnekenburger (schned06@students.zhaw.ch)

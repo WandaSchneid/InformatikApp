@@ -10,5 +10,5 @@ st.title("Gesundheits App")
 Diese App wurde von folgenden Personen entwickelt:
 - Wanda Schneid (schnewan@students.zhaw.ch)
 - Riccardo Reich (reichri1@students.zhaw.ch)
-- Dnana Schneckenburger (schned06@students.zhaw.ch)
+- Dana Schnekenburger (schned06@students.zhaw.ch)
 """
