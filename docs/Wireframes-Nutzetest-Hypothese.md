@@ -1,5 +1,5 @@
-## Hypothese ##
- ### Was wissen wir? Was wissen wir nicht? ###
+## Hypothese
+ ### Was wissen wir? Was wissen wir nicht?
  * Wir wissen:
 Die Zielgruppe ist motiviert, ihre Gesundheit langfristig zu überwachen und zu verbessern.
 Die Nutzer sind bereit, Daten manuell einzugeben.
@@ -8,22 +8,24 @@ Die App richtet sich an Menschen ohne digitale Gesundheitsgeräte wie Smartwatch
 Ob die App-Struktur eine langfristige Nutzung unterstützt oder irgendwann als zu aufwendig     empfunden wird.
 Welche Funktionen auch über Monate hinweg als nützlich empfunden werden.
 Wie sich die App auf das tatsächliche Gesundheitsverhalten auswirkt (z. B. Ernährung, Schlaf, Bewegung).
-### Was möchten wir testen? ###
+### Was möchten wir testen?
 * Ob die Nutzer die App als intuitiv nutzbar empfinden
 * Ob bestimmte Inhalte (z. B. visuelle Auswertungen, Tagesübersichten, Ziele) eine gesunde Lebensweise fördern
-### Wie bewerten wir den Test? ###
+### Wie bewerten wir den Test?
 * Was war gut? Wenn der Test-Nutzer die visuelle Gestaltung als intuitiv empfindet.
 * Was war schlecht? Wenn der Test-Nutzer ohne Anleitung nicht versteht, wie man die App benützen soll.
 * Neue Ideen? Wenn der Test-Nutzer eine umsetzbare Funktion beschreibt.
 * Neue Probleme? 
-### Was ist ein Erfolg? ###
+### Was ist ein Erfolg?
 * Der Test-Nutzer kann sich vorstellen die App als Kontrolle im Alltag zu integrieren– z. B.: Habe ich genug Wasser getrunken?
 * Wenn der Test-Nutzer alles versteht, was die App macht und wie man sie benützt und evtl. noch 1-2 Inputs an Ideen bringt.
 
 # Nutzertests
 
-## Nutzertest Wandas Mutter ##
-### Bewertungen in Form des Rasters mit den 4 Punkten ###
+## Nutzertest Wandas Mutter
+
+### Bewertungen in Form des Rasters mit den 4 Punkten
+
 ### Was war gut?
 * Übersichtliche Darstellung auf den einzelnen Seiten.
 Die App ist intuitiv zu bedienen.
@@ -71,9 +73,9 @@ Variante 1 wäre bequemer, könnte aber zu Missverständnissen führen, wenn die
 Variante 2 gibt den Nutzer:innen mehr Kontrolle, erfordert aber zusätzliche Eingaben.
 
 ## Fazit Nutzertest:
-Nach den zwei Nutzertests mit Danas und Wandas Mutter sind wir zum Schluss gekommen, dass die geplante App im Grossen und Ganzen der Nutzerfreundlichkeit entspricht, die wir erreichen wollten.
+Nach den zwei Nutzertests mit Danas und Wandas Mutter sind wir zum Schluss gekommen, dass die geplante App im Grossen und Ganzen der Nutzerfreundlichkeit entspricht, die wir erreichen wollten und somit ein Erfolg war.
 
-* Wir ergänzen jedoch folgende Punkte:
+### Wir ergänzen folgende Punkte:
 
 * Beim Profil soll das Körpergewicht hinzugefügt werden.
 
