@@ -48,10 +48,10 @@ Ich denke, dass bei der Zielsetzung das Programmieren etwas zu kompliziert werde
 Einfache Bedienung:
 Die App wurde als sehr intuitiv empfunden. Die Navigation war klar verständlich, sodass keine technischen Vorkenntnisse notwendig waren, um die Funktionen zu nutzen.
 
-Gute Übersichtlichkeit:
+* Gute Übersichtlichkeit:
 Die Struktur der App, insbesondere die Aufteilung in die drei Hauptbereiche Ernährung, Bewegung und Schlaf, wurde als logisch und übersichtlich beschrieben. Nutzer:innen finden sich schnell zurecht.
 
-Ansprechendes Design:
+* Ansprechendes Design:
 Die grafische Gestaltung wurde positiv erwähnt, insbesondere die Darstellung der Ernährung mit einer Ernährungspyramide. Das wird als hilfreich empfunden, um das eigene Essverhalten besser einschätzen zu können.
 
 * Was war unklar oder verbesserungswürdig?
