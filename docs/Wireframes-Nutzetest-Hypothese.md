@@ -42,6 +42,30 @@ Das Diagramm auf der Daten Seite auf die verbrauchten Kalorieen  zu definieren (
 * Neue Probleme?
 Ich denke, dass bei der Zielsetzung das Programmieren etwas zu kompliziert werden könnte. Z,B. mit Farben, wenn man einen faulen ungesunden Tag hatte, dass es diesen in der Datenübersicht rot anzeigt, oder ungesund gegessen oder schlechte Schlafqualität. Aber das werden wir erst später herausfinden.
 
-## Nutzertest Dana ##
+## Nutzertest Danas Mutter ##
+* Was war gut?
+Einfache Bedienung:
+Die App wurde als sehr intuitiv empfunden. Die Navigation war klar verständlich, sodass keine technischen Vorkenntnisse notwendig waren, um die Funktionen zu nutzen.
 
-## Nutzertest Riccardo ##
+Gute Übersichtlichkeit:
+Die Struktur der App, insbesondere die Aufteilung in die drei Hauptbereiche Ernährung, Bewegung und Schlaf, wurde als logisch und übersichtlich beschrieben. Nutzer:innen finden sich schnell zurecht.
+
+Ansprechendes Design:
+Die grafische Gestaltung wurde positiv erwähnt, insbesondere die Darstellung der Ernährung mit einer Ernährungspyramide. Das wird als hilfreich empfunden, um das eigene Essverhalten besser einschätzen zu können.
+
+* Was war schlecht?
+Diagramm nicht ganz verständlich:
+Die grafische Auswertung der eingegebenen Daten war in ihrer aktuellen Form nicht vollständig nachvollziehbar. Es war nicht sofort klar, welche Werte dargestellt werden und wie sie interpretiert werden sollen. Hier ist eine Überarbeitung der Darstellung oder eine erklärende Legende wünschenswert.
+
+* Neue Ideen?
+Körpergewicht im Profil ergänzen:
+Es wäre sinnvoll, im Nutzerprofil zusätzlich das aktuelle Körpergewicht zu erfassen. Das würde helfen, die Gesundheitsdaten besser einzuordnen und könnte z. B. zur Zielerreichung beitragen.
+
+* Motivierendes Feedback durch Smileys:
+Eine visuelle Rückmeldung in Form von Smileys, wenn persönliche Ziele erreicht werden, könnte die Motivation steigern. Verschiedene Smileys für „Ziel erreicht“, „fast erreicht“ oder „noch verbessern“ könnten die App spielerischer und motivierender gestalten.
+
+* Neue Probleme ?
+Zielüberprüfung: automatisch oder manuell?
+Es stellt sich die Frage, ob die App anhand von hinterlegten Basisdaten (z. B. Körpergewicht und Geschlecht) automatisch ermitteln soll, ob gesetzte Ziele erreicht wurden, oder ob die Nutzer:innen ihre persönlichen Ziele manuell eingeben sollen.
+Variante 1 wäre bequemer, könnte aber zu Missverständnissen führen, wenn die automatische Einschätzung nicht den Erwartungen entspricht.
+Variante 2 gibt den Nutzer:innen mehr Kontrolle, erfordert aber zusätzliche Eingaben.
