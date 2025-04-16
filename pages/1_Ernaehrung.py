@@ -26,45 +26,45 @@ st.markdown("""
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
     if st.button("🍫 Süsses"):
-        switch_page("suesses")
+        switch_page("ernaehrung_suesses")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Stufe 2 – Fette
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
     if st.button("🧈 Fette"):
-        switch_page("fette")
+        switch_page("ernaehrung_fette")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Stufe 3 – Fleisch/Fisch
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
     if st.button("🥩 Fleisch / Fisch"):
-        switch_page("fleisch")
+        switch_page("ernaehrung_fleisch_fisch")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Stufe 4 – Milchprodukte
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
     if st.button("🧀 Milchprodukte"):
-        switch_page("milchprodukte")
+        switch_page("ernaehrung_milchprodukte")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Stufe 5 – Getreide
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
     if st.button("🍞 Getreide / Reis / Kartoffeln"):
-        switch_page("getreide")
+        switch_page("ernaehrung_getreide_reis_kartoffeln")
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Stufe 6 – Gemüse & Obst nebeneinander
 col1, col2, col3 = st.columns([1, 0.2, 1])
 with col1:
     if st.button("🥦 Gemüse"):
-        switch_page("gemuese")
+        switch_page("ernaehrung_gemuese")
 with col3:
     if st.button("🍎 Obst"):
-        switch_page("obst")
+        switch_page("ernaehrung_obst")
 
 # Wasser
 st.markdown("---")
