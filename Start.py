@@ -1,81 +1,37 @@
 import streamlit as st
+from streamlit_extras.switch_page_button import switch_page
 
-# Seitenkonfiguration
 st.set_page_config(page_title="Gesundheits-Tracker", page_icon="💪", layout="centered")
 
-# Benutzerdefinierte CSS für runde, farbige Buttons
+# Titel
+st.title("💪 Gesundheits-Tracker")
+st.markdown("Wähle einen Bereich aus:")
+
+# CSS für größere, dickere Texte in runden Buttons
 st.markdown("""
     <style>
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-top: 50px;
-        }
-        .runde-button {
-            border: none;
+        .stButton > button {
             border-radius: 50px;
             padding: 20px 40px;
-            font-size: 20px;
-            font-weight: bold;
-            color: white;
-            width: 250px;
+            font-size: 24px;  /* 👈 größer */
+            font-weight: 800; /* 👈 dicker */
+            width: 280px;
             text-align: center;
-            cursor: pointer;
+            display: block;
+            margin: 15px auto;
         }
-        .gruen { background-color: #4CAF50; }
-        .orange { background-color: #FF9800; }
-        .blau { background-color: #2196F3; }
     </style>
 """, unsafe_allow_html=True)
 
-# Seiteninhalte als Funktionen
-def hauptseite():
-    st.title("💪 Gesundheits-Tracker")
-    st.markdown("Wähle einen Bereich aus:")
+# Zentrierte Buttons mit farbigem Text
+col1, col2, col3 = st.columns([1, 2, 1])
 
-    # HTML-Buttons mit Form (wegen Streamlit)
-    st.markdown("""
-        <div class="button-container">
-            <form action="?seite=ernaehrung" method="get">
-                <button class="runde-button gruen" type="submit">🍎 Ernährung</button>
-            </form>
-            <form action="?seite=bewegung" method="get">
-                <button class="runde-button orange" type="submit">🏃 Bewegung</button>
-            </form>
-            <form action="?seite=schlaf" method="get">
-                <button class="runde-button blau" type="submit">🛌 Schlaf</button>
-            </form>
-        </div>
-    """, unsafe_allow_html=True)
+with col2:
+    if st.button("🍎 :green[Ernaehrung]"):
+        switch_page("ernaehrung")
 
-def ernaehrung_seite():
-    st.title("🍎 Ernährung")
-    st.write("Hier kannst du deine Mahlzeiten und Kalorien tracken.")
-    if st.button("🔙 Zurück"):
-        st.switch_page("main.py")
+    if st.button("🏃 :orange[Bewegung]"):
+        switch_page("bewegung")
 
-def bewegung_seite():
-    st.title("🏃 Bewegung")
-    st.write("Hier kannst du deine Aktivitäten erfassen.")
-    if st.button("🔙 Zurück"):
-        st.switch_page("main.py")
-
-def schlaf_seite():
-    st.title("🛌 Schlaf")
-    st.write("Hier kannst du deinen Schlaf dokumentieren.")
-    if st.button("🔙 Zurück"):
-        st.switch_page("main.py")
-
-# Navigation über URL-Parameter
-seite = st.query_params.get("seite", "haupt")
-
-if seite == "haupt":
-    hauptseite()
-elif seite == "ernaehrung":
-    ernaehrung_seite()
-elif seite == "bewegung":
-    bewegung_seite()
-elif seite == "schlaf":
-    schlaf_seite()
+    if st.button("🛌 :blue[Schlaf]"):
+        switch_page("schlaf")
