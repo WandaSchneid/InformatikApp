@@ -4,7 +4,7 @@ Diese Roadmap zeigt die geplanten Entwicklungsschritte für unsere App zur Erfas
 
 ### Version 1.0 – MVP (Minimal Viable Product) ###
 
-Ziel: Einfache Datenerfassung für tägliche Gesundheitswerte ermöglichen.
+Ziel: Einfache Datenerfassung für tägliche Gesundheitswerte ermöglichen, Daten dauerhaft sichern und mehrere Nutzer unterstützen.
 
 - Startseite mit Zugriff auf die Bereiche Ernährung, Bewegung und Schlaf
 - Ernährung:
@@ -14,6 +14,9 @@ Ziel: Einfache Datenerfassung für tägliche Gesundheitswerte ermöglichen.
   - Eingabe pro Tag von 1-2 Sportarten und Dauer, oder Laufzeit am Tag
 - Schlaf:
   - Pro Tag, Eingabe der geschlafenen Stunden
+- Login (Benutzername & Passwort)
+- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe)
+- Speicherung der Daten (lokal für den Nutzer und online auf Switch Drive)
 
 Diese Version bildet die Basis für erste Tests und Feedback.
 
@@ -38,14 +41,6 @@ Ziel: Motivation durch Zielverfolgung und Personalisierung.
 - Benutzerprofil (Name, Geschlecht, Gewicht)
 - Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.)
 - Visuelle Darstellung des Ziel-Fortschritts, oder schlechte Tage werden farblich oder mit Emojis hervorgehoben.
-
-### Version 4.0 – Speicherung & Mehrbenutzerfähigkeit ###
-
-Ziel: Daten dauerhaft sichern und mehrere Nutzer unterstützen.
-
-- Login (Benutzername & Passwort)
-- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe)
-- Speicherung der Daten (lokal für den Nutzer und online auf Switch Drive)
 
 ## Entwicklung ##
 

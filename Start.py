@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title("Gesundheits App")
+st.title("Gesundheits-Tracking-App")
 
 
 
