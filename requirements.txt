@@ -5,5 +5,4 @@ webdav4
 fsspec
 matplotlib
 numpy
-streamlit-extras
 streamlit-extras>=0.1.7
