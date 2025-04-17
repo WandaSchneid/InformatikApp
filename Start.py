@@ -1,6 +1,12 @@
 import streamlit as st
-from streamlit_extras.switch_page_button import switch_page
 
+# ✅ Funktion für Button-Navigation via HTML Redirect
+def go_to_page(page_name: str):
+    st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url=./{page_name}" />
+    """, unsafe_allow_html=True)
+
+# ✅ Seiteneinstellungen
 st.set_page_config(page_title="Gesundheits-Tracker", page_icon="💪", layout="centered")
 
 # Titel
@@ -28,10 +34,10 @@ col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     if st.button("🍎 :green[Ernaehrung]"):
-        switch_page("Ernaehrung")  # Großschreibung angepasst
+        go_to_page("Ernaehrung")
 
     if st.button("🏃 :orange[Bewegung]"):
-        switch_page("Bewegung")  # Großschreibung angepasst
+        go_to_page("Bewegung")
 
     if st.button("🛌 :blue[Schlaf]"):
-        switch_page("Schlaf")  # Großschreibung angepasst
+        go_to_page("Schlaf")
