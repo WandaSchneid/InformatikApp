@@ -6,10 +6,10 @@ import numpy as np
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
 st.title("📊 Daten")
 
-# 🔁 Funktion zum Zurückspringen
-def go_to_start():
-    st.markdown("""
-        <meta http-equiv="refresh" content="0; url=../" />
+# 🔁 HTML-Redirect Funktion zur Startseite (leer für root)
+def go_to_page(filename: str):
+    st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url=../{filename}" />
     """, unsafe_allow_html=True)
 
 # --------------------------- Profil ----------------------------
@@ -59,6 +59,7 @@ ax.set_xlabel("Tag")
 ax.set_ylabel("kcal")
 st.pyplot(fig)
 
-# --------------------------- Zurück ----------------------------
+# --------------------------- Zurück-Button ----------------------------
+st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    go_to_start()
+    go_to_page("") 
