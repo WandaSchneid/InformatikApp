@@ -28,10 +28,10 @@ col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     if st.button("🍎 :green[Ernaehrung]"):
-        switch_page("ernaehrung")
+        switch_page("Ernaehrung")  # Großschreibung angepasst
 
     if st.button("🏃 :orange[Bewegung]"):
-        switch_page("bewegung")
+        switch_page("Bewegung")  # Großschreibung angepasst
 
     if st.button("🛌 :blue[Schlaf]"):
-        switch_page("schlaf")
+        switch_page("Schlaf")  # Großschreibung angepasst
