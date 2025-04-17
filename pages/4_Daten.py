@@ -6,10 +6,10 @@ import numpy as np
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
 st.title("📊 Daten")
 
-# 🔁 HTML-Redirect Funktion zur Startseite (leer für root)
-def go_to_page(filename: str):
-    st.markdown(f"""
-        <meta http-equiv="refresh" content="0; url=../{filename}" />
+# ✅ HTML-Redirect zur Startseite (funktioniert auch auf Streamlit Cloud)
+def go_to_start():
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=/" />
     """, unsafe_allow_html=True)
 
 # --------------------------- Profil ----------------------------
@@ -62,4 +62,4 @@ st.pyplot(fig)
 # --------------------------- Zurück-Button ----------------------------
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    go_to_page("") 
+    go_to_start()
