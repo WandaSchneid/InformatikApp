@@ -1,17 +1,23 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-from streamlit_extras.switch_page_button import switch_page
 
+# Seitenkonfiguration
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
 st.title("🏃‍♂️ Bewegung")
+
+# 🔁 Funktion zum Zurückspringen
+def go_to_start():
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=../" />
+    """, unsafe_allow_html=True)
 
 col1, col2 = st.columns([2, 1])
 
 # ------------------ Linke Seite ------------------
 with col1:
     st.markdown("### 📅 Wähle einen Tag")
-    
+
     # Kuchendiagramm
     days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
     selected_day = st.selectbox("Wochentag auswählen", days, index=4)
@@ -53,9 +59,9 @@ with col1:
 
     st.markdown(f"### 🔥 Gesamtverbrauch: **{total_kcal:.1f} kcal**")
 
+    # 🔙 Zurück zur Startseite
     if st.button("🔙 Zurück zum Start"):
-        switch_page("start")
-
+        go_to_start()
 
 # ------------------ Rechte Seite ------------------
 with col2:

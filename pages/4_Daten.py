@@ -1,10 +1,16 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
-from streamlit_extras.switch_page_button import switch_page
 
+# Seitenkonfiguration
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
 st.title("📊 Daten")
+
+# 🔁 Funktion zum Zurückspringen
+def go_to_start():
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=../" />
+    """, unsafe_allow_html=True)
 
 # --------------------------- Profil ----------------------------
 st.markdown("## 👤 Profil")
@@ -32,7 +38,6 @@ ziel2 = st.selectbox("2. Ziel", ziele_liste, key="ziel2")
 # --------------------------- Eingabetage ----------------------------
 st.markdown("## 📆 Datenübersicht Eingabetage")
 
-# 1–31 Tage anzeigen (Buttons, die man anklicken könnte – hier nur visualisiert)
 with st.container():
     cols = st.columns(7)
     for i in range(1, 32):
@@ -44,7 +49,6 @@ with st.container():
 # --------------------------- Diagramm ----------------------------
 st.markdown("## 📈 Verbrauchte kcal")
 
-# Beispielhafte kcal-Daten (simuliert)
 tage = np.arange(1, 32)
 verbrauchte_kcal = np.random.normal(2200, 200, size=31).clip(min=1500, max=3000)
 
@@ -57,4 +61,4 @@ st.pyplot(fig)
 
 # --------------------------- Zurück ----------------------------
 if st.button("🔙 Zurück zum Start"):
-    switch_page("start")
+    go_to_start()

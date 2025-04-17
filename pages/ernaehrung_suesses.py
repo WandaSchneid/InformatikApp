@@ -1,10 +1,16 @@
 import streamlit as st
 import pandas as pd
-from streamlit_extras.switch_page_button import switch_page
 
+# Seitenkonfiguration
 st.set_page_config(page_title="Süsses", page_icon="🍫", layout="centered")
 st.title("🍫 Süsses")
 st.markdown("Gib entweder eine Menge direkt ein **oder** wähle ein Lebensmittel aus der Datenbank.")
+
+# 🔁 Funktion zur Rücknavigation
+def go_to_page(page_name: str):
+    st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url=../{page_name}" />
+    """, unsafe_allow_html=True)
 
 # 👉 Variante 1: Manuelle Eingabe
 st.header("🔢 Direkteingabe")
@@ -14,7 +20,7 @@ input1 = st.number_input("🍪 Kekse (g)", min_value=0, step=5)
 kcal_input1 = input1 * 5.0
 
 if kcal_input0 + kcal_input1 > 0:
-    st.info(f"📊 Gesamt: **{kcal_input0 + kcal_input1:.1f} kcal** (🍬 Bonbons (g): {kcal_input0:.1f} kcal + 🍪 Kekse (g): {kcal_input1:.1f} kcal)")
+    st.info(f"📊 Gesamt: **{kcal_input0 + kcal_input1:.1f} kcal** (🍬 Bonbons: {kcal_input0:.1f} kcal + 🍪 Kekse: {kcal_input1:.1f} kcal)")
 
 # 🔄 Trennlinie
 st.markdown("---")
@@ -28,15 +34,21 @@ df_category = pd.read_csv("data/food_category.csv")
 df_nutrient = pd.read_csv("data/food_nutrient.csv")
 df_nutrient_lookup = pd.read_csv("data/nutrient.csv")
 
-# Kategorie-ID(s)
-category_ids = df_category[df_category["description"].str.contains(r"Sweets|Snacks|Baked Products", case=False, regex=True)]["id"].unique()
+# Kategorie-ID(s) für Süßes/Snacks/Backwaren
+category_ids = df_category[
+    df_category["description"].str.contains(r"Sweets|Snacks|Baked Products", case=False, regex=True)
+]["id"].unique()
 foods = df_food[df_food["food_category_id"].isin(category_ids)]
+
+# Auswahl
 food_selection = st.selectbox("🍽️ Lebensmittel auswählen", foods["description"].unique())
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
 # Kalorien berechnen
 fdc_id = foods[foods["description"] == food_selection]["fdc_id"].values[0]
-energy_entry = df_nutrient[(df_nutrient["fdc_id"] == fdc_id) & (df_nutrient["nutrient_id"].isin([2047, 2048]))]
+energy_entry = df_nutrient[
+    (df_nutrient["fdc_id"] == fdc_id) & (df_nutrient["nutrient_id"].isin([2047, 2048]))
+]
 
 if not energy_entry.empty:
     kcal_per_100g = energy_entry["amount"].values[0]
@@ -45,5 +57,7 @@ if not energy_entry.empty:
 else:
     st.warning("⚠️ Keine Kalorieninformationen für dieses Lebensmittel gefunden.")
 
+# Zurück-Button
+st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
-    switch_page("ernaehrung")
+    go_to_page("Ernaehrung")

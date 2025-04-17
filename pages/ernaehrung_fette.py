@@ -1,11 +1,17 @@
 import streamlit as st
 import pandas as pd
-from streamlit_extras.switch_page_button import switch_page
 
+# Seitenkonfiguration
 st.set_page_config(page_title="🧈 Fette", page_icon="🧈", layout="centered")
 
 st.title("🧈 Fette & Öle")
 st.markdown("Gib entweder die Menge für Butter / Öl direkt ein **oder** wähle ein Lebensmittel aus der Datenbank.")
+
+# 🔁 Funktion zur Rücknavigation
+def go_to_page(page_name: str):
+    st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url=../{page_name}" />
+    """, unsafe_allow_html=True)
 
 # 👉 Variante 1: Manuelle Eingabe
 st.header("🔢 Direkteingabe")
@@ -41,7 +47,7 @@ gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=100
 
 # Kalorien berechnen
 fdc_id = foods_fat[foods_fat["description"] == food_selection]["fdc_id"].values[0]
-energy_id = 2047
+energy_id = 2047  # Energie-ID für kcal
 energy_entry = df_nutrient[(df_nutrient["fdc_id"] == fdc_id) & (df_nutrient["nutrient_id"] == energy_id)]
 
 if not energy_entry.empty:
@@ -52,5 +58,6 @@ else:
     st.warning("⚠️ Keine Kalorieninformationen für dieses Lebensmittel gefunden.")
 
 # Zurück-Button
+st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
-    switch_page("ernaehrung")
+    go_to_page("Ernaehrung")

@@ -1,9 +1,15 @@
 import streamlit as st
 import matplotlib.pyplot as plt
-from streamlit_extras.switch_page_button import switch_page
 
+# Seitenkonfiguration
 st.set_page_config(page_title="🛌 Schlaf", page_icon="🛌", layout="centered")
 st.title("🛌 Schlaf")
+
+# 🔁 Funktion für Redirect zur Startseite
+def go_to_start():
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=../" />
+    """, unsafe_allow_html=True)
 
 # -----------------------------------------------
 # 📅 Wochentag-Auswahl mit Kuchendiagramm
@@ -49,5 +55,6 @@ st.markdown(f"""
 - **Schlafqualität:** *{qualitaet}*
 """)
 
+# Zurück-Button
 if st.button("🔙 Zurück zum Start"):
-    switch_page("start")
+    go_to_start()
