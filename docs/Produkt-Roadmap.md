@@ -8,39 +8,40 @@ Ziel: Einfache Datenerfassung für tägliche Gesundheitswerte ermöglichen, Date
 
 - Startseite mit Zugriff auf die Bereiche Ernährung, Bewegung und Schlaf
 - Ernährung:
-  - Eingabe der Trinkmenge (z.B. Gläser Wasser)
-  - Auswahl in z.B. einer Ernährungspyramidenform der verschiedenen Lebensmittelgruppen
+  - Eingabe der Trinkmenge (Gläser Wasser)
+  - Auswahl der verschiedenen Lebensmittelgruppen in Form einer Ernährungspyramide
 - Bewegung:
-  - Eingabe pro Tag von 1-2 Sportarten und Dauer, oder Laufzeit am Tag
+  - Eingabe pro Tag von 1-2 Sportarten und Dauer und Laufzeit am Tag
 - Schlaf:
-  - Pro Tag, Eingabe der geschlafenen Stunden
-- Login (Benutzername & Passwort)
-- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe)
-- Speicherung der Daten (lokal für den Nutzer und online auf Switch Drive)
+  - Pro Tag, Eingabe der geschlafenen Stunden, Schlafqualität und 'zu Bettgeh Zeit'
+- Speicherung der Daten auf Switch Drive
+- Daten:
+- Benutzerprofil (Name, Geschlecht, Gewicht)
+- Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.)
 
 Diese Version bildet die Basis für erste Tests und Feedback.
 
-### Version 2.0 – Erweiterte Eingaben & erste Visualisierungen ###
+### Version 2.0 – Erweiterte Eingaben & Datenspeicherung für den Nutzer ###
 
 Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 
 - Ernährung:
   - Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfleisch)
-  - Dateneingabe der Mengen und Berechnung der kcal.
+  - Dateneingabe der Mengen und Berechnung der kcal
 - Bewegung:
-  - Berechnung der verbrauchten kcal und Dartellung auf der Seite Daten als Diagramm
+  - Berechnung der verbrauchten kcal und Dartellung auf der Seite 'Daten' als Diagramm
 - Schlaf:
-  - Pro Tag, Eingabe der Schlafqualität, zu Bettgeh Zeit und speicherung zusammen mit den geschlafenen Stunden in Daten, die abrufbar pro Tag sind.
+  -  Speicherung Daten auf der Seite 'Daten' welche abrufbar pro Tag sind
 - Daten:
-  - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm.  . 
+  - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm für den Nutzer
 
 ### Version 3.0 – Ziele & Individualisierung ###
 
 Ziel: Motivation durch Zielverfolgung und Personalisierung.
 
-- Benutzerprofil (Name, Geschlecht, Gewicht)
-- Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.)
 - Visuelle Darstellung des Ziel-Fortschritts, oder schlechte Tage werden farblich oder mit Emojis hervorgehoben.
+- Login (Benutzername & Passwort)
+- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe)
 
 ## Entwicklung ##
 
