@@ -3,15 +3,16 @@ import streamlit as st
 # Seitenkonfiguration
 st.set_page_config(page_title="Ernaehrung", page_icon="🍎", layout="centered")
 
-# 🔁 Funktion zum Seitenwechsel
+# 🔁 Funktion zum Seitenwechsel (Unterseiten)
 def go_to_page(page_name: str):
     st.markdown(f"""
         <meta http-equiv="refresh" content="0; url=./{page_name}" />
     """, unsafe_allow_html=True)
 
+# ✅ Funktion zum Zurück zur Startseite (robust)
 def go_to_start():
     st.markdown("""
-        <meta http-equiv="refresh" content="0; url=../" />
+        <meta http-equiv="refresh" content="0; url=/" />
     """, unsafe_allow_html=True)
 
 # Titel
@@ -33,6 +34,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Pyramid-Stufen
+# -----------------------------
 
 # Stufe 1 – Süsses
 with st.container():
@@ -78,12 +80,12 @@ with col3:
     if st.button("🍎 Obst"):
         go_to_page("ernaehrung_obst")
 
-# Wasser
+# ----------------------------- Wasser -----------------------------
 st.markdown("---")
 wasser = st.number_input("💧 Gläser Wasser (à 300ml)", min_value=0, step=1)
 st.write(f"Das sind **{wasser * 300} ml Wasser**.")
 
-# Zurück zum Start
+# ----------------------------- Zurück -----------------------------
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
     go_to_start()

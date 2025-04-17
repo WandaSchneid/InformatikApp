@@ -6,10 +6,10 @@ import pandas as pd
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
 st.title("🏃‍♂️ Bewegung")
 
-# 🔁 Funktion zum Zurückspringen
+# ✅ Sicherer Redirect zur Startseite (Streamlit-kompatibel)
 def go_to_start():
     st.markdown("""
-        <meta http-equiv="refresh" content="0; url=../" />
+        <meta http-equiv="refresh" content="0; url=/" />
     """, unsafe_allow_html=True)
 
 col1, col2 = st.columns([2, 1])
@@ -22,19 +22,18 @@ with col1:
     days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
     selected_day = st.selectbox("Wochentag auswählen", days, index=4)
 
-    # Kuchen zeichnen
     fig, ax = plt.subplots()
     ax.pie([1]*7, labels=days, startangle=90,
            colors=["#e0e0e0" if d != selected_day else "#90caf9" for d in days])
     ax.axis("equal")
     st.pyplot(fig)
 
-    # ---------------- Laufen Slider ----------------
+    # 🏃‍♀️ Laufen
     st.markdown("### 🏃‍♀️ Laufen (min)")
     laufen_min = st.slider("Laufen", 0, 110, step=5)
-    laufen_kcal = laufen_min * 7.2  # z. B. 7.2 kcal/min beim Laufen
+    laufen_kcal = laufen_min * 7.2
 
-    # ---------------- Sportarten ----------------
+    # 🧘 Weitere Aktivitäten
     st.markdown("### 🧘 Weitere Aktivitäten")
 
     sportarten = {
@@ -52,7 +51,6 @@ with col1:
     sport2 = st.selectbox("2. Sportart", list(sportarten.keys()), key="s2")
     min2 = st.selectbox("Minuten", list(range(0, 121, 5)), key="m2")
 
-    # Berechnung
     sport1_kcal = min1 * sportarten[sport1]
     sport2_kcal = min2 * sportarten[sport2]
     total_kcal = laufen_kcal + sport1_kcal + sport2_kcal

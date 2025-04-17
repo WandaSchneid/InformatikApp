@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="🛌 Schlaf", page_icon="🛌", layout="centered")
 st.title("🛌 Schlaf")
 
-# 🔁 Funktion für Redirect zur Startseite
+# ✅ Funktion für Redirect zur Startseite (sicher für Cloud)
 def go_to_start():
     st.markdown("""
-        <meta http-equiv="refresh" content="0; url=../" />
+        <meta http-equiv="refresh" content="0; url=/" />
     """, unsafe_allow_html=True)
 
 # -----------------------------------------------
@@ -26,17 +26,13 @@ st.pyplot(fig)
 # -----------------------------------------------
 # 😴 Eingaben
 # -----------------------------------------------
-
-# Stunden geschlafen: Dropdown mit festen Werten
 stunden_optionen = [1.5, 3, 4.5, 5, 6.5, 7, 8.5, 10, 11, 12]
 stunden = st.selectbox("⏱️ Stunden geschlafen:", stunden_optionen, index=6)
 
-# Schlafenszeit
 stunde = st.selectbox("🕙 Zu Bett gegangen um (Stunde):", list(range(18, 25)) + list(range(0, 6)), index=3)
 minute = st.selectbox("⏱️ Minute:", [0, 15, 30, 45], index=0)
 bettzeit = f"{stunde:02d}:{minute:02d}"
 
-# Schlafqualität wie gezeichnet
 qualitaets_optionen = [
     "gut, ausgeschlafen",
     "mittel, zu wenig geschlafen",
@@ -55,6 +51,8 @@ st.markdown(f"""
 - **Schlafqualität:** *{qualitaet}*
 """)
 
-# Zurück-Button
+# -----------------------------------------------
+# Zurück-Button zur Startseite
+# -----------------------------------------------
 if st.button("🔙 Zurück zum Start"):
     go_to_start()
