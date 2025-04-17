@@ -32,7 +32,7 @@ Ziel: Detailliertere Eingabeoptionen und erste grafische Rückmeldungen.
 - Schlaf:
   - Pro Tag, Eingabe der Schlafqualität, zu Bettgeh Zeit und speicherung zusammen mit den geschlafenen Stunden in Daten, die abrufbar pro Tag sind.
 - Daten:
-  - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm.
+  - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm.  . 
 
 ### Version 3.0 – Ziele & Individualisierung ###
 
