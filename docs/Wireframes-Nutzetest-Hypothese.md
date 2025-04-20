@@ -1,10 +1,10 @@
 ## Hypothese
  ### Was wissen wir? Was wissen wir nicht?
- * Wir wissen:
+ * Was wissen wir:
 Die Zielgruppe ist motiviert, ihre Gesundheit langfristig zu überwachen und zu verbessern.
 Die Nutzer sind bereit, Daten manuell einzugeben.
 Die App richtet sich an Menschen ohne digitale Gesundheitsgeräte wie Smartwatches.
-* Wir nicht wissen:
+* Was wissen wir nicht:
 Ob die App-Struktur eine langfristige Nutzung unterstützt oder irgendwann als zu aufwendig     empfunden wird.
 Welche Funktionen auch über Monate hinweg als nützlich empfunden werden.
 Wie sich die App auf das tatsächliche Gesundheitsverhalten auswirkt (z. B. Ernährung, Schlaf, Bewegung).
