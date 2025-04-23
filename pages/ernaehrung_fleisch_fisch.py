@@ -29,7 +29,7 @@ st.markdown("---")
 # 👉 Variante 2: Auswahl aus CSV
 st.header("📊 Lebensmitteldatenbank")
 
-df_food = pd.read_csv("data/food.csv")
+df_food = pd.read_csv("data/Generische_Lebensmittel.csv")
 df_category = pd.read_csv("data/food_category.csv")
 df_nutrient = pd.read_csv("data/food_nutrient.csv")
 
