@@ -28,7 +28,7 @@ if butter > 0 or oel > 0:
 st.markdown("---")
 st.header("📊 Lebensmitteldatenbank")
 
-df_food = pd.read_csv("data/Generische_Lebensmittel.csv")
+df_food = pd.read_csv("data/food.csv")
 df_category = pd.read_csv("data/food_category.csv")
 df_nutrient = pd.read_csv("data/food_nutrient.csv")
 
