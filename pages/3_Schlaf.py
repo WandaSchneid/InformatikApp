@@ -1,12 +1,13 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 from functions.speichern import speichern_tageseintrag
+from datetime import datetime  # Wichtig!
 
 # Seitenkonfiguration
 st.set_page_config(page_title="🛌 Schlaf", page_icon="🛌", layout="centered")
 st.title("🛌 Schlaf")
 
-# ✅ Funktion für Redirect zur Startseite (sicher für Cloud)
+# ✅ Funktion für Redirect zur Startseite
 def go_to_start():
     st.markdown("""
         <meta http-equiv="refresh" content="0; url=/" />
@@ -16,7 +17,7 @@ def go_to_start():
 # 📅 Wochentag-Auswahl mit Kuchendiagramm
 # -----------------------------------------------
 days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-selected_day = st.selectbox("Wochentag auswählen", days, index=0)
+selected_day = st.selectbox("Wochentag auswählen:", days, index=0)
 
 fig, ax = plt.subplots()
 wedges, texts = ax.pie([1]*7, labels=days, startangle=90,
@@ -30,10 +31,18 @@ st.pyplot(fig)
 stunden_optionen = [1.5, 3, 4.5, 5, 6.5, 7, 8.5, 10, 11, 12]
 stunden = st.selectbox("⏱️ Stunden geschlafen:", stunden_optionen, index=6)
 
-stunde = st.selectbox("🕙 Zu Bett gegangen um (Stunde):", list(range(18, 25)) + list(range(0, 6)), index=3)
-minute = st.selectbox("⏱️ Minute:", [0, 15, 30, 45], index=0)
-bettzeit = f"{stunde:02d}:{minute:02d}"
+# 🕙 Uhrzeit-Eingabe als Text
+bettzeit_eingabe = st.text_input("🕙 Zu Bett gegangen (Format: HH:MM)", value="22:00")
 
+# Eingabe validieren
+try:
+    stunde, minute = map(int, bettzeit_eingabe.split(":"))
+    bettzeit = f"{stunde:02d}:{minute:02d}"
+except:
+    bettzeit = "00:00"
+    st.warning("⚠️ Bitte Uhrzeit im Format HH:MM eingeben!")
+
+# Schlafqualität
 qualitaets_optionen = [
     "gut, ausgeschlafen",
     "mittel, zu wenig geschlafen",
@@ -54,9 +63,13 @@ st.markdown(f"""
 - **Schlafqualität:** *{qualitaet}*
 """)
 
-# 💾 Speichern-Button
+# -----------------------------------------------
+# 💾 Speichern-Button (mit Monat und Tag)
+# -----------------------------------------------
 if st.button("💾 Schlaf speichern"):
-    speichern_tageseintrag(schlaftext=zusammenfassung)
+    aktueller_monat = datetime.now().month
+    aktueller_tag = datetime.now().day
+    speichern_tageseintrag(monat=aktueller_monat, tag=aktueller_tag, schlaftext=zusammenfassung)
     st.success("✅ Schlafdaten gespeichert!")
 
 # -----------------------------------------------
