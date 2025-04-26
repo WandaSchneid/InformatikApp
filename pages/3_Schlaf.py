@@ -1,5 +1,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
+from functions.speichern import speichern_tageseintrag
 
 # Seitenkonfiguration
 st.set_page_config(page_title="🛌 Schlaf", page_icon="🛌", layout="centered")
@@ -43,6 +44,8 @@ qualitaet = st.selectbox("🌙 Schlafqualität:", qualitaets_optionen, index=0)
 # -----------------------------------------------
 # Ergebnis
 # -----------------------------------------------
+zusammenfassung = f"Geschlafen: {stunden}h, Zu Bett: {bettzeit} Uhr, Qualität: {qualitaet}"
+
 st.markdown("---")
 st.markdown(f"""
 ### 📋 Zusammenfassung für **{selected_day}**  
@@ -50,6 +53,11 @@ st.markdown(f"""
 - **Zu Bett gegangen:** {bettzeit} Uhr  
 - **Schlafqualität:** *{qualitaet}*
 """)
+
+# 💾 Speichern-Button
+if st.button("💾 Schlaf speichern"):
+    speichern_tageseintrag(schlaftext=zusammenfassung)
+    st.success("✅ Schlafdaten gespeichert!")
 
 # -----------------------------------------------
 # Zurück-Button zur Startseite

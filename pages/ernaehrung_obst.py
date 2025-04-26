@@ -1,25 +1,6 @@
 import streamlit as st
 import pandas as pd
-import os
-from datetime import datetime
-
-# ✅ Funktion zum sicheren Speichern
-def speichern_lebensmittel(lebensmittel, menge, kcal):
-    eintrag = {
-        "tag": datetime.today().day,
-        "lebensmittel": lebensmittel,
-        "menge": menge,
-        "kcal": kcal
-    }
-    pfad = "data/eintraege.csv"
-    
-    if os.path.exists(pfad) and os.path.getsize(pfad) > 0:
-        df = pd.read_csv(pfad)
-        df = pd.concat([df, pd.DataFrame([eintrag])], ignore_index=True)
-    else:
-        df = pd.DataFrame([eintrag])
-    
-    df.to_csv(pfad, index=False)
+from functions.speichern import speichern_tageseintrag
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍎 Obst", page_icon="🍎", layout="centered")
@@ -59,7 +40,7 @@ st.success(f"📈 {gram_input}g/ml {food_selection} enthalten **{kcal_total:.2f}
 
 # 💾 Speichern nur bei Button-Klick
 if st.button("💾 Speichern"):
-    speichern_lebensmittel(food_selection, gram_input, kcal_total)
+    speichern_tageseintrag(lebensmittel=food_selection, menge=gram_input, kcal=kcal_total)
     st.success("✅ Lebensmittel gespeichert!")
 
 # Hinweis Bezugseinheit

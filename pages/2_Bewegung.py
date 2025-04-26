@@ -1,8 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
+from functions.speichern import speichern_tageseintrag
 
-# Seitenkonfiguration
+# ✅ Seitenkonfiguration
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
 st.title("🏃‍♂️ Bewegung")
 
@@ -55,7 +56,21 @@ with col1:
     sport2_kcal = min2 * sportarten[sport2]
     total_kcal = laufen_kcal + sport1_kcal + sport2_kcal
 
+    # 📋 Bewegung zusammenfassen
+    bewegung_text = ""
+    if laufen_min > 0:
+        bewegung_text += f"Laufen {laufen_min}min"
+    if min1 > 0:
+        bewegung_text += (", " if bewegung_text else "") + f"{sport1} {min1}min"
+    if min2 > 0:
+        bewegung_text += (", " if bewegung_text else "") + f"{sport2} {min2}min"
+
     st.markdown(f"### 🔥 Gesamtverbrauch: **{total_kcal:.1f} kcal**")
+
+    # 💾 Speichern-Button
+    if st.button("💾 Bewegung speichern"):
+        speichern_tageseintrag(bewegung=bewegung_text, bewegung_kcal=total_kcal)
+        st.success("✅ Bewegung gespeichert!")
 
     # 🔙 Zurück zur Startseite
     if st.button("🔙 Zurück zum Start"):
