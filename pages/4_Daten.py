@@ -8,7 +8,7 @@ from functions.speichern import speichern_tageseintrag, speichern_profil, laden_
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
-st.title("📊 Daten")
+st.title("📊 Datenübersicht")
 
 # 🔁 Funktion: Zurück zum Start
 def go_to_start():
@@ -51,21 +51,20 @@ if st.button("💾 Profil & Ziele speichern"):
     st.success("✅ Profil und Ziele gespeichert!")
 
 # --------------------------- Monat & Tag auswählen ----------------------------
-st.markdown("## 📅 Datenübersicht Eingabetage")
+st.markdown("## 📅 Monat und Eingabetage auswählen")
 
 monatsnamen = [calendar.month_name[i] for i in range(1, 13)]
-verfuegbare_monate = df_eintraege["monat"].unique() if not df_eintraege.empty else []
-monatsnamen_anzeige = [f"{calendar.month_name[i]} 🌟" if i in verfuegbare_monate else calendar.month_name[i] for i in range(1, 13)]
-
 aktueller_monat = datetime.now().month
 aktueller_tag = datetime.now().day
-vorauswahl_index = aktueller_monat - 1
 
-monat_name_anzeige = st.selectbox("📅 Monat auswählen:", monatsnamen_anzeige, index=vorauswahl_index)
-monat_auswahl = monatsnamen.index(monat_name_anzeige.replace(" 🌟", "")) + 1
+monat_name_anzeige = st.selectbox("📅 Monat:", monatsnamen, index=aktueller_monat-1)
+monat_auswahl = monatsnamen.index(monat_name_anzeige) + 1
 
-# 🗓️ Tag auswählen
-selected_day = None
+selected_day = aktueller_tag
+
+# 🗓️ Tage darstellen
+st.markdown("### 🗓️ Tage:")
+
 with st.container():
     cols = st.columns(7)
     for i in range(1, 32):
@@ -81,49 +80,59 @@ with st.container():
         if i == aktueller_tag and monat_auswahl == aktueller_monat:
             button_label = f"⭐ {i}"
             if selected_day is None:
-                selected_day = i  # Heute automatisch vorauswählen
+                selected_day = i
 
-        if cols[(i - 1) % 7].button(button_label, key=button_key):
+        if cols[(i-1)%7].button(button_label, key=button_key):
             selected_day = i
 
 # 🧭 Legende
-st.markdown("""
-**Legende:**  
+st.markdown("""<br>**Legende:**  
 🟢 = Eintrag vorhanden  
 🔵 = Kein Eintrag  
 ⭐ = Heute
-""")
+""", unsafe_allow_html=True)
 
-# --------------------------- Tagesdaten + Wasser ----------------------------
+# --------------------------- Tagesdaten ----------------------------
 if selected_day:
-    st.markdown(f"### 📋 Eingaben für Tag {selected_day}")
+    st.markdown(f"## 📝 Eingaben für Tag {selected_day}")
 
     df_tag = df_eintraege[(df_eintraege["monat"] == monat_auswahl) & (df_eintraege["tag"] == selected_day)]
 
     if df_tag.empty:
         st.info("Keine Daten für diesen Tag.")
     else:
-        st.dataframe(df_tag)
+        # Lebensmittel untereinander schreiben
+        df_tag_display = df_tag.copy()
+        if "lebensmittel" in df_tag_display.columns:
+            df_tag_display["lebensmittel"] = df_tag_display["lebensmittel"].str.replace(", ", "\n")
 
-# --------------------------- Diagramme ----------------------------
-st.markdown("## 📈 Verbrauchte kcal im Monat")
+        st.dataframe(df_tag_display, use_container_width=True)
+
+# --------------------------- Diagramm ----------------------------
+st.markdown("## 📈 Aufgenommene und verbrauchte kcal im Monat")
 
 df_monat = df_eintraege[df_eintraege["monat"] == monat_auswahl]
 
 if not df_monat.empty:
-    kcal_summen = df_monat.groupby("tag")["kcal"].sum().reindex(range(1, 32), fill_value=0)
+    kcal_aufnahme = df_monat.groupby("tag")["kcal"].sum().reindex(range(1, 32), fill_value=0)
+    kcal_verbrauch = df_monat.groupby("tag")["bewegung_kcal"].sum().reindex(range(1, 32), fill_value=0)
 
-    fig, ax = plt.subplots(figsize=(12, 5))
-    ax.plot(kcal_summen.index, kcal_summen.values, marker="o", linewidth=2)
-    ax.set_title("Täglicher Kalorienverbrauch", fontsize=16, fontweight='bold')
-    ax.set_xlabel("Tag", fontsize=12)
-    ax.set_ylabel("kcal", fontsize=12)
-    ax.set_xticks(range(1, 32))
-    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
-    ax.set_ylim(bottom=0)
+    fig, ax = plt.subplots(figsize=(14,6))
+    bar_width = 0.4
+    days = range(1, 32)
+
+    ax.bar([d - bar_width/2 for d in days], kcal_aufnahme.values, width=bar_width, label="Aufgenommene kcal (Ernährung)")
+    ax.bar([d + bar_width/2 for d in days], kcal_verbrauch.values, width=bar_width, label="Verbrauchte kcal (Bewegung)")
+
+    ax.set_title("📊 Vergleich: Aufgenommene vs. Verbrannte Kalorien pro Tag", fontsize=18, fontweight='bold')
+    ax.set_xlabel("Tag im Monat", fontsize=14)
+    ax.set_ylabel("kcal", fontsize=14)
+    ax.set_xticks(days)
+    ax.grid(True, linestyle='--', alpha=0.7)
+    ax.legend()
     st.pyplot(fig)
 else:
-    st.info("Noch keine kcal-Daten für diesen Monat.")
+    st.info("Noch keine Daten für diesen Monat.")
 
 # 🔙 Zurück-Button
 st.markdown("---")
