@@ -1,57 +1,44 @@
 import streamlit as st
 import pandas as pd
 
-# Seitenkonfiguration
+# ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍞 Getreide / Reis / Kartoffeln", page_icon="🍞", layout="centered")
 st.title("🍞 Getreide / Reis / Kartoffeln")
-st.markdown("Gib entweder eine Menge direkt ein **oder** wähle ein Lebensmittel aus der Datenbank.")
 
-# 🔁 Zurück zur Ernährung (für Streamlit online)
+st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
+
+# 🔙 Zurück zur Ernährung
 def go_to_ernaehrung():
     st.markdown("""
         <meta http-equiv="refresh" content="0; url=/Ernaehrung" />
     """, unsafe_allow_html=True)
 
-# 👉 Variante 1: Manuelle Eingabe
-st.header("🔢 Direkteingabe")
-input0 = st.number_input("🍚 Reis (g)", min_value=0, step=5)
-kcal_input0 = input0 * 1.3
-input1 = st.number_input("🥔 Kartoffeln (g)", min_value=0, step=5)
-kcal_input1 = input1 * 0.8
+# 📄 Daten laden
+df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
 
-if kcal_input0 + kcal_input1 > 0:
-    st.info(f"📊 Gesamt: **{kcal_input0 + kcal_input1:.1f} kcal** "
-            f"(🍚 Reis: {kcal_input0:.1f} kcal + 🥔 Kartoffeln: {kcal_input1:.1f} kcal)")
+# 🍞 Kategorien für Getreide, Reis und Kartoffeln definieren
+kategorien_getreide_reis_kartoffeln = ["Getreide", "Reis", "Kartoffeln", "Pasta", "Teigwaren"]
+df = df[df["Kategorie"].str.contains('|'.join(kategorien_getreide_reis_kartoffeln), case=False, na=False)]
 
-# 🔄 Trennlinie
-st.markdown("---")
+# Nur Lebensmittel mit Kalorienangabe
+df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
-# 👉 Variante 2: Auswahl aus CSV
-st.header("📊 Lebensmitteldatenbank")
+# 📊 Lebensmittel-Auswahl
+st.header("📊 Lebensmittel auswählen")
+food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
 
-df_food = pd.read_csv("data/food.csv")
-df_category = pd.read_csv("data/food_category.csv")
-df_nutrient = pd.read_csv("data/food_nutrient.csv")
-
-# Kategorie-ID(s) für Getreide
-category_ids = df_category[df_category["description"].str.contains(
-    r"Cereal Grains and Pasta", case=False, regex=True)]["id"].unique()
-foods = df_food[df_food["food_category_id"].isin(category_ids)]
-
-food_selection = st.selectbox("🍽️ Lebensmittel auswählen", foods["description"].unique())
+# Menge eingeben
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
-fdc_id = foods[foods["description"] == food_selection]["fdc_id"].values[0]
-energy_entry = df_nutrient[
-    (df_nutrient["fdc_id"] == fdc_id) & (df_nutrient["nutrient_id"].isin([2047, 2048]))
-]
+# 🔥 Kalorienberechnung
+daten = df[df["Name"] == food_selection].iloc[0]
+kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
+kcal_total = kcal_pro_100g * (gram_input / 100)
 
-if not energy_entry.empty:
-    kcal_per_100g = energy_entry["amount"].values[0]
-    kcal_total = kcal_per_100g * (gram_input / 100)
-    st.success(f"📈 Das sind **{kcal_total:.2f} kcal** für {gram_input}g von *{food_selection}*.")
-else:
-    st.warning("⚠️ Keine Kalorieninformationen für dieses Lebensmittel gefunden.")
+st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
+
+# Hinweis Bezugseinheit
+st.caption(f"Bezugsbasis: {daten['Bezugseinheit']}")
 
 # 🔙 Zurück-Button
 st.markdown("---")
