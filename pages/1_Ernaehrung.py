@@ -82,8 +82,25 @@ with col3:
 
 # ----------------------------- Wasser -----------------------------
 st.markdown("---")
-wasser = st.number_input("💧 Gläser Wasser (à 300ml)", min_value=0, step=1)
-st.write(f"Das sind **{wasser * 300} ml Wasser**.")
+st.markdown("## 💧 Wasser")
+
+# Eingabe der Wasser-Gläser
+if "wasser_glaeser" not in st.session_state:
+    st.session_state.wasser_glaeser = 0
+
+st.session_state.wasser_glaeser = st.number_input(
+    "Wie viele Gläser Wasser hast du getrunken? (à 300ml)", 
+    min_value=0, step=1,
+    value=st.session_state.wasser_glaeser,
+    key="wasser_input"
+)
+st.write(f"Das sind **{st.session_state.wasser_glaeser * 300} ml Wasser**.")
+
+# Speicher-Button für Wasser
+col_save = st.columns([1, 2, 1])[1]
+with col_save:
+    if st.button("💾 Wasser speichern"):
+        st.success(f"✅ {st.session_state.wasser_glaeser * 300} ml Wasser gespeichert!")
 
 # ----------------------------- Zurück -----------------------------
 st.markdown("---")

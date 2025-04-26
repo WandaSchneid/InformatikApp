@@ -1,34 +1,30 @@
 import streamlit as st
 import pandas as pd
+from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍫 Süßes", page_icon="🍫", layout="centered")
 st.title("🍫 Süßes")
 
-st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
+st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
-# 🔙 Zurück zur Ernährung
+# 🔙 Funktion: Zurück zur Ernährung
 def go_to_ernaehrung():
-    st.markdown("""
-        <meta http-equiv="refresh" content="0; url=/Ernaehrung" />
-    """, unsafe_allow_html=True)
+    st.markdown("""<meta http-equiv="refresh" content="0; url=/Ernaehrung" />""", unsafe_allow_html=True)
 
-# 📄 Daten laden
+# 📄 Ernährungsdaten laden
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
 
-# 🍫 Kategorien für Süßes / Snacks / Backwaren definieren
+# 🍬 Filter: Nur Süßes / Snacks / Backwaren
 kategorien_suesses = ["Süßwaren", "Snacks", "Backwaren", "Desserts", "Gebäck", "Kuchen", "Schokolade"]
 df = df[df["Kategorie"].str.contains('|'.join(kategorien_suesses), case=False, na=False)]
-
-# Nur Lebensmittel mit Kalorienangabe
-df = df.dropna(subset=["Energie, Kalorien (kcal)"])
+df = df.dropna(subset=["Energie, Kalorien (kcal)"])  # Nur Einträge mit kcal
 
 # 📊 Lebensmittel-Auswahl
 st.header("📊 Lebensmittel auswählen")
-food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
 
-# Menge eingeben
+food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
 # 🔥 Kalorienberechnung
@@ -38,15 +34,23 @@ kcal_total = kcal_pro_100g * (gram_input / 100)
 
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
-# 💾 Speichern nur bei Button-Klick
+# 💾 Speichern-Button
 if st.button("💾 Speichern"):
-    speichern_tageseintrag(lebensmittel=food_selection, menge=gram_input, kcal=kcal_total)
-    st.success("✅ Lebensmittel gespeichert!")
+    heute = datetime.now()
+    speichern_tageseintrag(
+        monat=heute.month,
+        tag=heute.day,
+        lebensmittel=food_selection,
+        menge=gram_input,
+        kcal=kcal_total
+    )
+    st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
-# Hinweis Bezugseinheit
-st.caption(f"Bezugsbasis: {daten['Bezugseinheit']}")
+# 📋 Hinweis: Bezugseinheit
+if "Bezugseinheit" in daten:
+    st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
 
-# 🔙 Zurück-Button
+# 🔙 Zurück zur Ernährung
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
     go_to_ernaehrung()
