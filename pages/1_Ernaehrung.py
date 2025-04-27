@@ -1,220 +1,121 @@
 import streamlit as st
-import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 
 # Seitenkonfiguration
 st.set_page_config(page_title="Ernaehrung", page_icon="🍎", layout="centered")
 
-st.title("🍎 Ernährung")
+# 🔁 Funktion zum Seitenwechsel (Unterseiten)
+def go_to_page(page_name: str):
+    st.markdown(f"""
+        <meta http-equiv="refresh" content="0; url=./{page_name}" />
+    """, unsafe_allow_html=True)
+
+# ✅ Funktion zum Zurück zur Startseite (robust)
+def go_to_start():
+    st.markdown("""
+        <meta http-equiv="refresh" content="0; url=/" />
+    """, unsafe_allow_html=True)
+
+# Titel
+st.markdown("## 🍎 Ernährung")
 st.markdown("Wähle eine Kategorie aus der Ernährungspyramide:")
 
-# Auswahlmenü
-kategorie = st.radio(
-    "Kategorie wählen:",
-    [
-        "🍫 Süsses",
-        "🧈 Fette",
-        "🥩 Fleisch / Fisch",
-        "🧀 Milchprodukte",
-        "🍞 Getreide / Reis / Kartoffeln",
-        "🥦 Gemüse",
-        "🍎 Obst"
-    ],
-    horizontal=False
-)
+# Button-Styling
+st.markdown("""
+    <style>
+        .stButton > button {
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: auto;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
-# Inhalt je nach Auswahl
-if kategorie == "🍫 Süsses":
-    st.subheader("🍫 Süsses")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_suesses = ["Süßwaren", "Snacks", "Backwaren", "Desserts", "Gebäck", "Kuchen", "Schokolade"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_suesses), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="suesses_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100, key="suesses_gramm")
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-    st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-    if st.button("💾 Speichern", key="suesses_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(heute.month, heute.day, food_selection, gram_input, kcal_total)
-        st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
+# Pyramid-Stufen
+# -----------------------------
 
-elif kategorie == "🧈 Fette":
-    st.subheader("🧈 Fette & Öle")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_fette = ["Fette", "Öle", "Butter", "Pflanzenöl", "Speisefette"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_fette), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="fette_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm oder ml", min_value=1, max_value=1000, value=100, key="fette_gramm")
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-    st.success(f"📈 {gram_input}g/ml {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-    if st.button("💾 Speichern", key="fette_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(heute.month, heute.day, food_selection, gram_input, kcal_total)
-        st.success("✅ Lebensmittel gespeichert!")
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
+# Stufe 1 – Süsses
+with st.container():
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    if st.button("🍫 Süsses"):
+        go_to_page("ernaehrung_suesses")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-elif kategorie == "🥩 Fleisch / Fisch":
-    st.subheader("🥩 Fleisch & Fisch")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_fleisch_fisch = ["Fleisch", "Geflügel", "Fisch", "Meeresfrüchte"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_fleisch_fisch), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="fleisch_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100, key="fleisch_gramm")
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-    st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-    if st.button("💾 Speichern", key="fleisch_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(heute.month, heute.day, food_selection, gram_input, kcal_total)
-        st.success("✅ Lebensmittel gespeichert!")
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
+# Stufe 2 – Fette
+with st.container():
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    if st.button("🧈 Fette"):
+        go_to_page("ernaehrung_fette")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-elif kategorie == "🧀 Milchprodukte":
-    st.subheader("🧀 Milchprodukte")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
+# Stufe 3 – Fleisch/Fisch
+with st.container():
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    if st.button("🥩 Fleisch / Fisch"):
+        go_to_page("ernaehrung_fleisch_fisch")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_milchprodukte = ["Milch", "Käse", "Joghurt", "Sahne", "Milchprodukte"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_milchprodukte), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
+# Stufe 4 – Milchprodukte
+with st.container():
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    if st.button("🧀 Milchprodukte"):
+        go_to_page("ernaehrung_milchprodukte")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="milch_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm oder ml", min_value=1, max_value=1000, value=100, key="milch_gramm")
+# Stufe 5 – Getreide / Reis / Kartoffeln
+with st.container():
+    st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+    if st.button("🍞 Getreide / Reis / Kartoffeln"):
+        go_to_page("ernaehrung_getreide_reis_kartoffeln")
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
+# Stufe 6 – Gemüse & Obst nebeneinander
+col1, col2, col3 = st.columns([1, 0.2, 1])
+with col1:
+    if st.button("🥦 Gemüse"):
+        go_to_page("ernaehrung_gemuese")
+with col3:
+    if st.button("🍎 Obst"):
+        go_to_page("ernaehrung_obst")
 
-    st.success(f"📈 {gram_input}g/ml {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-
-    if st.button("💾 Speichern", key="milch_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(
-            monat=heute.month,
-            tag=heute.day,
-            lebensmittel=food_selection,
-            menge=gram_input,
-            kcal=kcal_total
-        )
-        st.success("✅ Lebensmittel gespeichert!")
-
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
-
-
-elif kategorie == "🍞 Getreide / Reis / Kartoffeln":
-    st.subheader("🍞 Getreide / Reis / Kartoffeln")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien = ["Getreide", "Reis", "Kartoffeln", "Pasta", "Teigwaren"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="getreide_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100, key="getreide_gramm")
-
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-
-    st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-
-    if st.button("💾 Speichern", key="getreide_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(
-            monat=heute.month,
-            tag=heute.day,
-            lebensmittel=food_selection,
-            menge=gram_input,
-            kcal=kcal_total
-        )
-        st.success("✅ Lebensmittel gespeichert!")
-
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
-
-
-elif kategorie == "🥦 Gemüse":
-    st.subheader("🥦 Gemüse")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_gemuese = ["Gemüse"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_gemuese), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="gemuese_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100, key="gemuese_gramm")
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-    st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-    if st.button("💾 Speichern", key="gemuese_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(heute.month, heute.day, food_selection, gram_input, kcal_total)
-        st.success("✅ Lebensmittel gespeichert!")
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
-
-elif kategorie == "🍎 Obst":
-    st.subheader("🍎 Obst")
-    st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-    kategorien_obst = ["Obst", "Früchte", "Fruchtsäfte"]
-    df = df[df["Kategorie"].str.contains('|'.join(kategorien_obst), case=False, na=False)]
-    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
-    st.header("📊 Lebensmittel auswählen")
-    food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique(), key="obst_selectbox")
-    gram_input = st.number_input("⚖️ Menge in Gramm oder ml", min_value=1, max_value=1000, value=100, key="obst_gramm")
-    daten = df[df["Name"] == food_selection].iloc[0]
-    kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
-    kcal_total = kcal_pro_100g * (gram_input / 100)
-    st.success(f"📈 {gram_input}g/ml {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-    if st.button("💾 Speichern", key="obst_speichern"):
-        heute = datetime.now()
-        speichern_tageseintrag(heute.month, heute.day, food_selection, gram_input, kcal_total)
-        st.success("✅ Lebensmittel gespeichert!")
-    if "Bezugseinheit" in daten:
-        st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
-
-# 💧 Wasser
+# ----------------------------- Wasser -----------------------------
 st.markdown("---")
 st.markdown("## 💧 Wasser")
+
+# Eingabe der Wasser-Gläser
 if "wasser_glaeser" not in st.session_state:
     st.session_state.wasser_glaeser = 0
+
 st.session_state.wasser_glaeser = st.number_input(
     "Wie viele Gläser Wasser hast du getrunken? (à 300ml)", 
     min_value=0, step=1,
-    value=st.session_state.wasser_glaeser
+    value=st.session_state.wasser_glaeser,
+    key="wasser_input"
 )
 st.write(f"Das sind **{st.session_state.wasser_glaeser * 300} ml Wasser**.")
-if st.button("💾 Wasser speichern"):
-    st.success(f"✅ {st.session_state.wasser_glaeser * 300} ml Wasser gespeichert!")
 
-# 🔙 Zurück zur Startseite
+# Speicher-Button für Wasser
+col_save = st.columns([1, 2, 1])[1]
+with col_save:
+    if st.button("💾 Wasser speichern"):
+        aktuelles_datum = datetime.now()
+        monat = aktuelles_datum.month
+        tag = aktuelles_datum.day
+        wasser_ml = st.session_state.wasser_glaeser * 300
+
+        speichern_tageseintrag(monat=monat, tag=tag, wasser_ml=wasser_ml)
+
+        st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
+
+        # Eingabe zurücksetzen auf 0
+        st.session_state.wasser_glaeser = 0
+        st.experimental_rerun()
+
+# ----------------------------- Zurück -----------------------------
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    st.markdown('<meta http-equiv="refresh" content="0; url=/" />', unsafe_allow_html=True)
-
-
+    go_to_start()
