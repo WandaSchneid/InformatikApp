@@ -8,9 +8,9 @@ Diese Roadmap zeigt die geplanten Entwicklungsschritte für unsere App zur Erfas
 - Bewegung:
   - Datenbank hinterlegen mit kcal-Verbrauch verschiedener Sportarten (15min)
   - Eingabe pro Tag von beliebtig vielen Sportarten und Dauer und Laufzeit am Tag (15min)
-  - Berechnung der verbrauchten kcal und Dartellung auf der Seite 'Daten' als Diagramm (30min)
-- Veröffentlichung der App (5min)
-- Speicherung der Daten auf Switch Drive (10min)
+  - Berechnung der verbrauchten kcal und Dartellung auf der Seite 'Daten' als Diagramm (60min)
+- Veröffentlichung der App (15min)
+- Verbindung mit Switch Drive (10min)
 
 Diese Version bildet die Basis für erste Tests und Feedback.
 
@@ -19,21 +19,21 @@ Diese Version bildet die Basis für erste Tests und Feedback.
 - Ernährung:
   - Eingabe der Trinkmenge (Gläser Wasser) (10min)
   - Datenbank hinterlegen mit möglichst vielen Lebensmitteln (15min)
-  - Feld um manuell ein Lebensmittel mit Kalorien einzugeben (10min)
   - Auswahl der verschiedenen Lebensmittelgruppen in Form einer Ernährungspyramide (25min)
-  - beliebige Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfleisch) (10min)
+  - Beliebige Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfleisch) (10min)
   - Dateneingabe der Mengen und Berechnung der kcal (20min)
 - Schlaf:
   - Pro Tag, Eingabe der geschlafenen Stunden, Schlafqualität und 'zu Bettgeh Zeit' (15min)
   - Speicherung Daten auf der Seite 'Daten' welche abrufbar pro Tag sind (15min)
-  - Darstellung der geschlafenen Stunden als Übersicht im 1 Wochentakt (30min)
+  - Darstellung der geschlafenen Stunden als Übersicht auf Datenseite (30min)
 - Daten:
   - Benutzerprofil (Name, Geschlecht, Gewicht) (10min)
-  - Eingabe individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.) (15min)
+  - Auswahl individueller Ziele (z. B. erhöhen der Trinkmenge, Schlafqualität verbessern, Bewegung erhöhen, etc.) (15min)
   - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm für den Nutzer (45min)
 
 ### Version 3.0 – Ziele & Individualisierung ###
 
 - Login (Benutzername & Passwort) (15min)
+- Speicherung der Daten auf Switch Drive (10min)
 - Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe) (20min)
 - Visuelle Darstellung des Ziel-Fortschritts, schlechte Tage werden farblich oder mit Emojis hervorgehoben, dies muss noch ausgefeilt werden. (45min)
