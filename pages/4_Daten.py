@@ -1,14 +1,22 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
+from utils.login_manager import LoginManager
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
 import calendar
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag, speichern_profil, laden_profil
 
-# ✅ Seitenkonfiguration
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
 st.title("📊 Datenübersicht")
+
+# --- Login-Überprüfung ---
+if 'login' not in st.session_state:
+    LoginManager().go_to_login('Start.py')
 
 # 🔁 Funktion: Zurück zum Start
 def go_to_start():

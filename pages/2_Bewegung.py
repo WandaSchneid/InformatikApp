@@ -1,12 +1,21 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
+from utils.login_manager import LoginManager
 import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 
-# ✅ Seitenkonfiguration
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
 st.title("🏃‍♂️ Bewegung")
+
+# --- Login-Überprüfung ---
+if 'login' not in st.session_state:
+    LoginManager().go_to_login('Start.py')
 
 # 🔁 Funktion: Zurück zum Start
 def go_to_start():
@@ -17,41 +26,15 @@ col1, _ = st.columns([2, 1])
 
 # ------------------ Sportarten Dictionary ------------------
 sportarten = {
-    "Aerobic": 7.0,
-    "Assault Air Bike": 13.0,
-    "Badminton": 7.0,
-    "Basketball": 8.0,
-    "Crosstrainer, langsam": 6.0,
-    "Crosstrainer, schnell": 9.0,
-    "Croquet": 3.5,
-    "Curling": 4.8,
-    "Fahrrad": 6.5,
-    "Inliner": 7.5,
-    "Intervalltraining": 10.0,
-    "Joggen, langsam": 8.0,
-    "Joggen, schnell": 11.5,
-    "Judo": 9.0,
-    "Krafttraining": 6.0,
-    "Laufen": 7.2,
-    "Leichtathletik": 8.0,
-    "Liegestütze": 8.0,
-    "Pilates": 4.0,
-    "Radfahren": 6.5,
-    "Reiten": 5.5,
-    "Schwimmen": 9.5,
-    "Seilspringen": 12.0,
-    "Sit Ups": 5.0,
-    "Spinning": 10.0,
-    "Skifahren": 7.0,
-    "Tanzen": 6.5,
-    "Tennis": 8.3,
-    "Tischtennis": 4.0,
-    "Trampolin": 5.0,
-    "Wandern": 5.5,
-    "Walken": 4.5,
-    "Wassergymnastik": 4.0,
-    "Yoga": 3.0,
-    "Zumba": 8.5
+    "Aerobic": 7.0, "Assault Air Bike": 13.0, "Badminton": 7.0, "Basketball": 8.0,
+    "Crosstrainer, langsam": 6.0, "Crosstrainer, schnell": 9.0, "Croquet": 3.5, "Curling": 4.8,
+    "Fahrrad": 6.5, "Inliner": 7.5, "Intervalltraining": 10.0, "Joggen, langsam": 8.0,
+    "Joggen, schnell": 11.5, "Judo": 9.0, "Krafttraining": 6.0, "Laufen": 7.2,
+    "Leichtathletik": 8.0, "Liegestütze": 8.0, "Pilates": 4.0, "Radfahren": 6.5,
+    "Reiten": 5.5, "Schwimmen": 9.5, "Seilspringen": 12.0, "Sit Ups": 5.0,
+    "Spinning": 10.0, "Skifahren": 7.0, "Tanzen": 6.5, "Tennis": 8.3,
+    "Tischtennis": 4.0, "Trampolin": 5.0, "Wandern": 5.5, "Walken": 4.5,
+    "Wassergymnastik": 4.0, "Yoga": 3.0, "Zumba": 8.5
 }
 
 # ------------------ Linke Seite ------------------

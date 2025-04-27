@@ -1,9 +1,18 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
+from utils.login_manager import LoginManager
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 
-# Seitenkonfiguration
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="Ernaehrung", page_icon="🍎", layout="centered")
+
+# --- Login-Überprüfung ---
+if 'login' not in st.session_state:
+    LoginManager().go_to_login('Start.py')
 
 # 🔁 Funktion zum Seitenwechsel (Unterseiten)
 def go_to_page(page_name: str):
@@ -17,11 +26,11 @@ def go_to_start():
         <meta http-equiv="refresh" content="0; url=/" />
     """, unsafe_allow_html=True)
 
-# Titel
+# --- Titel ---
 st.markdown("## 🍎 Ernährung")
 st.markdown("Wähle eine Kategorie aus der Ernährungspyramide:")
 
-# Button-Styling
+# --- Button-Styling ---
 st.markdown("""
     <style>
         .stButton > button {
@@ -35,9 +44,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Pyramid-Stufen
-# -----------------------------
-
+# --- Pyramid-Stufen ---
 # Stufe 1 – Süsses
 with st.container():
     st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
@@ -73,7 +80,7 @@ with st.container():
         go_to_page("ernaehrung_getreide_reis_kartoffeln")
     st.markdown("</div>", unsafe_allow_html=True)
 
-# Stufe 6 – Gemüse & Obst nebeneinander
+# Stufe 6 – Gemüse & Obst
 col1, col2, col3 = st.columns([1, 0.2, 1])
 with col1:
     if st.button("🥦 Gemüse"):
@@ -82,11 +89,10 @@ with col3:
     if st.button("🍎 Obst"):
         go_to_page("ernaehrung_obst")
 
-# ----------------------------- Wasser -----------------------------
+# --- Wasser Abschnitt ---
 st.markdown("---")
 st.markdown("## 💧 Wasser")
 
-# Eingabe der Wasser-Gläser
 if "wasser_glaeser" not in st.session_state:
     st.session_state.wasser_glaeser = 0
 
@@ -111,11 +117,10 @@ with col_save:
 
         st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
 
-        # Eingabe zurücksetzen auf 0
         st.session_state.wasser_glaeser = 0
         st.experimental_rerun()
 
-# ----------------------------- Zurück -----------------------------
+# --- Zurück zur Startseite ---
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
     go_to_start()

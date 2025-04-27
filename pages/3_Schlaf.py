@@ -1,16 +1,23 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
+from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
 from datetime import datetime
 
-# Seitenkonfiguration
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
 st.title("🛋 Schlaf")
 
+# --- Login-Überprüfung ---
+if 'login' not in st.session_state:
+    LoginManager().go_to_login('Start.py')
+
 # ✅ Funktion für Redirect zur Startseite
 def go_to_start():
-    st.markdown("""
-        <meta http-equiv="refresh" content="0; url=/" />
-    """, unsafe_allow_html=True)
+    st.markdown("""<meta http-equiv="refresh" content="0; url=/" />""", unsafe_allow_html=True)
 
 # -----------------------------------------------
 # 📅 Aktueller Tag (automatisch)

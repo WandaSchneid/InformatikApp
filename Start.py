@@ -1,15 +1,15 @@
 import streamlit as st
+from utils.data_manager import DataManager
+from utils.login_manager import LoginManager
 
-# ✅ Funktion für Button-Navigation via HTML Redirect
-def go_to_page(page_name: str):
-    st.markdown(f"""
-        <meta http-equiv="refresh" content="0; url=./{page_name}" />
-    """, unsafe_allow_html=True)
-
-# ✅ Seiteneinstellungen
+# --- GESUNDHEITS-TRACKER ---
 st.set_page_config(page_title="Gesundheits-Tracker", page_icon="💪", layout="centered")
 
-# Titel
+# --- LOGIN ---
+data_manager = DataManager(fs_protocol='file', fs_root_folder="app_data")
+login_manager = LoginManager(data_manager)
+login_manager.login_register()
+
 st.title("💪 Gesundheits-Tracker")
 st.markdown("Wähle einen Bereich aus:")
 
@@ -19,8 +19,8 @@ st.markdown("""
         .stButton > button {
             border-radius: 50px;
             padding: 20px 40px;
-            font-size: 24px;  /* 👈 größer */
-            font-weight: 800; /* 👈 dicker */
+            font-size: 24px;
+            font-weight: 800;
             width: 280px;
             text-align: center;
             display: block;
@@ -34,10 +34,16 @@ col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     if st.button("🍎 :green[Ernaehrung]"):
-        go_to_page("Ernaehrung")
+        st.markdown("""
+            <meta http-equiv="refresh" content="0; url=./Ernaehrung" />
+        """, unsafe_allow_html=True)
 
     if st.button("🏃 :orange[Bewegung]"):
-        go_to_page("Bewegung")
+        st.markdown("""
+            <meta http-equiv="refresh" content="0; url=./Bewegung" />
+        """, unsafe_allow_html=True)
 
-    if st.button("🛌 :blue[Schlaf]"):
-        go_to_page("Schlaf")
+    if st.button("📌 :blue[Schlaf]"):
+        st.markdown("""
+            <meta http-equiv="refresh" content="0; url=./Schlaf" />
+        """, unsafe_allow_html=True)
