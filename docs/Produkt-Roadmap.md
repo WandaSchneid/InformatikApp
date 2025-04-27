@@ -10,14 +10,16 @@ Diese Roadmap zeigt die geplanten Entwicklungsschritte für unsere App zur Erfas
   - Eingabe pro Tag von beliebtig vielen Sportarten und Dauer und Laufzeit am Tag (15min)
   - Berechnung der verbrauchten kcal und Dartellung auf der Seite 'Daten' als Diagramm (60min)
 - Veröffentlichung der App (15min)
-- Verbindung mit Switch Drive (10min)
+- Verbindung mit Switch Drive (30min)
+- Login (Benutzername & Passwort) (30min)
+- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe) (20min)
 
 Diese Version bildet die Basis für erste Tests und Feedback.
 
 ### Version 2.0 – Erweiterte Eingaben & Datenspeicherung für den Nutzer ###
 
 - Ernährung:
-  - Eingabe der Trinkmenge (Gläser Wasser) (10min)
+  - Eingabe der Trinkmenge (Gläser Wasser) (30min)
   - Datenbank hinterlegen mit möglichst vielen Lebensmitteln (15min)
   - Auswahl der verschiedenen Lebensmittelgruppen in Form einer Ernährungspyramide (25min)
   - Beliebige Auswahl der einzelnen Lebensmittel (Reis, Äpfel, Karotten, Rindfleisch) (10min)
@@ -32,8 +34,5 @@ Diese Version bildet die Basis für erste Tests und Feedback.
   - Erste Tagesübersichten zur Nachverfolgung der Tagesdaten und Darstellung der verbrannten kcal als Diagramm für den Nutzer (45min)
 
 ### Version 3.0 – Ziele & Individualisierung ###
-
-- Login (Benutzername & Passwort) (15min)
-- Speicherung der Daten auf Switch Drive (10min)
-- Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe) (20min)
-- Visuelle Darstellung des Ziel-Fortschritts, schlechte Tage werden farblich oder mit Emojis hervorgehoben, dies muss noch ausgefeilt werden. (45min)
+- Speicherung der Daten auf Switch Drive (30min)
+- Optional: Visuelle Darstellung des Ziel-Fortschritts, schlechte Tage werden farblich oder mit Emojis hervorgehoben, dies muss noch ausgefeilt werden. (3h)
