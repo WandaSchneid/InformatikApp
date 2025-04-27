@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import calendar
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag, speichern_profil, laden_profil
+from streamlit_extras.switch_page_button import switch_page  # 🔥 bessere Navigation
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
@@ -18,9 +19,9 @@ st.title("📊 Datenübersicht")
 if 'login' not in st.session_state:
     LoginManager().go_to_login('Start.py')
 
-# 🔁 Funktion: Zurück zum Start
+# 🔁 Bessere Funktion: Zurück zum Start
 def go_to_start():
-    st.markdown("""<meta http-equiv="refresh" content="0; url=/" />""", unsafe_allow_html=True)
+    switch_page("Start")
 
 # 📄 Einträge laden
 pfad_eintraege = "data/eintraege.csv"
@@ -109,10 +110,9 @@ if selected_day:
     if df_tag.empty:
         st.info("Keine Daten für diesen Tag.")
     else:
-        # Lebensmittel untereinander schreiben
         df_tag_display = df_tag.copy()
         if "lebensmittel" in df_tag_display.columns:
-            df_tag_display["lebensmittel"] = df_tag_display["lebensmittel"].str.replace(", ", "\n")
+            df_tag_display["lebensmittel"] = df_tag_display["lebensmittel"].astype(str).str.replace(", ", "\n")
 
         st.dataframe(df_tag_display, use_container_width=True)
 

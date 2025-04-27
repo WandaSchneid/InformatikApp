@@ -1,8 +1,8 @@
-streamlit
-streamlit-authenticator
-pandas
-webdav4
-fsspec
-matplotlib
-numpy
+streamlit>=1.24.0
+streamlit-authenticator>=0.2.2
+pandas>=2.0.0
+webdav4>=0.9.9
+fsspec>=2023.9.0
+matplotlib>=3.7.0
+numpy>=1.23.0
 streamlit-extras>=0.1.7

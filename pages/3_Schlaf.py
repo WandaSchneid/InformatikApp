@@ -6,32 +6,26 @@ import streamlit as st
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
 from datetime import datetime
+from streamlit_extras.switch_page_button import switch_page  # 🔥 für echtes Wechseln
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
-st.title("🛋 Schlaf")
 
 # --- Login-Überprüfung ---
 if 'login' not in st.session_state:
-    LoginManager().go_to_login('Start.py')
+    LoginManager().go_to_login('start')
 
-# ✅ Funktion für Redirect zur Startseite
-def go_to_start():
-    st.markdown("""<meta http-equiv="refresh" content="0; url=/" />""", unsafe_allow_html=True)
+# --- Titel ---
+st.title("🛋 Schlaf")
 
-# -----------------------------------------------
-# 📅 Aktueller Tag (automatisch)
-# -----------------------------------------------
+# --- Aktueller Tag ---
 heute = datetime.now()
 aktueller_tag = heute.strftime("%A")
 
-# -----------------------------------------------
-# 🛌 Eingaben
-# -----------------------------------------------
+# --- Eingaben ---
 stunden_optionen = [1.5, 3, 4.5, 5, 6.5, 7, 8.5, 10, 11, 12]
 stunden = st.selectbox("⏱️ Stunden geschlafen:", stunden_optionen, index=6)
 
-# 🕒 Uhrzeit-Eingabe als Text
 bettzeit_eingabe = st.text_input("🕒 Zu Bett gegangen (Format: HH:MM)", value="22:00")
 
 try:
@@ -41,7 +35,6 @@ except:
     bettzeit = "00:00"
     st.warning("⚠️ Bitte Uhrzeit im Format HH:MM eingeben!")
 
-# Schlafqualität
 qualitaets_optionen = [
     "gut, ausgeschlafen",
     "mittel, zu wenig geschlafen",
@@ -49,28 +42,23 @@ qualitaets_optionen = [
 ]
 qualitaet = st.selectbox("🌙 Schlafqualität:", qualitaets_optionen, index=0)
 
-# -----------------------------------------------
-# Ergebnis
-# -----------------------------------------------
+# --- Zusammenfassung ---
 zusammenfassung = f"Geschlafen: {stunden}h, Zu Bett: {bettzeit} Uhr, Qualität: {qualitaet}"
 
 st.markdown("---")
 st.markdown(f"""
-### 📋 Zusammenfassung für heute ({heute.strftime('%d.%m.%Y')})  
+### 📋 Zusammenfassung für heute ({heute.strftime('%d.%m.%Y')})
 - **Geschlafen:** {stunden} Stunden  
 - **Zu Bett gegangen:** {bettzeit} Uhr  
 - **Schlafqualität:** *{qualitaet}*
 """)
 
-# -----------------------------------------------
-# 💾 Speichern-Button
-# -----------------------------------------------
+# --- Speichern-Button ---
 if st.button("💾 Schlaf speichern"):
     speichern_tageseintrag(monat=heute.month, tag=heute.day, schlaftext=zusammenfassung)
     st.success("✅ Schlafdaten gespeichert!")
 
-# -----------------------------------------------
-# 🔙 Zurück zur Startseite
-# -----------------------------------------------
+# --- Zurück zur Startseite ---
+st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    go_to_start()
+    switch_page("start")

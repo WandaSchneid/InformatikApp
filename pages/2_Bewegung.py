@@ -8,23 +8,19 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
+from streamlit_extras.switch_page_button import switch_page  # 🔥 für echte Navigation
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
-st.title("🏃‍♂️ Bewegung")
 
 # --- Login-Überprüfung ---
 if 'login' not in st.session_state:
-    LoginManager().go_to_login('Start.py')
+    LoginManager().go_to_login('start')
 
-# 🔁 Funktion: Zurück zum Start
-def go_to_start():
-    st.markdown("""<meta http-equiv="refresh" content="0; url=/" />""", unsafe_allow_html=True)
+# --- Titel ---
+st.title("🏃‍♂️ Bewegung")
 
-# ------------------ Layout ------------------
-col1, _ = st.columns([2, 1])
-
-# ------------------ Sportarten Dictionary ------------------
+# --- Sportarten Dictionary ---
 sportarten = {
     "Aerobic": 7.0, "Assault Air Bike": 13.0, "Badminton": 7.0, "Basketball": 8.0,
     "Crosstrainer, langsam": 6.0, "Crosstrainer, schnell": 9.0, "Croquet": 3.5, "Curling": 4.8,
@@ -37,7 +33,9 @@ sportarten = {
     "Wassergymnastik": 4.0, "Yoga": 3.0, "Zumba": 8.5
 }
 
-# ------------------ Linke Seite ------------------
+# --- Layout ---
+col1, _ = st.columns([2, 1])
+
 with col1:
     st.markdown("### 🏃‍♀️ Laufen (min)")
     laufen_min = st.slider("Laufen", 0, 110, step=5)
@@ -47,6 +45,7 @@ with col1:
 
     sport1 = st.selectbox("1. Sportart", list(sportarten.keys()), key="sport1")
     min1 = st.selectbox("Minuten 1. Sportart", list(range(0, 121, 5)), key="min1")
+
     sport2 = st.selectbox("2. Sportart", list(sportarten.keys()), key="sport2")
     min2 = st.selectbox("Minuten 2. Sportart", list(range(0, 121, 5)), key="min2")
 
@@ -76,5 +75,6 @@ with col1:
 
     st.markdown("---")
 
+    # --- Zurück zur Startseite ---
     if st.button("🔙 Zurück zum Start"):
-        go_to_start()
+        switch_page("start")

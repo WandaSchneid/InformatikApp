@@ -1,19 +1,30 @@
 import streamlit as st
-from utils.data_manager import DataManager
+from utils.data_manager import DataManager  # Lokaler Manager für Login
+from utils.dual_data_manager import DualDataManager  # Dualer Manager für Userdaten
 from utils.login_manager import LoginManager
+from streamlit_extras.switch_page_button import switch_page  # für echte Navigation
 
-# --- GESUNDHEITS-TRACKER ---
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="Gesundheits-Tracker", page_icon="💪", layout="centered")
 
-# --- LOGIN ---
-data_manager = DataManager(fs_protocol='file', fs_root_folder="app_data")
-login_manager = LoginManager(data_manager)
+# --- Initialisierung ---
+# Lokaler Manager NUR für Login
+local_data_manager = DataManager(fs_protocol='file', fs_root_folder="app_data")
+
+# DualManager für User-Daten
+data_manager = DualDataManager()
+
+# LoginManager bekommt den lokalen DataManager
+login_manager = LoginManager(data_manager=local_data_manager)
+
+# Login/Register
 login_manager.login_register()
 
+# --- Hauptbereich ---
 st.title("💪 Gesundheits-Tracker")
 st.markdown("Wähle einen Bereich aus:")
 
-# CSS für größere, dickere Texte in runden Buttons
+# Button Styling
 st.markdown("""
     <style>
         .stButton > button {
@@ -29,21 +40,17 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Zentrierte Buttons mit farbigem Text
+# Navigation
 col1, col2, col3 = st.columns([1, 2, 1])
-
 with col2:
-    if st.button("🍎 :green[Ernaehrung]"):
-        st.markdown("""
-            <meta http-equiv="refresh" content="0; url=./Ernaehrung" />
-        """, unsafe_allow_html=True)
+    if st.button("🍎 :green[Ernährung]"):
+        switch_page("ernaehrung")   # Kein "1_" mehr!
 
     if st.button("🏃 :orange[Bewegung]"):
-        st.markdown("""
-            <meta http-equiv="refresh" content="0; url=./Bewegung" />
-        """, unsafe_allow_html=True)
+        switch_page("bewegung")
 
-    if st.button("📌 :blue[Schlaf]"):
-        st.markdown("""
-            <meta http-equiv="refresh" content="0; url=./Schlaf" />
-        """, unsafe_allow_html=True)
+    if st.button("🛌 :blue[Schlaf]"):
+        switch_page("schlaf")
+
+    if st.button("📊 :violet[Daten]"):
+        switch_page("daten")
