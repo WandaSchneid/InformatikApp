@@ -10,7 +10,7 @@ Diese Roadmap zeigt die geplanten Entwicklungsschritte für unsere App zur Erfas
   - Eingabe pro Tag von beliebtig vielen Sportarten und Dauer und Laufzeit am Tag (15min)
   - Berechnung der verbrauchten kcal und Dartellung auf der Seite 'Daten' als Diagramm (60min)
 - Veröffentlichung der App (15min)
-- Verbindung mit Switch Drive (30min)
+- Sectrest.toml eingerichtet(15min)
 - Login (Benutzername & Passwort) (30min)
 - Multi-User-Funktion (z. B. Familienmitglieder, oder Sportgruppe) (20min)
 
