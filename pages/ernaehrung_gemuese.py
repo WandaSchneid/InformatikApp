@@ -2,16 +2,13 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
+from streamlit_extras.switch_page_button import switch_page  # 🔥 Wichtig für echten Seitenwechsel
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🥦 Gemüse", page_icon="🥦", layout="centered")
 st.title("🥦 Gemüse")
 
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
-
-# 🔙 Zurück zur Ernährung
-def go_to_ernaehrung():
-    st.markdown("""<meta http-equiv="refresh" content="0; url=/Ernaehrung" />""", unsafe_allow_html=True)
 
 # 📄 Daten laden
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
@@ -56,4 +53,4 @@ if "Bezugseinheit" in daten:
 # 🔙 Zurück-Button
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
-    go_to_ernaehrung()
+    switch_page("ernaehrung")
