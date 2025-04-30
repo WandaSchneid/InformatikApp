@@ -11,10 +11,6 @@ from streamlit_extras.switch_page_button import switch_page  # 🔥 für echtes 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
 
-# --- Login-Überprüfung ---
-if 'login' not in st.session_state:
-    LoginManager().go_to_login('start')
-
 # --- Titel ---
 st.title("🛋 Schlaf")
 

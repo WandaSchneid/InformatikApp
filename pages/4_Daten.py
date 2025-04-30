@@ -15,10 +15,6 @@ from streamlit_extras.switch_page_button import switch_page  # 🔥 bessere Navi
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
 st.title("📊 Datenübersicht")
 
-# --- Login-Überprüfung ---
-if 'login' not in st.session_state:
-    LoginManager().go_to_login('Start.py')
-
 # 🔁 Bessere Funktion: Zurück zum Start
 def go_to_start():
     switch_page("Start")

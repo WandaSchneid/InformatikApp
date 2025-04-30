@@ -6,14 +6,14 @@ import streamlit as st
 from utils.login_manager import LoginManager
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page  # 🔥 Native Navigation
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="ernaehrung", page_icon="🍎", layout="centered")
 
-# --- Login-Überprüfung ---
-if 'authentication_status' not in st.session_state or not st.session_state.authentication_status:
-    LoginManager().go_to_login('start')
+# --- Sidebar ausblenden ---
+hide_sidebar()
 
 # --- Titel ---
 st.title("🍎 Ernährung")
