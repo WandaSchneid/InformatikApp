@@ -2,12 +2,16 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page  # 🔥 Wichtig!
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍞 Getreide / Reis / Kartoffeln", page_icon="🍞", layout="centered")
-st.title("🍞 Getreide / Reis / Kartoffeln")
 
+# ✅ Sidebar ausblenden
+hide_sidebar()
+
+st.title("🍞 Getreide / Reis / Kartoffeln")
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
 
 # 📄 Daten laden
@@ -53,4 +57,4 @@ if "Bezugseinheit" in daten:
 # 🔙 Zurück-Button
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
-    switch_page("ernaehrung") 
+    switch_page("ernaehrung")

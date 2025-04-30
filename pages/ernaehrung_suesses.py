@@ -2,12 +2,16 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page  # 🔥 Wichtig!
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍫 Süßes", page_icon="🍫", layout="centered")
-st.title("🍫 Süßes")
 
+# ✅ Sidebar ausblenden
+hide_sidebar()
+
+st.title("🍫 Süßes")
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
 # 📄 Ernährungsdaten laden

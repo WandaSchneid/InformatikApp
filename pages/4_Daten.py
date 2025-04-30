@@ -9,10 +9,15 @@ import matplotlib.pyplot as plt
 import calendar
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag, speichern_profil, laden_profil
-from streamlit_extras.switch_page_button import switch_page  # 🔥 bessere Navigation
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
+
+# --- Sidebar ausblenden ---
+hide_sidebar()
+
 st.title("📊 Datenübersicht")
 
 # 🔁 Bessere Funktion: Zurück zum Start

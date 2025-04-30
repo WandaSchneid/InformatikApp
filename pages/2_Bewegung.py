@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page  # 🔥 für echte Navigation
-from utils.ui_utils import hide_sidebar  # ✅ Sidebar ausblenden
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")

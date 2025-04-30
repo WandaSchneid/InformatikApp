@@ -6,10 +6,14 @@ import streamlit as st
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
 from datetime import datetime
-from streamlit_extras.switch_page_button import switch_page  # 🔥 für echtes Wechseln
+from streamlit_extras.switch_page_button import switch_page
+from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
+
+# --- Sidebar ausblenden ---
+hide_sidebar()
 
 # --- Titel ---
 st.title("🛋 Schlaf")
