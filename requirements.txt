@@ -6,3 +6,4 @@ fsspec>=2023.9.0
 matplotlib>=3.7.0
 numpy>=1.23.0
 streamlit-extras>=0.1.7
+openpyxl>=3.1.0
