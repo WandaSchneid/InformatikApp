@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
-st.set_page_config(page_title="🏃‍♂️ Bewegung", page_icon="🏃‍♂️", layout="wide")
+st.set_page_config(page_title="2_Bewegung", page_icon="🏃‍♂️", layout="wide")
 
 # --- Sidebar ausblenden ---
 hide_sidebar()
@@ -26,7 +26,7 @@ sportarten = {
     "Crosstrainer, langsam": 6.0, "Crosstrainer, schnell": 9.0, "Croquet": 3.5, "Curling": 4.8,
     "Fahrrad": 6.5, "Inliner": 7.5, "Intervalltraining": 10.0, "Joggen, langsam": 8.0,
     "Joggen, schnell": 11.5, "Judo": 9.0, "Krafttraining": 6.0, "Laufen": 7.2,
-    "Leichtathletik": 8.0, "Liegestütze": 8.0, "Pilates": 4.0, "Radfahren": 6.5,
+    "Leichtathletik": 8.0, "Liegestuetze": 8.0, "Pilates": 4.0, "Radfahren": 6.5,
     "Reiten": 5.5, "Schwimmen": 9.5, "Seilspringen": 12.0, "Sit Ups": 5.0,
     "Spinning": 10.0, "Skifahren": 7.0, "Tanzen": 6.5, "Tennis": 8.3,
     "Tischtennis": 4.0, "Trampolin": 5.0, "Wandern": 5.5, "Walken": 4.5,
@@ -41,7 +41,7 @@ with col1:
     laufen_min = st.slider("Laufen", 0, 110, step=5)
     laufen_kcal = laufen_min * sportarten["Laufen"]
 
-    st.markdown("### 🧘 Weitere Aktivitäten")
+    st.markdown("### 🧘 Weitere Aktivitaeten")
 
     sport1 = st.selectbox("1. Sportart", list(sportarten.keys()), key="sport1")
     min1 = st.selectbox("Minuten 1. Sportart", list(range(0, 121, 5)), key="min1")
@@ -76,5 +76,5 @@ with col1:
     st.markdown("---")
 
     # --- Zurück zur Startseite ---
-    if st.button("🔙 Zurück zum Start"):
-        switch_page("start")
+    if st.button("🔙 Zurueck zum Start"):
+        switch_page("Start.py")

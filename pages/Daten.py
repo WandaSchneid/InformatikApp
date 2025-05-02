@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import calendar
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag, speichern_profil, laden_profil
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
@@ -143,7 +143,7 @@ if not df_monat.empty:
 else:
     st.info("Noch keine Daten für diesen Monat.")
 
-# 🔙 Zurück-Button
+# --- Zurück zur Startseite ---
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    go_to_start()
+    switch_page("Start.py")

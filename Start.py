@@ -2,20 +2,17 @@ import streamlit as st
 from utils.data_manager import DataManager
 from utils.dual_data_manager import DualDataManager
 from utils.login_manager import LoginManager
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 
 # --- Seitenkonfiguration ---
-st.set_page_config(page_title="Gesundheits-Tracker", page_icon="💪", layout="centered")
+st.set_page_config(page_title="Start", page_icon="💪", layout="centered")
 
 # --- Seitenleiste verstecken ---
 st.markdown("""
     <style>
-        /* Versteckt die gesamte Sidebar */
         [data-testid="stSidebar"] {
             display: none !important;
         }
-
-        /* Versteckt den kleinen Pfeil zur Sidebar-Kontrolle */
         [data-testid="stSidebarCollapsedControl"] {
             display: none !important;
         }
@@ -32,7 +29,7 @@ login_manager.login_register()
 st.title("💪 Gesundheits-Tracker")
 st.markdown("Wähle einen Bereich aus:")
 
-# Button Styling
+# --- Button Styling ---
 st.markdown("""
     <style>
         .stButton > button {
@@ -51,14 +48,14 @@ st.markdown("""
 # --- Buttons für Navigation ---
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    if st.button("🍎 :green[Ernährung]"):
-        switch_page("ernaehrung")
+    if st.button("🍎 Ernaehrung"):
+        switch_page("pages/Ernaehrung.py")
 
-    if st.button("🏃 :orange[Bewegung]"):
-        switch_page("bewegung")
+    if st.button("🏃 Bewegung"):
+        switch_page("pages/Bewegung.py")
 
-    if st.button("🛌 :blue[Schlaf]"):
-        switch_page("schlaf")
+    if st.button("🛌 Schlaf"):
+        switch_page("pages/Schlaf.py")
 
-    if st.button("📊 :violet[Daten]"):
-        switch_page("daten")
+    if st.button("📊 Daten"):
+        switch_page("pages/Daten.py")

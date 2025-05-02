@@ -6,7 +6,7 @@ import streamlit as st
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
 from datetime import datetime
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
@@ -61,4 +61,4 @@ if st.button("💾 Schlaf speichern"):
 # --- Zurück zur Startseite ---
 st.markdown("---")
 if st.button("🔙 Zurück zum Start"):
-    switch_page("start")
+    switch_page("Start.py")

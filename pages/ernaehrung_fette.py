@@ -2,23 +2,23 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # ✅ Seitenkonfiguration
-st.set_page_config(page_title="🧈 Fette", page_icon="🧈", layout="centered")
+st.set_page_config(page_title="Fette", page_icon="🧈", layout="centered")
 
 # ✅ Sidebar ausblenden
 hide_sidebar()
 
-st.title("🧈 Fette & Öle")
+st.title("🧈 Fette & Oele")
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
 
 # 📄 Daten laden
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
 
 # 🧈 Nur passende Kategorien filtern
-kategorien_fette = ["Fette", "Öle", "Butter", "Pflanzenöl", "Speisefette"]
+kategorien_fette = ["Fette", "Oele", "Butter", "Pflanzenoel", "Speisefette"]
 df = df[df["Kategorie"].str.contains('|'.join(kategorien_fette), case=False, na=False)]
 
 # Nur Lebensmittel mit Kalorienangabe
@@ -56,5 +56,5 @@ if "Bezugseinheit" in daten:
 
 # 🔙 Zurück-Button
 st.markdown("---")
-if st.button("🔙 Zurück zur Ernährung"):
-    switch_page("ernaehrung")
+if st.button("🔙 Zurueck zur Ernaehrung"):
+    switch_page("pages/Ernaehrung.py")

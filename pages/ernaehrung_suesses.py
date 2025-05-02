@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # ✅ Seitenkonfiguration
@@ -54,4 +54,4 @@ if "Bezugseinheit" in daten:
 # 🔙 Zurück-Button
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
-    switch_page("ernaehrung")
+    switch_page("pages/Ernaehrung.py")

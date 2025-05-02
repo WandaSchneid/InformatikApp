@@ -6,18 +6,18 @@ import streamlit as st
 from utils.login_manager import LoginManager
 from datetime import datetime
 from functions.speichern import speichern_tageseintrag
-from streamlit_extras.switch_page_button import switch_page
+from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
-st.set_page_config(page_title="ernaehrung", page_icon="🍎", layout="centered")
+st.set_page_config(page_title="1_Ernaehrung", page_icon="🍎", layout="centered")
 
 # --- Sidebar ausblenden ---
 hide_sidebar()
 
 # --- Titel ---
-st.title("🍎 Ernährung")
-st.markdown("Wähle eine Kategorie aus der Ernährungspyramide:")
+st.title("🍎 Ernaehrung")
+st.markdown("Wähle eine Kategorie aus der Ernaehrungspyramide:")
 
 # --- Button-Styling ---
 st.markdown("""
@@ -34,34 +34,28 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Pyramid-Stufen ---
-# Stufe 1 – Süsses
-if st.button("🍫 Süsses"):
-    switch_page("ernaehrung_suesses")
+if st.button("🍫 Suesses"):
+    switch_page("pages/ernaehrung_suesses.py")
 
-# Stufe 2 – Fette
 if st.button("🧈 Fette"):
-    switch_page("ernaehrung_fette")
+    switch_page("pages/ernaehrung_fette.py")
 
-# Stufe 3 – Fleisch/Fisch
 if st.button("🥩 Fleisch / Fisch"):
-    switch_page("ernaehrung_fleisch_fisch")
+    switch_page("pages/ernaehrung_fleisch_fisch.py")
 
-# Stufe 4 – Milchprodukte
 if st.button("🧀 Milchprodukte"):
-    switch_page("ernaehrung_milchprodukte")
+    switch_page("pages/ernaehrung_milchprodukte.py")
 
-# Stufe 5 – Getreide / Reis / Kartoffeln
 if st.button("🍞 Getreide / Reis / Kartoffeln"):
-    switch_page("ernaehrung_getreide_reis_kartoffeln")
+    switch_page("pages/ernaehrung_getreide_reis_kartoffeln.py")
 
-# Stufe 6 – Gemüse & Obst
 col1, col2, col3 = st.columns([1, 0.2, 1])
 with col1:
-    if st.button("🥦 Gemüse"):
-        switch_page("ernaehrung_gemuese")
+    if st.button("🥦 Gemuese"):
+        switch_page("pages/ernaehrung_gemuese.py")
 with col3:
     if st.button("🍎 Obst"):
-        switch_page("ernaehrung_obst")
+        switch_page("pages/ernaehrung_obst.py")
 
 # --- Wasser Abschnitt ---
 st.markdown("---")
@@ -71,14 +65,13 @@ if "wasser_glaeser" not in st.session_state:
     st.session_state.wasser_glaeser = 0
 
 st.session_state.wasser_glaeser = st.number_input(
-    "Wie viele Gläser Wasser hast du getrunken? (à 300ml)",
+    "Wie viele Glaeser Wasser hast du getrunken? (à 300ml)",
     min_value=0, step=1,
     value=st.session_state.wasser_glaeser,
     key="wasser_input"
 )
 st.write(f"Das sind **{st.session_state.wasser_glaeser * 300} ml Wasser**.")
 
-# Speicher-Button für Wasser
 if st.button("💾 Wasser speichern"):
     aktuelles_datum = datetime.now()
     monat = aktuelles_datum.month
@@ -93,5 +86,5 @@ if st.button("💾 Wasser speichern"):
 
 # --- Zurück zur Startseite ---
 st.markdown("---")
-if st.button("🔙 Zurück zum Start"):
-    switch_page("start")
+if st.button("🔙 Zurueck zum Start"):
+    switch_page("Start.py") 
