@@ -39,12 +39,26 @@ profil = laden_profil()
 # --------------------------- Profil ----------------------------
 st.markdown("## 👤 Profil")
 
-name = st.text_input("Name:", value=profil.get("Name", "") if profil else "")
-alter = st.number_input("Alter:", min_value=0, max_value=120, step=1, value=int(profil.get("Alter", 0)) if profil else 0)
-gewicht = st.number_input("Gewicht (kg):", min_value=0.0, step=0.1, value=float(profil.get("Gewicht", 0.0)) if profil else 0.0)
-geschlecht = st.selectbox("Geschlecht:", ["Weiblich", "Männlich", "Divers"],
-    index=["Weiblich", "Männlich", "Divers"].index(profil.get("Geschlecht", "Weiblich")) if profil else 0)
-
+name = st.text_input("Name:", value=profil.get("Name", "") if profil is not None and not profil.empty else "")
+alter = st.number_input(
+    "Alter:",
+    min_value=0,
+    max_value=120,
+    step=1,
+    value=int(profil.get("Alter", 0)) if profil is not None and not profil.empty else 0
+)
+gewicht = st.number_input(
+    "Gewicht (kg):",
+    min_value=0.0,
+    step=0.1,
+    value=float(profil.get("Gewicht", 0.0)) if profil is not None and not profil.empty else 0.0
+)
+geschlecht = st.selectbox(
+    "Geschlecht:", 
+    ["Weiblich", "Männlich", "Divers"],
+    index=["Weiblich", "Männlich", "Divers"].index(profil.get("Geschlecht", "Weiblich")) 
+    if profil is not None and not profil.empty and "Geschlecht" in profil else 0
+)
 # --------------------------- Ziele ----------------------------
 st.markdown("## 🎯 Ziele")
 
@@ -53,9 +67,18 @@ ziele_liste = [
     "Früher zu Bett gehen", "Längere Spaziergänge", "Mehr Wasser trinken"
 ]
 
-ziel1 = st.selectbox("1. Ziel:", ziele_liste, index=ziele_liste.index(profil.get("Ziel1", ziele_liste[0])) if profil else 0)
-ziel2 = st.selectbox("2. Ziel:", ziele_liste, index=ziele_liste.index(profil.get("Ziel2", ziele_liste[1])) if profil else 1)
-
+ziel1 = st.selectbox(
+    "1. Ziel:", 
+    ziele_liste, 
+    index=ziele_liste.index(profil.get("Ziel1", ziele_liste[0])) 
+    if profil is not None and not profil.empty and "Ziel1" in profil else 0
+)
+ziel2 = st.selectbox(
+    "2. Ziel:", 
+    ziele_liste, 
+    index=ziele_liste.index(profil.get("Ziel2", ziele_liste[1])) 
+    if profil is not None and not profil.empty and "Ziel2" in profil else 1
+)
 if st.button("💾 Profil & Ziele speichern"):
     speichern_profil(name, alter, gewicht, geschlecht, ziel1, ziel2)
     st.success("✅ Profil und Ziele gespeichert!")
