@@ -1,8 +1,12 @@
 import streamlit as st
+import pandas as pd 
 from utils.data_manager import DataManager
 from utils.dual_data_manager import DualDataManager
 from utils.login_manager import LoginManager
 from streamlit import switch_page
+
+# Initialisieren des Data Managers
+data_manager = DataManager(fs_protocol='webdav', fs_root_folder="Gesundheits-Tracker") 
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="Start", page_icon="💪", layout="centered")
@@ -24,6 +28,13 @@ local_data_manager = DataManager(fs_protocol='file', fs_root_folder="app_data")
 data_manager = DualDataManager()
 login_manager = LoginManager(data_manager=local_data_manager)
 login_manager.login_register()
+
+# Laden der Daten aus dem persistenten Speicher in den Session-State
+data_manager.load_user_data(
+    session_state_key='data_df', 
+    file_name='data.csv', 
+    initial_value=pd.DataFrame()
+)
 
 # --- Hauptbereich ---
 st.title("💪 Gesundheits-Tracker")

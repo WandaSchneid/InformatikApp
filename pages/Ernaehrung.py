@@ -1,5 +1,6 @@
 import sys
 import os
+import pandas as pd
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
@@ -8,6 +9,10 @@ from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+
+# --- Speichern Sie die Daten in der Session ---
+if 'data_df' not in st.session_state:
+    st.session_state['data_df'] = pd.DataFrame(columns=['monat', 'tag', 'wasser_ml'])
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="1_Ernaehrung", page_icon="🍎", layout="centered")
@@ -73,18 +78,17 @@ st.session_state.wasser_glaeser = st.number_input(
 st.write(f"Das sind **{st.session_state.wasser_glaeser * 300} ml Wasser**.")
 
 if st.button("💾 Wasser speichern"):
-    aktuelles_datum = datetime.now()
-    monat = aktuelles_datum.month
-    tag = aktuelles_datum.day
     wasser_ml = st.session_state.wasser_glaeser * 300
+    aktuelles_datum = datetime.now()
 
-    speichern_tageseintrag(monat=monat, tag=tag, wasser_ml=wasser_ml)
+    # Daten speichern auf Switchdrive
+    speichern_tageseintrag(monat=aktuelles_datum.month, tag=aktuelles_datum.day, wasser_ml=wasser_ml)
+
     st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
 
     st.session_state.wasser_glaeser = 0
 
-
 # --- Zurück zur Startseite ---
 st.markdown("---")
 if st.button("🔙 Zurueck zum Start"):
-    switch_page("Start.py") 
+    switch_page("Start.py")
