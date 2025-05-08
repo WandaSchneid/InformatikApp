@@ -82,7 +82,7 @@ if st.button("💾 Wasser speichern"):
     st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
 
     st.session_state.wasser_glaeser = 0
-    st.experimental_rerun()
+
 
 # --- Zurück zur Startseite ---
 st.markdown("---")
