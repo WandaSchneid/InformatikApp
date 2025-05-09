@@ -69,31 +69,45 @@ class DataManager:
         self.app_data_reg = {}
         self.user_data_reg = {}
 
-    @staticmethod
-    def _init_filesystem(protocol: str):
-        """
-        Creates and configures an fsspec filesystem instance.
+@staticmethod
+def _init_filesystem(protocol: str):
+    """
+    Creates and configures an fsspec filesystem instance.
 
-        Supports WebDAV protocol using credentials from Streamlit secrets, and local filesystem access.
+    Supports WebDAV protocol using credentials from Streamlit secrets, and local filesystem access.
+    
+    Args:
+        protocol: The filesystem protocol to initialize ('webdav' or 'file')
         
-        Args:
-            protocol: The filesystem protocol to initialize ('webdav' or 'file')
-            
-        Returns:
-            fsspec.AbstractFileSystem: Configured filesystem instance
-            
-        Raises:
-            ValueError: If an unsupported protocol is specified
-        """
-        if protocol == 'webdav':
-            secrets = st.secrets['webdav']
-            return fsspec.filesystem('webdav', 
-                                     base_url=secrets['base_url'], 
-                                     auth=(secrets['username'], secrets['password']))
-        elif protocol == 'file':
-            return fsspec.filesystem('file')
-        else:
-            raise ValueError(f"AppManager: Invalid filesystem protocol: {protocol}")
+    Returns:
+        fsspec.AbstractFileSystem: Configured filesystem instance
+        
+    Raises:
+        ValueError: If an unsupported protocol is specified
+    """
+    if protocol == 'webdav':
+        if 'webdav' not in st.secrets:
+            st.error("WebDAV-Zugangsdaten fehlen in den Streamlit-Secrets.")
+            st.stop()  # Beendet die App sicher, wenn die Secrets fehlen
+        
+        secrets = st.secrets['webdav']
+        base_url = secrets.get('base_url')
+        username = secrets.get('username')
+        password = secrets.get('password')
+
+        if not base_url or not username or not password:
+            st.error("Fehler: WebDAV-Zugangsdaten sind unvollständig.")
+            st.stop()
+
+        return fsspec.filesystem(
+            'webdav', 
+            base_url=base_url, 
+            auth=(username, password)
+        )
+    elif protocol == 'file':
+        return fsspec.filesystem('file')
+    else:
+        raise ValueError(f"DataManager: Invalid filesystem protocol: {protocol}")
 
     def _get_data_handler(self, subfolder: str = None):
         """

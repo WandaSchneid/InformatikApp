@@ -6,7 +6,14 @@ from utils.login_manager import LoginManager
 from streamlit import switch_page
 
 # Initialisieren des Data Managers
-data_manager = DataManager(fs_protocol='webdav', fs_root_folder="Gesundheits-Tracker") 
+if 'webdav' in st.secrets:
+    data_manager = DataManager(
+        fs_protocol='webdav', 
+        fs_root_folder="Gesundheits-Tracker"
+    )
+else:
+    st.error("WebDAV-Zugangsdaten fehlen in den Streamlit-Secrets.")
+    st.stop()
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="Start", page_icon="💪", layout="centered")
@@ -24,7 +31,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Initialisierung ---
-local_data_manager = DataManager(fs_protocol='file', fs_root_folder="app_data")
+local_data_manager = DataManager(fs_protocol='file', fs_root_folder="Gesundheits-Tracker")
 data_manager = DualDataManager()
 login_manager = LoginManager(data_manager=local_data_manager)
 login_manager.login_register()
