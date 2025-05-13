@@ -1,146 +1,135 @@
-import secrets
 import streamlit as st
-import streamlit_authenticator as stauth
-from utils.data_manager import DataManager
-
+import hashlib
+import pandas as pd
+import random
+from utils.data_handler import DataHandler
+from PIL import Image, ImageDraw, ImageFont
+import io
 
 class LoginManager:
-    """
-    Singleton class that manages application state, storage, and user authentication.
-    
-    Handles filesystem access, user credentials, and authentication state using Streamlit's
-    session state for persistence across reruns. Provides interfaces for accessing user-specific
-    and application-wide data storage.
-    """
-    def __new__(cls, *args, **kwargs):
-        """
-        Implements singleton pattern by returning existing instance from session state if available.
-
-        Returns:
-            AppManager: The singleton instance, either existing or newly created
-        """
-        if 'login_manager' in st.session_state:
-            return st.session_state.login_manager
-        else:
-            instance = super(LoginManager, cls).__new__(cls)
-            st.session_state.login_manager = instance
-            return instance
-    
-    def __init__(self, data_manager: DataManager = None,
-                 auth_credentials_file: str = 'credentials.yaml',
-                 auth_cookie_name: str = 'bmld_inf2_streamlit_app'):
-        """
-        Initializes filesystem and authentication components if not already initialized.
-
-        Sets up filesystem access using the specified protocol and configures authentication
-        with cookie-based session management.
-
-        Args:
-            Data_manager: The DataManager instance to use for data storage
-            auth_credentials_file (str): The filename to use for storing user credentials
-            auth_cookie_name (str): The name of the cookie to use for session management
-        """
-        if hasattr(self, 'authenticator'):  # check if instance is already initialized
-            return
-        
-        if data_manager is None:
-            return
-
-        # initialize streamlit authentication stuff
+    def __init__(self, data_manager):
         self.data_manager = data_manager
-        self.auth_credentials_file = auth_credentials_file
-        self.auth_cookie_name = auth_cookie_name
-        self.auth_cookie_key = secrets.token_urlsafe(32)
         self.auth_credentials = self._load_auth_credentials()
-        self.authenticator = stauth.Authenticate(self.auth_credentials, self.auth_cookie_name, self.auth_cookie_key)
-
 
     def _load_auth_credentials(self):
-        """
-        Loads user credentials from the configured credentials file.
+        self.data_manager.load_app_data(
+            session_state_key='users',
+            file_name='users.csv',
+            initial_value=pd.DataFrame(columns=[
+                'first_name', 'last_name', 'email', 'username',
+                'password_hash', 'password_hint'
+            ])
+        )
+        return st.session_state['users']
 
-        Returns:
-            dict: User credentials, defaulting to empty usernames dict if file not found
-        """
-        dh = self.data_manager._get_data_handler()
-        return dh.load(self.auth_credentials_file, initial_value= {"usernames": {}})
+    def login_register(self):
+        st.subheader("Login / Registrierung")
+        tabs = st.tabs(["Login", "Registrieren"])
 
-    def _save_auth_credentials(self):
-        """
-        Saves current user credentials to the credentials file.
-        """
-        dh = self.data_manager._get_data_handler()
-        dh.save(self.auth_credentials_file, self.auth_credentials)
+        with tabs[0]:
+            username = st.text_input("Benutzername", key="login_user")
+            password = st.text_input("Passwort", type="password", key="login_pass")
+            if st.button("Login"):
+                self.login(username, password)
 
-    def login_register(self, login_title = 'Login', register_title = 'Register new user'):
-        """
-        Renders the authentication interface.
-        
-        Displays login form and optional registration form. Handles user authentication
-        and registration flows. Stops further execution after rendering.
-        
-        Args:
-            show_register_tab: If True, shows registration option alongside login
-        """
-        if st.session_state.get("authentication_status") is True:
-            self.authenticator.logout()
+        with tabs[1]:
+            self.register_user()
+
+    def login(self, username, password):
+        if not username or not password:
+            st.warning("Bitte Benutzername und Passwort eingeben.")
+            return
+
+        user_df = self.auth_credentials
+        password_hash = self._hash_password(password)
+        match = user_df[(user_df['username'] == username) & (user_df['password_hash'] == password_hash)]
+
+        if not match.empty:
+            st.session_state['username'] = username
+            st.success(f"Willkommen {username}!")
         else:
-            login_tab, register_tab = st.tabs((login_title, register_title))
-            with login_tab:
-                self.login(stop=False)
-            with register_tab:
-                self.register()
+            st.error("Login fehlgeschlagen. Benutzername oder Passwort falsch.")
 
-    def login(self, stop=True):
-        """
-        Renders the login form and handles authentication status messages.
-        """
-        if st.session_state.get("authentication_status") is True:
-            self.authenticator.logout()
-        else:
-            self.authenticator.login()
-            if st.session_state["authentication_status"] is False:
-                st.error("Username/password is incorrect")
-            else:
-                st.warning("Please enter your username and password")
-            if stop:
-                st.stop()
+    def _generate_captcha_image(self, text):
+        image = Image.new('RGB', (120, 40), color=(255, 255, 200))
+        draw = ImageDraw.Draw(image)
+        font = ImageFont.load_default()
+        draw.text((10, 10), text, font=font, fill=(80, 20, 20))
+        draw.line((0, 20, 120, 20), fill=(200, 200, 200), width=1)
+        buffer = io.BytesIO()
+        image.save(buffer, format="PNG")
+        buffer.seek(0)
+        return buffer
 
-    def register(self,stop=True):
-        """
-        Renders the registration form and handles user registration flow.
-        
-        Displays password requirements, processes registration attempts,
-        and saves credentials on successful registration.
-        """
+    def register_user(self):
+        st.info("The password must be 8–20 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character from @$!%*?&.")
 
-        if st.session_state.get("authentication_status") is True:
-            self.authenticator.logout()
-        else:
-            st.info("""
-            The password must be 8-20 characters long and include at least one uppercase letter, 
-            one lowercase letter, one digit, and one special character from @$!%*?&.
-            """)
-            res = self.authenticator.register_user()
-            if res[1] is not None:
-                st.success(f"User {res[1]} registered successfully")
-                try:
-                    self._save_auth_credentials()
-                    st.success("Credentials saved successfully")
-                except Exception as e:
-                    st.error(f"Failed to save credentials: {e}")
-            if stop:
-                st.stop()
+        with st.form("register_form"):
+            first_name = st.text_input("First name")
+            last_name = st.text_input("Last name")
+            email = st.text_input("Email")
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+            repeat_password = st.text_input("Repeat password", type="password")
+            password_hint = st.text_input("Password hint")
 
-    def go_to_login(self, login_page_py_file):
-        """
-        Create a logout button that logs the user out and redirects to the login page.
-        If the user is not logged in, the login page is displayed.
+            if 'captcha' not in st.session_state:
+                st.session_state['captcha'] = str(random.randint(1000, 9999))
 
-        Parameters
-        - login_page_py_file (str): The path to the Python file that contains the login page
-        """
-        if st.session_state.get("authentication_status") is not True:
-            st.switch_page(login_page_py_file)
-        else:
-            self.authenticator.logout() # create logout button
+            captcha_value = st.session_state['captcha']
+            captcha_img = self._generate_captcha_image(captcha_value)
+            st.image(captcha_img, width=150)
+
+            captcha_input = st.text_input("Captcha")
+            submit = st.form_submit_button("Registrieren")
+
+        if submit:
+            if not all([first_name, last_name, email, username, password, repeat_password, captcha_input]):
+                st.warning("Bitte alle Felder ausfüllen.")
+                return
+
+            if username in self.auth_credentials['username'].values:
+                st.error("Benutzername existiert bereits.")
+                return
+
+            if password != repeat_password:
+                st.error("Passwörter stimmen nicht überein.")
+                return
+
+            if not self._is_valid_password(password):
+                st.error("Passwort erfüllt nicht die Anforderungen.")
+                return
+
+            if captcha_input != st.session_state.get('captcha'):
+                st.error("Captcha ist falsch.")
+                return
+
+            password_hash = self._hash_password(password)
+            new_user = pd.DataFrame([[
+                first_name, last_name, email, username,
+                password_hash, password_hint
+            ]], columns=[
+                'first_name', 'last_name', 'email', 'username',
+                'password_hash', 'password_hint'
+            ])
+
+            self.auth_credentials = pd.concat([self.auth_credentials, new_user], ignore_index=True)
+            st.session_state['users'] = self.auth_credentials
+            self.data_manager.save_data('users')
+            st.success("Registrierung erfolgreich! Bitte einloggen.")
+            del st.session_state['captcha']  # captcha zurücksetzen
+
+    @staticmethod
+    def _hash_password(password):
+        return hashlib.sha256(password.encode()).hexdigest()
+
+    @staticmethod
+    def _is_valid_password(password):
+        import re
+        if 8 <= len(password) <= 20 and \
+            re.search(r"[A-Z]", password) and \
+            re.search(r"[a-z]", password) and \
+            re.search(r"[0-9]", password) and \
+            re.search(r"[@$!%*?&]", password):
+            return True
+        return False

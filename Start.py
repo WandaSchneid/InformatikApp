@@ -5,16 +5,6 @@ from utils.dual_data_manager import DualDataManager
 from utils.login_manager import LoginManager
 from streamlit import switch_page
 
-# Initialisieren des Data Managers
-if 'webdav' in st.secrets:
-    data_manager = DataManager(
-        fs_protocol='webdav', 
-        fs_root_folder="Gesundheits-Tracker"
-    )
-else:
-    st.error("WebDAV-Zugangsdaten fehlen in den Streamlit-Secrets.")
-    st.stop()
-
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="Start", page_icon="💪", layout="centered")
 
@@ -30,13 +20,16 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Initialisierung ---
-local_data_manager = DataManager(fs_protocol='file', fs_root_folder="Gesundheits-Tracker")
+# --- Initialisierung DataManager + LoginManager ---
 data_manager = DualDataManager()
-login_manager = LoginManager(data_manager=local_data_manager)
-login_manager.login_register()
+login_manager = LoginManager(data_manager=data_manager)
 
-# Laden der Daten aus dem persistenten Speicher in den Session-State
+# --- Login-Schutz ---
+if 'username' not in st.session_state:
+    login_manager.login_register()
+    st.stop()  # ⛔️ Stoppt den Seitenaufbau, bis Login erfolgt ist
+
+# --- Daten laden nach Login ---
 data_manager.load_user_data(
     session_state_key='data_df', 
     file_name='data.csv', 
@@ -45,7 +38,7 @@ data_manager.load_user_data(
 
 # --- Hauptbereich ---
 st.title("💪 Gesundheits-Tracker")
-st.markdown("Wähle einen Bereich aus:")
+st.markdown(f"Willkommen **{st.session_state['username']}**! Wähle einen Bereich aus:")
 
 # --- Button Styling ---
 st.markdown("""
@@ -63,7 +56,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Buttons für Navigation ---
+# --- Navigation ---
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     if st.button("🍎 Ernaehrung"):
@@ -77,3 +70,9 @@ with col2:
 
     if st.button("📊 Daten"):
         switch_page("pages/Daten.py")
+
+# --- Logout-Button (optional) ---
+st.markdown("---")
+if st.button("🚪 Logout"):
+    st.session_state.clear()
+    st.rerun()
