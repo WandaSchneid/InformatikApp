@@ -62,16 +62,16 @@ class LoginManager:
         return buffer
 
     def register_user(self):
-        st.info("The password must be 8–20 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character from @$!%*?&.")
+        st.info("Das Passwort muss 8–20 Zeichen lang sein, mit Groß-/Kleinbuchstaben, Zahl und Sonderzeichen @$!%*?&.")
 
         with st.form("register_form"):
-            first_name = st.text_input("First name")
-            last_name = st.text_input("Last name")
-            email = st.text_input("Email")
-            username = st.text_input("Username")
-            password = st.text_input("Password", type="password")
-            repeat_password = st.text_input("Repeat password", type="password")
-            password_hint = st.text_input("Password hint")
+            first_name = st.text_input("Vorname")
+            last_name = st.text_input("Nachname")
+            email = st.text_input("E-Mail")
+            username = st.text_input("Benutzername")
+            password = st.text_input("Passwort", type="password")
+            repeat_password = st.text_input("Passwort wiederholen", type="password")
+            password_hint = st.text_input("Passwort-Hinweis")
 
             if 'captcha' not in st.session_state:
                 st.session_state['captcha'] = str(random.randint(1000, 9999))
@@ -80,7 +80,7 @@ class LoginManager:
             captcha_img = self._generate_captcha_image(captcha_value)
             st.image(captcha_img, width=150)
 
-            captcha_input = st.text_input("Captcha")
+            captcha_input = st.text_input("Captcha eingeben")
             submit = st.form_submit_button("Registrieren")
 
         if submit:
@@ -117,7 +117,7 @@ class LoginManager:
             st.session_state['users'] = self.auth_credentials
             self.data_manager.save_data('users')
             st.success("Registrierung erfolgreich! Bitte einloggen.")
-            del st.session_state['captcha']  # captcha zurücksetzen
+            del st.session_state['captcha']
 
     @staticmethod
     def _hash_password(password):
@@ -126,10 +126,10 @@ class LoginManager:
     @staticmethod
     def _is_valid_password(password):
         import re
-        if 8 <= len(password) <= 20 and \
-            re.search(r"[A-Z]", password) and \
-            re.search(r"[a-z]", password) and \
-            re.search(r"[0-9]", password) and \
-            re.search(r"[@$!%*?&]", password):
-            return True
-        return False
+        return (
+            8 <= len(password) <= 20 and
+            re.search(r"[A-Z]", password) and
+            re.search(r"[a-z]", password) and
+            re.search(r"[0-9]", password) and
+            re.search(r"[@$!%*?&]", password)
+        )
