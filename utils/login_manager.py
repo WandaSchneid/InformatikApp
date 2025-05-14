@@ -42,11 +42,15 @@ class LoginManager:
 
         user_df = self.auth_credentials
         password_hash = self._hash_password(password)
-        match = user_df[(user_df['username'] == username) & (user_df['password_hash'] == password_hash)]
+        match = user_df[
+            (user_df['username'] == username) &
+            (user_df['password_hash'] == password_hash)
+        ]
 
         if not match.empty:
             st.session_state['username'] = username
             st.success(f"Willkommen {username}!")
+            st.rerun()  # Seite neu laden nach Login
         else:
             st.error("Login fehlgeschlagen. Benutzername oder Passwort falsch.")
 
