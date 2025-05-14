@@ -1,19 +1,16 @@
 import sys
 import os
 import pandas as pd
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-import streamlit as st
-from utils.login_manager import LoginManager
 from datetime import datetime
-from functions.speichern import speichern_tageseintrag
+import streamlit as st
 from streamlit import switch_page
+
+# Eigene Module importieren
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.login_manager import LoginManager
+from functions.speichern import speichern_tageseintrag
 from utils.ui_utils import hide_sidebar
 from utils.data_manager import DataManager
-
-# --- Speichern Sie die Daten in der Session ---
-# if 'data_df' not in st.session_state:
-#     st.session_state['data_df'] = pd.DataFrame(columns=['monat', 'tag', 'wasser_ml'])
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="1_Ernaehrung", page_icon="🍎", layout="centered")
@@ -39,7 +36,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Pyramid-Stufen ---
+# --- Ernährungspyramide Buttons ---
 if st.button("🍫 Suesses"):
     switch_page("pages/ernaehrung_suesses.py")
 
@@ -67,27 +64,32 @@ with col3:
 st.markdown("---")
 st.header("💧 Wasser")
 
-if "wasser_glaeser" not in st.session_state:
-    st.session_state.wasser_glaeser = 0
+# Session-State initialisieren (muss vor dem Widget erfolgen!)
+if "wasser_input" not in st.session_state:
+    st.session_state["wasser_input"] = 0
 
-st.session_state.wasser_glaeser = st.number_input(
+# Wassermenge eingeben
+anzahl_glaeser = st.number_input(
     "Wie viele Glaeser Wasser hast du getrunken? (à 300ml)",
-    min_value=0, step=1,
-    value=st.session_state.wasser_glaeser,
+    min_value=0,
+    step=1,
     key="wasser_input"
 )
-st.write(f"Das sind **{st.session_state.wasser_glaeser * 300} ml Wasser**.")
 
+# Anzeige der Menge
+st.write(f"Das sind **{anzahl_glaeser * 300} ml Wasser**.")
+
+# Speichern-Button
 if st.button("💾 Wasser speichern"):
-    wasser_ml = st.session_state.wasser_glaeser * 300
+    wasser_ml = anzahl_glaeser * 300
     aktuelles_datum = datetime.now()
 
-    # Daten speichern auf Switchdrive
     speichern_tageseintrag(monat=aktuelles_datum.month, tag=aktuelles_datum.day, wasser_ml=wasser_ml)
 
     st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
 
-    st.session_state.wasser_glaeser = 0
+    # Umleitung zurück auf dieselbe Seite (Seite neuladen)
+    switch_page("pages/Ernaehrung.py")
 
 # --- Zurück zur Startseite ---
 st.markdown("---")
