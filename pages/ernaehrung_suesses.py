@@ -13,44 +13,53 @@ st.title("🍫 Süßes")
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
 # 📄 Excel laden
-df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
+try:
+    df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
 
-# 🧹 Whitespace bereinigen
-df["Kategorie"] = df["Kategorie"].astype(str).str.strip()
-df["Name"] = df["Name"].astype(str).str.strip()
+    # 🧹 Whitespace bereinigen
+    df["Kategorie"] = df["Kategorie"].astype(str).str.strip()
+    df["Name"] = df["Name"].astype(str).str.strip()
 
-# ✅ Filter: Nur Daten aus Kategorie "Suesses"
-df = df[df["Kategorie"] == "Suesses"]
-df = df.dropna(subset=["Energie, Kalorien (kcal)"])
+    # ✅ Filter: Nur Daten aus Kategorie "Suesses"
+    df = df[df["Kategorie"] == "Suesses"]
+    df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
-if df.empty:
-    st.warning("⚠️ Keine Lebensmittel in dieser Kategorie gefunden.")
-else:
-    # 📊 Auswahl
-    food_selection = st.selectbox("🍬 Lebensmittel auswählen", df["Name"].unique())
-    gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
-
-    auswahl = df[df["Name"] == food_selection]
-
-    if not auswahl.empty:
-        kcal_pro_100g = auswahl.iloc[0]["Energie, Kalorien (kcal)"]
-        kcal_total = kcal_pro_100g * (gram_input / 100)
-
-        st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
-
-        # 💾 Speichern
-        if st.button("💾 Speichern"):
-            heute = datetime.now()
-            speichern_tageseintrag(
-                monat=heute.month,
-                tag=heute.day,
-                lebensmittel=food_selection,
-                menge=gram_input,
-                kcal=kcal_total
-            )
-            st.success("✅ Gespeichert!")
+    if df.empty:
+        st.warning("⚠️ Keine Lebensmittel in dieser Kategorie gefunden.")
     else:
-        st.warning("⚠️ Keine Nährwerte für dieses Lebensmittel gefunden.")
+        # 📊 Auswahl
+        food_selection = st.selectbox("🍬 Lebensmittel auswählen", df["Name"].unique())
+        gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
+
+        auswahl = df[df["Name"] == food_selection]
+
+        if not auswahl.empty:
+            try:
+                kcal_pro_100g = auswahl.iloc[0]["Energie, Kalorien (kcal)"]
+                kcal_total = kcal_pro_100g * (gram_input / 100)
+
+                st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
+
+                # 💾 Speichern
+                if st.button("💾 Speichern"):
+                    heute = datetime.now()
+                    speichern_tageseintrag(
+                        monat=heute.month,
+                        tag=heute.day,
+                        lebensmittel=food_selection,
+                        menge=gram_input,
+                        kcal=kcal_total
+                    )
+                    st.success("✅ Gespeichert!")
+            except IndexError:
+                st.error("⚠️ Fehler beim Zugriff auf Kalorienwert – bitte Auswahl prüfen.")
+        else:
+            st.warning("⚠️ Keine Nährwerte für dieses Lebensmittel gefunden.")
+
+except FileNotFoundError:
+    st.error("📁 Die Datei 'Ernaehrungsdaten.xlsx' wurde nicht gefunden.")
+except Exception as e:
+    st.error(f"🚨 Unerwarteter Fehler: {e}")
 
 # 🔙 Zurück
 st.markdown("---")
