@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd 
 from utils.data_manager import DataManager
-from utils.dual_data_manager import DualDataManager
 from utils.login_manager import LoginManager
 from streamlit import switch_page
 
@@ -21,7 +20,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Initialisierung DataManager + LoginManager ---
-data_manager = DualDataManager()
+data_manager = DataManager(fs_protocol='webdav', fs_root_folder="Gesundheits-Tracker")
 login_manager = LoginManager(data_manager=data_manager)
 
 # --- Login-Schutz ---
@@ -33,6 +32,12 @@ if 'username' not in st.session_state:
 data_manager.load_user_data(
     session_state_key='data_df', 
     file_name='data.csv', 
+    initial_value=pd.DataFrame()
+)
+
+data_manager.load_user_data(
+    session_state_key='ernaehrung_df',
+    file_name='ernaehrung.csv', 
     initial_value=pd.DataFrame()
 )
 

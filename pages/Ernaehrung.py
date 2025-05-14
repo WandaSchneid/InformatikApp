@@ -9,10 +9,11 @@ from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+from utils.data_manager import DataManager
 
 # --- Speichern Sie die Daten in der Session ---
-if 'data_df' not in st.session_state:
-    st.session_state['data_df'] = pd.DataFrame(columns=['monat', 'tag', 'wasser_ml'])
+# if 'data_df' not in st.session_state:
+#     st.session_state['data_df'] = pd.DataFrame(columns=['monat', 'tag', 'wasser_ml'])
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="1_Ernaehrung", page_icon="🍎", layout="centered")
