@@ -5,40 +5,26 @@ from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
-# ✅ Seitenkonfiguration
-st.set_page_config(page_title="Fleisch_Fisch", page_icon="🥩", layout="centered")
-
-# ✅ Sidebar ausblenden
+st.set_page_config(page_title="🍎 Fleisch / Fisch", page_icon="🥩", layout="centered")
 hide_sidebar()
 
-st.title("🥩 Fleisch & Fisch")
-st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
+st.title("🥩 Fleisch / Fisch")
+st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
-# 📄 Daten laden
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-
-# 🥩🐟 Kategorien für Fleisch & Fisch definieren
-kategorien_fleisch_fisch = ["Fleisch", "Gefluegel", "Fisch", "Meeresfruechte"]
-df = df[df["Kategorie"].str.contains('|'.join(kategorien_fleisch_fisch), case=False, na=False)]
-
-# Nur Lebensmittel mit Kalorienangabe
+df = df[df["Kategorie"] == "Fleisch / Fisch"]
 df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
-# 📊 Lebensmittel-Auswahl
 st.header("📊 Lebensmittel auswählen")
 food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
-
-# ⚖️ Menge eingeben
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
-# 🔥 Kalorienberechnung
-daten = df[df["Name"] == food_selection].iloc[0]
-kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
+auswahl = df[df["Name"] == food_selection].iloc[0]
+kcal_pro_100g = auswahl["Energie, Kalorien (kcal)"]
 kcal_total = kcal_pro_100g * (gram_input / 100)
 
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
-# 💾 Speichern
 if st.button("💾 Speichern"):
     heute = datetime.now()
     speichern_tageseintrag(
@@ -48,13 +34,11 @@ if st.button("💾 Speichern"):
         menge=gram_input,
         kcal=kcal_total
     )
-    st.success("✅ Lebensmittel gespeichert!")
+    st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
-# ℹ️ Bezugseinheit Hinweis
-if "Bezugseinheit" in daten:
-    st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
+if "Bezugseinheit" in auswahl:
+    st.caption(f"ℹ️ Bezugsbasis: {auswahl['Bezugseinheit']}")
 
-# 🔙 Zurück-Button
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
     switch_page("pages/Ernaehrung.py")

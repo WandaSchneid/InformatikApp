@@ -5,56 +5,40 @@ from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
 
-# ✅ Seitenkonfiguration
-st.set_page_config(page_title="Fette", page_icon="🧈", layout="centered")
-
-# ✅ Sidebar ausblenden
+st.set_page_config(page_title="🍎 Fette", page_icon="🧈", layout="centered")
 hide_sidebar()
 
-st.title("🧈 Fette & Oele")
-st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge ein.")
+st.title("🧈 Fette")
+st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
-# 📄 Daten laden
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
-
-# 🧈 Nur passende Kategorien filtern
-kategorien_fette = ["Fette", "Oele", "Butter", "Pflanzenoel", "Speisefette"]
-df = df[df["Kategorie"].str.contains('|'.join(kategorien_fette), case=False, na=False)]
-
-# Nur Lebensmittel mit Kalorienangabe
+kategorien = ["Fette", "Öle"]
+df = df[df["Kategorie"].str.contains('|'.join(kategorien), case=False, na=False)]
 df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
-# 📊 Lebensmittel auswählen
 st.header("📊 Lebensmittel auswählen")
 food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
+gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
-# ⚖️ Menge eingeben
-gram_input = st.number_input("⚖️ Menge in Gramm oder ml", min_value=1, max_value=1000, value=100)
-
-# 🔥 Kalorienberechnung
 daten = df[df["Name"] == food_selection].iloc[0]
 kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
 kcal_total = kcal_pro_100g * (gram_input / 100)
 
-st.success(f"📈 {gram_input}g/ml {food_selection} enthalten **{kcal_total:.2f} kcal**.")
+st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
-# 💾 Speichern
 if st.button("💾 Speichern"):
     heute = datetime.now()
     speichern_tageseintrag(
-        monat=heute.month,
-        tag=heute.day,
+        monat=heute.month, tag=heute.day,
         lebensmittel=food_selection,
         menge=gram_input,
         kcal=kcal_total
     )
-    st.success("✅ Lebensmittel gespeichert!")
+    st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
-# ℹ️ Bezugseinheit Hinweis
 if "Bezugseinheit" in daten:
     st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
 
-# 🔙 Zurück-Button
 st.markdown("---")
-if st.button("🔙 Zurueck zur Ernaehrung"):
+if st.button("🔙 Zurück zur Ernährung"):
     switch_page("pages/Ernaehrung.py")
