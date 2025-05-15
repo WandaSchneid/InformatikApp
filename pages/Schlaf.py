@@ -8,6 +8,7 @@ from functions.speichern import speichern_tageseintrag
 from datetime import datetime
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+from utils.data_manager import DataManager
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
@@ -56,6 +57,7 @@ st.markdown(f"""
 # --- Speichern-Button ---
 if st.button("💾 Schlaf speichern"):
     speichern_tageseintrag(monat=heute.month, tag=heute.day, schlaftext=zusammenfassung)
+    DataManager().append_record( session_state_key='schlaf_df', record_dict={"stunden": stunden, "bettzeit": bettzeit, "qualitaet": qualitaet})
     st.success("✅ Schlafdaten gespeichert!")
 
 # --- Zurück zur Startseite ---

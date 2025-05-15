@@ -10,6 +10,7 @@ from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+from utils.data_manager import DataManager
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="2_Bewegung", page_icon="🏃‍♂️", layout="wide")
