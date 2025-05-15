@@ -4,6 +4,7 @@ from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+from utils.data_manager import DataManager
 
 st.set_page_config(page_title="🍎 Milchprodukte", page_icon="🧀", layout="centered")
 hide_sidebar()
@@ -34,6 +35,9 @@ if st.button("💾 Speichern"):
         menge=gram_input,
         kcal=kcal_total
     )
+
+    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g})
+
     st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
 if "Bezugseinheit" in auswahl:

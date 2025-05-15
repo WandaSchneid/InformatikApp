@@ -4,6 +4,7 @@ from datetime import datetime
 from functions.speichern import speichern_tageseintrag
 from streamlit import switch_page
 from utils.ui_utils import hide_sidebar
+from utils.data_manager import DataManager
 
 # ✅ Seitenkonfiguration
 st.set_page_config(page_title="🍫 Süßes", page_icon="🍫", layout="centered")
@@ -50,6 +51,9 @@ try:
                         menge=gram_input,
                         kcal=kcal_total
                     )
+
+                    DataManager().append_record(session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g})
+
                     st.success("✅ Gespeichert!")
             except IndexError:
                 st.error("⚠️ Fehler beim Zugriff auf Kalorienwert – bitte Auswahl prüfen.")
