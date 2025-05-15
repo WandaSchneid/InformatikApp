@@ -64,7 +64,7 @@ with col3:
 st.markdown("---")
 st.header("💧 Wasser")
 
-# Session-State initialisieren (muss vor dem Widget erfolgen!)
+# Session-State initialisieren
 if "wasser_input" not in st.session_state:
     st.session_state["wasser_input"] = 0
 
