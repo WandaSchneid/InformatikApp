@@ -17,7 +17,7 @@ st.set_page_config(page_title="1_Ernaehrung", page_icon="🍎", layout="centered
 
 # --- Sidebar ausblenden ---
 hide_sidebar()
-
+                                                        
 # --- Titel ---
 st.title("🍎 Ernaehrung")
 st.markdown("Wähle eine Kategorie aus der Ernaehrungspyramide:")
@@ -85,11 +85,10 @@ if st.button("💾 Wasser speichern"):
     aktuelles_datum = datetime.now()
 
     speichern_tageseintrag(monat=aktuelles_datum.month, tag=aktuelles_datum.day, wasser_ml=wasser_ml)
+    
+    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"wasser_ml": wasser_ml})
 
     st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
-
-    # Umleitung zurück auf dieselbe Seite (Seite neuladen)
-    switch_page("pages/Ernaehrung.py")
 
 # --- Zurück zur Startseite ---
 st.markdown("---")

@@ -41,6 +41,18 @@ data_manager.load_user_data(
     initial_value=pd.DataFrame()
 )
 
+data_manager.load_user_data(
+    session_state_key='bewegung_df',
+    file_name='bewegung.csv',           
+    initial_value=pd.DataFrame()
+)
+
+data_manager.load_user_data(
+    session_state_key='schlaf_df',
+    file_name='schlaf.csv', 
+    initial_value=pd.DataFrame()
+)
+
 # --- Hauptbereich ---
 st.title("💪 Gesundheits-Tracker")
 st.markdown(f"Willkommen **{st.session_state['username']}**! Wähle einen Bereich aus:")
