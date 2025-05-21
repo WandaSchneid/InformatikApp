@@ -1,7 +1,17 @@
-## Konnte das MVP (V1.0) wie geplant umgesetzt werden?
+### Was möchten wir testen?
 
- ## Was konnte nicht umgesetzt werden und warum?
+### Wie bewerten wir den Test?
 
- ## Müssen wir die Roadmap anpassen und falls ja, wie?
+### Was ist ein Erfolg?
 
- ## Welche Unterstützung brauchen wir, um unsere Ziele zu erreichen?
+## Bewertungen in Form des Rasters mit den 4 Punkten
+
+### Was war gut?
+
+### Was war schlecht?
+
+### Neue Ideen?
+
+### Neue Probleme?
+
+## Fazit Nutzertest:
