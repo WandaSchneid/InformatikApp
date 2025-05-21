@@ -28,7 +28,7 @@ if 'username' not in st.session_state:
     login_manager.login_register()
     st.stop()  # ⛔️ Stoppt den Seitenaufbau, bis Login erfolgt ist
 
-# --- Daten laden nach Login ---
+# --- Daten laden und Speicherung auf Switch Drive ---
 data_manager.load_user_data(
     session_state_key='data_df', 
     file_name='data.csv', 
