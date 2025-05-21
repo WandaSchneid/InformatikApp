@@ -25,7 +25,15 @@ daten = df[df["Name"] == food_selection].iloc[0]
 kcal_pro_100g = daten["Energie, Kalorien (kcal)"]
 kcal_total = kcal_pro_100g * (gram_input / 100)
 
-DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g})
+DataManager().append_record(
+    session_state_key='ernaehrung_df',
+    record_dict={
+        "Lebensmittel": food_selection,
+        "Menge (g)": gram_input,
+        "kcal_pro_100g": kcal_pro_100g,
+        "kcal_total": kcal_total
+    }
+)
 
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
