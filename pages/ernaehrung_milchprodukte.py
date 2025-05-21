@@ -36,15 +36,7 @@ if st.button("💾 Speichern"):
         kcal=kcal_total
     )
 
-    DataManager().append_record(
-    session_state_key='ernaehrung_df',
-    record_dict={
-        "Lebensmittel": food_selection,
-        "Menge (g)": gram_input,
-        "kcal_pro_100g": kcal_pro_100g,
-        "kcal_total": kcal_total
-    }
-    )
+    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g})
 
     st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
