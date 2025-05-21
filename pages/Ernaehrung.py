@@ -86,7 +86,7 @@ if st.button("💾 Wasser speichern"):
 
     speichern_tageseintrag(monat=aktuelles_datum.month, tag=aktuelles_datum.day, wasser_ml=wasser_ml)
     
-    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"wasser_ml": wasser_ml})
+    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"wasser_ml": wasser_ml, "Timestamp": datetime.now()})
 
     st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
 

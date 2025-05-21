@@ -52,7 +52,7 @@ try:
                         kcal=kcal_total
                     )
 
-                    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g})
+                    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g, "Timestamp": datetime.now()})
 
                     st.success("✅ Gespeichert!")
             except IndexError:

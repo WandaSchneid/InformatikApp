@@ -72,7 +72,7 @@ with col1:
             bewegung=bewegung_text,
             bewegung_kcal=total_kcal
         )
-        DataManager().append_record(session_state_key='bewegung_df', record_dict={"bewegung": bewegung_text, "kcal": total_kcal})
+        DataManager().append_record(session_state_key='bewegung_df', record_dict={"bewegung": bewegung_text, "kcal": total_kcal, "Timestamp": datetime.now()})
         st.success("✅ Bewegung für heute gespeichert!")
 
     st.markdown("---")

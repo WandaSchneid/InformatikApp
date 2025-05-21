@@ -57,7 +57,8 @@ st.markdown(f"""
 # --- Speichern-Button ---
 if st.button("💾 Schlaf speichern"):
     speichern_tageseintrag(monat=heute.month, tag=heute.day, schlaftext=zusammenfassung)
-    DataManager().append_record( session_state_key='schlaf_df', record_dict={"stunden": stunden, "bettzeit": bettzeit, "qualitaet": qualitaet})
+
+    DataManager().append_record( session_state_key='schlaf_df', record_dict={"stunden": stunden, "bettzeit": bettzeit, "qualitaet": qualitaet, "Timestamp": datetime.now()})
     st.success("✅ Schlafdaten gespeichert!")
 
 # --- Zurück zur Startseite ---
