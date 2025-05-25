@@ -1,5 +1,6 @@
 import sys
 import os
+import base64
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
@@ -14,6 +15,42 @@ from utils.ui_utils import hide_sidebar
 
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="📊 Daten", page_icon="📊", layout="centered")
+
+# --- Hintergrundbild einfügen ---
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+img_path = "docs/images/Daten.jpg"
+img_base64 = get_base64_of_bin_file(img_path)
+
+st.markdown(
+    f"""
+    <style>
+    body {{
+        background-image: url("data:image/jpg;base64,{img_base64}");
+        background-size: cover;
+        background-attachment: fixed;
+    }}
+    [data-testid="stAppViewContainer"] {{
+        background: transparent;
+    }}
+    [data-testid="stHeader"] {{
+        background: rgba(0,0,0,0);
+    }}
+    .stApp {{
+        background: transparent;
+    }}
+    .block-container {{
+        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        border-radius: 20px;
+        padding: 2rem;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # --- Sidebar ausblenden ---
 hide_sidebar()

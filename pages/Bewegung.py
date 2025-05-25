@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 import streamlit as st
 from streamlit import switch_page
+import base64
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.login_manager import LoginManager
@@ -13,11 +14,47 @@ from utils.data_manager import DataManager
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="2_Bewegung", page_icon="🏃‍♂️", layout="wide")
 
+# --- Hintergrundbild einfügen ---
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+img_path = "docs/images/Bewegung.jpg"
+img_base64 = get_base64_of_bin_file(img_path)
+
+st.markdown(
+    f"""
+    <style>
+    body {{
+        background-image: url("data:image/jpg;base64,{img_base64}");
+        background-size: cover;
+        background-attachment: fixed;
+    }}
+    [data-testid="stAppViewContainer"] {{
+        background: transparent;
+    }}
+    [data-testid="stHeader"] {{
+        background: rgba(0,0,0,0);
+    }}
+    .stApp {{
+        background: transparent;
+    }}
+    .block-container {{
+        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        border-radius: 20px;
+        padding: 2rem;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- Sidebar ausblenden ---
 hide_sidebar()
 
 # --- Titel ---
-st.title("🏃‍♂️ Bewegung")
+# st.title("🏃‍♂️ Bewegung")
 
 # --- Sportarten Dictionary ---
 sportarten = {
@@ -33,11 +70,37 @@ sportarten = {
 }
 
 # --- Layout ---
-col1, _ = st.columns([2, 1])
+col_left, col_center, col_right = st.columns([1, 2, 1])
+with col_center:
+    st.markdown(
+        """
+        <div style="background-color:#fff; border-radius:16px; padding: 1em; text-align:center; margin-bottom:1em;">
+            <h1 style="color:#222; margin:0;">🏃‍♂️ Bewegung</h1>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-with col1:
+# --- Layout ---
+col_left, col_center, col_right = st.columns([1, 2, 1])
+
+with col_center:
     st.markdown("### 🏃‍♀️ Laufen (min)")
-    laufen_min = st.slider("Laufen", 0, 110, step=5)
+    with st.container():
+        st.markdown(
+            """
+            <style>
+            div[data-testid="stSlider"] {
+                background: #fff;
+                border-radius: 10px;
+                padding: 1.2em 1em 0.5em 1em;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        laufen_min = st.slider("Laufen", 0, 110, step=5, key="laufen_slider")
     laufen_kcal = laufen_min * sportarten["Laufen"]
 
     st.markdown("### 🧘 Weitere Aktivitaeten")
