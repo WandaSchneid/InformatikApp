@@ -1,14 +1,12 @@
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-import streamlit as st
-from utils.login_manager import LoginManager
-import matplotlib.pyplot as plt
-import pandas as pd
+import sys
 from datetime import datetime
-from functions.speichern import speichern_tageseintrag
+import streamlit as st
 from streamlit import switch_page
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.login_manager import LoginManager
+from functions.speichern import speichern_tageseintrag
 from utils.ui_utils import hide_sidebar
 from utils.data_manager import DataManager
 
@@ -43,24 +41,24 @@ with col1:
     laufen_kcal = laufen_min * sportarten["Laufen"]
 
     st.markdown("### 🧘 Weitere Aktivitaeten")
+    sport_keys = list(sportarten.keys())
 
-    sport1 = st.selectbox("1. Sportart", list(sportarten.keys()), key="sport1")
-    min1 = st.selectbox("Minuten 1. Sportart", list(range(0, 121, 5)), key="min1")
+    sport1 = st.selectbox("1. Sportart", sport_keys, key="sport1")
+    min1 = st.selectbox("Minuten 1. Sportart", range(0, 121, 5), key="min1")
 
-    sport2 = st.selectbox("2. Sportart", list(sportarten.keys()), key="sport2")
-    min2 = st.selectbox("Minuten 2. Sportart", list(range(0, 121, 5)), key="min2")
+    sport2 = st.selectbox("2. Sportart", sport_keys, key="sport2")
+    min2 = st.selectbox("Minuten 2. Sportart", range(0, 121, 5), key="min2")
 
     sport1_kcal = min1 * sportarten[sport1]
     sport2_kcal = min2 * sportarten[sport2]
     total_kcal = laufen_kcal + sport1_kcal + sport2_kcal
 
-    bewegung_text = ""
-    if laufen_min > 0:
-        bewegung_text += f"Laufen {laufen_min}min"
-    if min1 > 0:
-        bewegung_text += (", " if bewegung_text else "") + f"{sport1} {min1}min"
-    if min2 > 0:
-        bewegung_text += (", " if bewegung_text else "") + f"{sport2} {min2}min"
+    # Zusammenfassungstext
+    bewegung_text = ", ".join(
+        [f"Laufen {laufen_min}min"] if laufen_min > 0 else [] +
+        [f"{sport1} {min1}min"] if min1 > 0 else [] +
+        [f"{sport2} {min2}min"] if min2 > 0 else []
+    )
 
     st.markdown(f"### 🔥 Gesamtverbrauch: **{total_kcal:.1f} kcal**")
 
@@ -72,11 +70,18 @@ with col1:
             bewegung=bewegung_text,
             bewegung_kcal=total_kcal
         )
-        DataManager().append_record(session_state_key='bewegung_df', record_dict={"bewegung": bewegung_text, "kcal": total_kcal, "Timestamp": datetime.now()})
+        DataManager().append_record(
+            session_state_key='bewegung_df',
+            record_dict={
+                "datum": heute.strftime("%Y-%m-%d"),
+                "bewegung": bewegung_text,
+                "kcal": total_kcal,
+                "timestamp": heute
+            }
+        )
         st.success("✅ Bewegung für heute gespeichert!")
 
     st.markdown("---")
 
-    # --- Zurück zur Startseite ---
     if st.button("🔙 Zurueck zum Start"):
         switch_page("Start.py")

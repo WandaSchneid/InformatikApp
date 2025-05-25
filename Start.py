@@ -55,11 +55,14 @@ data_manager.load_user_data(
 
 # --- Hauptbereich ---
 st.title("💪 Gesundheits-Tracker")
-st.markdown(f"Willkommen **{st.session_state['username']}**! Wähle einen Bereich aus:")
+st.markdown(f"Willkommen **{st.session_state['username']}**! Gib deine Ernaehrungs-, Bewegungs- und Schlafdaten des heutigen Tages ein:")
 
-# --- Button Styling ---
+# --- Styling (Sidebar + Buttons) ---
 st.markdown("""
     <style>
+        [data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"] {
+            display: none !important;
+        }
         .stButton > button {
             border-radius: 50px;
             padding: 20px 40px;
@@ -74,22 +77,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Navigation ---
+pages = [
+    ("🍎 Ernaehrung", "pages/Ernaehrung.py"),
+    ("🏃 Bewegung", "pages/Bewegung.py"),
+    ("🛌 Schlaf", "pages/Schlaf.py"),
+    ("📊 Daten", "pages/Daten.py"),
+]
+
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    if st.button("🍎 Ernaehrung"):
-        switch_page("pages/Ernaehrung.py")
-
-    if st.button("🏃 Bewegung"):
-        switch_page("pages/Bewegung.py")
-
-    if st.button("🛌 Schlaf"):
-        switch_page("pages/Schlaf.py")
-
-    if st.button("📊 Daten"):
-        switch_page("pages/Daten.py")
+    for label, page in pages:
+        if st.button(label):
+            switch_page(page)
 
 # --- Logout-Button (optional) ---
-st.markdown("---")
 if st.button("🚪 Logout"):
     st.session_state.clear()
     st.rerun()

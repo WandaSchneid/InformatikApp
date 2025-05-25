@@ -20,45 +20,54 @@ hide_sidebar()
 
 st.title("📊 Datenübersicht")
 
-# 🔁 Bessere Funktion: Zurück zum Start
+# --- Hilfsfunktion für Profilwerte ---
+def get_profil_value(profil, key, default):
+    if profil is not None and not profil.empty and key in profil:
+        return profil.get(key, default)
+    return default
+
+# --- Zurück zum Start ---
 def go_to_start():
     switch_page("Start")
 
-# 📄 Einträge laden
+# --- Einträge laden ---
 pfad_eintraege = "data/eintraege.csv"
 if os.path.exists(pfad_eintraege) and os.path.getsize(pfad_eintraege) > 0:
     df_eintraege = pd.read_csv(pfad_eintraege)
     if "wasser_ml" not in df_eintraege.columns:
         df_eintraege["wasser_ml"] = 0
 else:
-    df_eintraege = pd.DataFrame(columns=["monat", "tag", "lebensmittel", "menge", "kcal", "bewegung", "bewegung_kcal", "schlaf_zusammenfassung", "wasser_ml"])
+    df_eintraege = pd.DataFrame(columns=[
+        "monat", "tag", "lebensmittel", "menge", "kcal",
+        "bewegung", "bewegung_kcal", "schlaf_zusammenfassung", "wasser_ml"
+    ])
 
-# 📄 Profil laden
+# --- Profil laden ---
 profil = laden_profil()
 
 # --------------------------- Profil ----------------------------
 st.markdown("## 👤 Profil")
 
-name = st.text_input("Name:", value=profil.get("Name", "") if profil is not None and not profil.empty else "")
+name = st.text_input("Name:", value=get_profil_value(profil, "Name", ""))
 alter = st.number_input(
     "Alter:",
     min_value=0,
     max_value=120,
     step=1,
-    value=int(profil.get("Alter", 0)) if profil is not None and not profil.empty else 0
+    value=int(get_profil_value(profil, "Alter", 0))
 )
 gewicht = st.number_input(
     "Gewicht (kg):",
     min_value=0.0,
     step=0.1,
-    value=float(profil.get("Gewicht", 0.0)) if profil is not None and not profil.empty else 0.0
+    value=float(get_profil_value(profil, "Gewicht", 0.0))
 )
 geschlecht = st.selectbox(
-    "Geschlecht:", 
+    "Geschlecht:",
     ["Weiblich", "Männlich", "Divers"],
-    index=["Weiblich", "Männlich", "Divers"].index(profil.get("Geschlecht", "Weiblich")) 
-    if profil is not None and not profil.empty and "Geschlecht" in profil else 0
+    index=["Weiblich", "Männlich", "Divers"].index(get_profil_value(profil, "Geschlecht", "Weiblich"))
 )
+
 # --------------------------- Ziele ----------------------------
 st.markdown("## 🎯 Ziele")
 
@@ -68,16 +77,14 @@ ziele_liste = [
 ]
 
 ziel1 = st.selectbox(
-    "1. Ziel:", 
-    ziele_liste, 
-    index=ziele_liste.index(profil.get("Ziel1", ziele_liste[0])) 
-    if profil is not None and not profil.empty and "Ziel1" in profil else 0
+    "1. Ziel:",
+    ziele_liste,
+    index=ziele_liste.index(get_profil_value(profil, "Ziel1", ziele_liste[0]))
 )
 ziel2 = st.selectbox(
-    "2. Ziel:", 
-    ziele_liste, 
-    index=ziele_liste.index(profil.get("Ziel2", ziele_liste[1])) 
-    if profil is not None and not profil.empty and "Ziel2" in profil else 1
+    "2. Ziel:",
+    ziele_liste,
+    index=ziele_liste.index(get_profil_value(profil, "Ziel2", ziele_liste[1]))
 )
 if st.button("💾 Profil & Ziele speichern"):
     speichern_profil(name, alter, gewicht, geschlecht, ziel1, ziel2)

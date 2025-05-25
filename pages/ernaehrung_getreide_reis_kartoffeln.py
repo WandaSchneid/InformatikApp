@@ -24,8 +24,6 @@ auswahl = df[df["Name"] == food_selection].iloc[0]
 kcal_pro_100g = auswahl["Energie, Kalorien (kcal)"]
 kcal_total = kcal_pro_100g * (gram_input / 100)
 
-DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"kcal_pro_100g": kcal_pro_100g, "Timestamp": datetime.now()})
-
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
 if st.button("💾 Speichern"):
@@ -37,6 +35,17 @@ if st.button("💾 Speichern"):
         menge=gram_input,
         kcal=kcal_total
     )
+    DataManager().append_record(
+        session_state_key='ernaehrung_df',
+        record_dict={
+            "datum": heute.strftime("%Y-%m-%d"),
+            "lebensmittel": food_selection,
+            "menge": gram_input,
+            "kcal": kcal_total,
+            "kcal_pro_100g": kcal_pro_100g,
+            "timestamp": heute
+        }
+    )
     st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
 if "Bezugseinheit" in auswahl:
@@ -45,4 +54,3 @@ if "Bezugseinheit" in auswahl:
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
     switch_page("pages/Ernaehrung.py")
-

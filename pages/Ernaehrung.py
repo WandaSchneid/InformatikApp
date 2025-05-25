@@ -37,20 +37,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Ernährungspyramide Buttons ---
-if st.button("🍫 Suesses"):
-    switch_page("pages/ernaehrung_suesses.py")
-
-if st.button("🧈 Fette"):
-    switch_page("pages/ernaehrung_fette.py")
-
-if st.button("🥩 Fleisch / Fisch"):
-    switch_page("pages/ernaehrung_fleisch_fisch.py")
-
-if st.button("🧀 Milchprodukte"):
-    switch_page("pages/ernaehrung_milchprodukte.py")
-
-if st.button("🍞 Getreide / Reis / Kartoffeln"):
-    switch_page("pages/ernaehrung_getreide_reis_kartoffeln.py")
+ernaehrung_buttons = [
+    ("🍫 Suesses", "pages/ernaehrung_suesses.py"),
+    ("🧈 Fette", "pages/ernaehrung_fette.py"),
+    ("🥩 Fleisch / Fisch", "pages/ernaehrung_fleisch_fisch.py"),
+    ("🧀 Milchprodukte", "pages/ernaehrung_milchprodukte.py"),
+    ("🍞 Getreide / Reis / Kartoffeln", "pages/ernaehrung_getreide_reis_kartoffeln.py"),
+]
+for label, page in ernaehrung_buttons:
+    if st.button(label):
+        switch_page(page)
 
 col1, col2, col3 = st.columns([1, 0.2, 1])
 with col1:
@@ -64,11 +60,9 @@ with col3:
 st.markdown("---")
 st.header("💧 Wasser")
 
-# Session-State initialisieren
 if "wasser_input" not in st.session_state:
     st.session_state["wasser_input"] = 0
 
-# Wassermenge eingeben
 anzahl_glaeser = st.number_input(
     "Wie viele Glaeser Wasser hast du getrunken? (à 300ml)",
     min_value=0,
@@ -76,21 +70,27 @@ anzahl_glaeser = st.number_input(
     key="wasser_input"
 )
 
-# Anzeige der Menge
-st.write(f"Das sind **{anzahl_glaeser * 300} ml Wasser**.")
+wasser_ml = anzahl_glaeser * 300
+st.write(f"Das sind **{wasser_ml} ml Wasser**.")
 
 # Speichern-Button
 if st.button("💾 Wasser speichern"):
-    wasser_ml = anzahl_glaeser * 300
     aktuelles_datum = datetime.now()
+    speichern_tageseintrag(
+        monat=aktuelles_datum.month,
+        tag=aktuelles_datum.day,
+        wasser_ml=wasser_ml
+    )
+    DataManager().append_record(
+        session_state_key='ernaehrung_df',
+        record_dict={
+            "datum": aktuelles_datum.strftime("%Y-%m-%d"),
+            "anzahl_glaeser": anzahl_glaeser,
+            "wasser_ml": wasser_ml
+        }
+    )
+    st.success(f"✅ {anzahl_glaeser} Gläser ({wasser_ml} ml) Wasser gespeichert!")
 
-    speichern_tageseintrag(monat=aktuelles_datum.month, tag=aktuelles_datum.day, wasser_ml=wasser_ml)
-    
-    DataManager().append_record( session_state_key='ernaehrung_df', record_dict={"wasser_ml": wasser_ml, "Timestamp": datetime.now()})
-
-    st.success(f"✅ {wasser_ml} ml Wasser gespeichert!")
-
-# --- Zurück zur Startseite ---
 st.markdown("---")
 if st.button("🔙 Zurueck zum Start"):
     switch_page("Start.py")
