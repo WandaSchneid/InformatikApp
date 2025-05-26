@@ -6,7 +6,7 @@ import streamlit as st
 from streamlit import switch_page
 import base64
 
-# Eigene Module importieren
+# --- Eigene Module importieren ---
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
@@ -25,6 +25,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Ernaehrung.jpg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling: Hintergrund & Textfarben ---
 st.markdown(
     f"""
     <style>
@@ -43,9 +44,32 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    /* Dunkle Schrift */
+    h1, h2, h3, h4, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown, .stTextInput > label,
+    .stNumberInput > label, .stSelectbox > label {{
+        color: #333333 !important;
+        font-size: 18px;
+    }}
+    .stButton > button {{
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        margin: auto;
+        color: white;
+        background-color: #0077b6;
+        border: none;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
     }}
     </style>
     """,
@@ -54,28 +78,14 @@ st.markdown(
 
 # --- Sidebar ausblenden ---
 hide_sidebar()
-                                                        
-# --- Titel ---
-st.title("🍎 Ernaehrung")
-st.markdown("Wähle eine Kategorie aus der Ernaehrungspyramide:")
 
-# --- Button-Styling ---
-st.markdown("""
-    <style>
-        .stButton > button {
-            border-radius: 25px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: bold;
-            display: block;
-            margin: auto;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# --- Titel & Einleitung ---
+st.title("🍎 Ernährung")
+st.markdown("Wähle eine Kategorie aus der Ernährungspyramide:")
 
-# --- Ernährungspyramide Buttons ---
+# --- Ernährungskategorien ---
 ernaehrung_buttons = [
-    ("🍫 Suesses", "pages/ernaehrung_suesses.py"),
+    ("🍫 Süßes", "pages/ernaehrung_suesses.py"),
     ("🧈 Fette", "pages/ernaehrung_fette.py"),
     ("🥩 Fleisch / Fisch", "pages/ernaehrung_fleisch_fisch.py"),
     ("🧀 Milchprodukte", "pages/ernaehrung_milchprodukte.py"),
@@ -85,15 +95,16 @@ for label, page in ernaehrung_buttons:
     if st.button(label):
         switch_page(page)
 
+# --- Gemüse und Obst nebeneinander ---
 col1, col2, col3 = st.columns([1, 0.2, 1])
 with col1:
-    if st.button("🥦 Gemuese"):
+    if st.button("🥦 Gemüse"):
         switch_page("pages/ernaehrung_gemuese.py")
 with col3:
     if st.button("🍎 Obst"):
         switch_page("pages/ernaehrung_obst.py")
 
-# --- Wasser Abschnitt ---
+# --- Wasser-Eingabe ---
 st.markdown("---")
 st.header("💧 Wasser")
 
@@ -101,7 +112,7 @@ if "wasser_input" not in st.session_state:
     st.session_state["wasser_input"] = 0
 
 anzahl_glaeser = st.number_input(
-    "Wie viele Glaeser Wasser hast du getrunken? (à 300ml)",
+    "Wie viele Gläser Wasser hast du getrunken? (à 300 ml)",
     min_value=0,
     step=1,
     key="wasser_input"
@@ -110,7 +121,7 @@ anzahl_glaeser = st.number_input(
 wasser_ml = anzahl_glaeser * 300
 st.write(f"Das sind **{wasser_ml} ml Wasser**.")
 
-# Speichern-Button
+# --- Speichern ---
 if st.button("💾 Wasser speichern"):
     aktuelles_datum = datetime.now()
     speichern_tageseintrag(
@@ -128,6 +139,7 @@ if st.button("💾 Wasser speichern"):
     )
     st.success(f"✅ {anzahl_glaeser} Gläser ({wasser_ml} ml) Wasser gespeichert!")
 
+# --- Zurück zur Startseite ---
 st.markdown("---")
-if st.button("🔙 Zurueck zum Start"):
+if st.button("🔙 Zurück zum Start"):
     switch_page("Start.py")

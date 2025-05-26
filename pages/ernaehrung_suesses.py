@@ -20,6 +20,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Suesses.jpg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling für dunkle Schrift ---
 st.markdown(
     f"""
     <style>
@@ -38,15 +39,40 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown {{
+        color: #333 !important;
+        font-size: 18px;
+    }}
+    label, .stTextInput > label, .stSelectbox > label, .stNumberInput > label {{
+        color: #1a1a1a !important;
+    }}
+    .stCaption {{
+        color: #555 !important;
+        font-style: italic;
+    }}
+    .stButton > button {{
+        background-color: #0077b6;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
+# --- Titel & Beschreibung ---
 st.title("🍫 Süßes")
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
@@ -58,14 +84,13 @@ try:
     df["Kategorie"] = df["Kategorie"].astype(str).str.strip()
     df["Name"] = df["Name"].astype(str).str.strip()
 
-    # ✅ Filter: Nur Daten aus Kategorie "Suesses"
+    # ✅ Filter: Nur "Suesses"
     df = df[df["Kategorie"] == "Suesses"]
     df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
     if df.empty:
         st.warning("⚠️ Keine Lebensmittel in dieser Kategorie gefunden.")
     else:
-        # 📊 Auswahl
         food_selection = st.selectbox("🍬 Lebensmittel auswählen", df["Name"].unique())
         gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
 
@@ -78,7 +103,6 @@ try:
 
                 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
-                # 💾 Speichern
                 if st.button("💾 Speichern"):
                     heute = datetime.now()
                     speichern_tageseintrag(

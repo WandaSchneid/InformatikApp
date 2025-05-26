@@ -7,9 +7,9 @@ Diese App dient der **Erfassung und Analyse von Gesundheitsdaten** im Rahmen ein
 
 ## ✨ Ziel der App
 
-Ziel ist die Entwicklung einer **benutzerfreundlichen, altersgerechten Anwendung**, die:
+Ziel ist die Entwicklung einer **benutzerfreundlichen, altersgerechten Applikation für Personen fortgeschrittenen Alters**, die:
 
-- Gesundheitsdaten wie **Mahlzeiten**, **körperliche Aktivität** und **Schlafverhalten** erfasst
+- Gesundheitsdaten wie **Mahlzeiten & Kalorien**, **körperliche Aktivität** und **Schlafverhalten** erfasst
 - diese **verständlich aufbereitet** (z. B. über einfache Eingabemasken und Filter)
 - visuelle **Diagramme** und **Auswertungen** bietet
 - zur **Reflexion und Motivation** für gesündere Entscheidungen anregt
@@ -20,10 +20,10 @@ Die App ist bewusst **einfach gestaltet**, um auch **technisch weniger versierte
 
 ## 🧭 Funktionen der App
 
-- **Ernährungstagebuch** (Eingabe nach Lebensmittelkategorien, z. B. Gemüse, Obst, Getreide etc.)
-- **Bewegungserfassung** (z. B. Gehzeit, Sport)
+- **Ernährungstagebuch** (Eingabe tägliche getrunkene Wassermenge, Eingabe nach Lebensmittelkategorien, z. B.      Gemüse, Obst, Getreide etc.)
+- **Bewegungserfassung** (z. B. Gehzeit, Sportart + Zeitangabe, Anzeige verbrannte Kalorien)
 - **Schlafprotokoll** (Einschlaf- und Aufwachzeiten, Schlafqualität)
-- **Tagesauswertung** und **übersichtliche Diagramme**
+- **Tagesauswertung** und **übersichtliches Diagramm verbrauchte und aufgenommene Kalorien**
 - **Datenspeicherung lokal oder serverbasiert** (je nach Modus)
 - **Login-System** (je nach Version)
 
@@ -34,11 +34,11 @@ Die App ist bewusst **einfach gestaltet**, um auch **technisch weniger versierte
 1. Öffne die App unter folgendem Link:👉 [https://gesundheits-tracker.streamlit.app](https://gesundheits-tracker.streamlit.app)
 2. Wähle im Menü den gewünschten Bereich:
 
-   - *Ernährung* → Lebensmittel pro Kategorie eingeben
-   - *Bewegung* → Zeitangaben oder Aktivität wählen
-   - *Schlaf* → Daten eintragen (Dauer, Einschätzung)
+   - *Ernährung* → Lebensmittel pro Kategorie eingeben + Eingabe getrunkene Wassermenge
+   - *Bewegung* → Regelleiste für gelaufene Zeit + Eingabe zweier sportlichen Akitivitäten mit Zeitangabe 
+   - *Schlaf* → Daten eintragen (Dauer, Einschätzung Qualität)
 3. Klicke auf **„Speichern“**, um deine Eingaben zu sichern.
-4. Wechsel zu **„Auswertung“**, um deine Einträge als **Diagramm** zu sehen.
+4. Wechsel zu **„Auswertung“**, um deine Einträge als **Diagramm für verbauchte und aufgenommene Kalorien** zu sehen.
 
 ---
 

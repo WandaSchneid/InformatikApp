@@ -23,8 +23,73 @@ class LoginManager:
         return st.session_state['users']
 
     def login_register(self):
-        st.subheader("Login / Registrierung")
-        tabs = st.tabs(["Login", "Registrieren"])
+        # ✅ Globales Styling inkl. Tabs
+        st.markdown("""
+        <style>
+            body, .stApp {
+                color: #1a1a1a !important;
+            }
+            h1, h2, h3, h4, h5, h6,
+            .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+                color: #1a1a1a !important;
+                font-weight: 700;
+            }
+            .stTextInput > label, .stSelectbox > label,
+            .stForm label, .stRadio > label, .stCheckbox > label {
+                color: #1a1a1a !important;
+                font-weight: 500;
+            }
+            .stMarkdown, .markdown-text-container p {
+                color: #333 !important;
+                font-size: 17px;
+            }
+            .stAlert > div {
+                color: #1a1a1a;
+                font-size: 16px;
+            }
+            .stCaption {
+                color: #444 !important;
+                font-style: italic;
+            }
+            .stButton > button {
+                background-color: #0077b6;
+                color: white;
+                font-weight: bold;
+                border-radius: 8px;
+                padding: 10px 20px;
+            }
+            .stButton > button:hover {
+                background-color: #023e8a;
+            }
+
+            /* Tabs */
+            div[data-testid="stTabs"] button {
+                color: #1a1a1a !important;
+                font-weight: 600;
+                background-color: transparent;
+            }
+            div[data-testid="stTabs"] button[aria-selected="true"] {
+                color: #1a1a1a !important;
+                background-color: rgba(200, 200, 200, 0.2);
+                border-bottom: 3px solid #1a1a1a;
+            }
+
+            /* Formular-Hintergrund und Text */
+            div[data-testid="stForm"] {
+                background-color: rgba(255,255,255,0.8);
+                padding: 2rem;
+                border-radius: 16px;
+            }
+            div[data-testid="stForm"] label,
+            div[data-testid="stForm"] input,
+            div[data-testid="stForm"] textarea {
+                color: #1a1a1a !important;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
+        st.subheader("🔐 Login / Registrierung")
+        tabs = st.tabs(["🔑 Login", "🆕 Registrieren"])
 
         with tabs[0]:
             username = st.text_input("Benutzername", key="login_user")
@@ -37,7 +102,7 @@ class LoginManager:
 
     def login(self, username, password):
         if not username or not password:
-            st.warning("Bitte Benutzername und Passwort eingeben.")
+            st.warning("⚠️ Bitte Benutzername und Passwort eingeben.")
             return
 
         user_df = self.auth_credentials
@@ -49,10 +114,10 @@ class LoginManager:
 
         if not match.empty:
             st.session_state['username'] = username
-            st.success(f"Willkommen {username}!")
-            st.rerun()  # Seite neu laden nach Login
+            st.success(f"✅ Willkommen {username}!")
+            st.rerun()
         else:
-            st.error("Login fehlgeschlagen. Benutzername oder Passwort falsch.")
+            st.error("❌ Login fehlgeschlagen. Benutzername oder Passwort falsch.")
 
     def _generate_captcha_image(self, text):
         image = Image.new('RGB', (120, 40), color=(255, 255, 200))
@@ -66,7 +131,7 @@ class LoginManager:
         return buffer
 
     def register_user(self):
-        st.info("Das Passwort muss 8–20 Zeichen lang sein, mit Groß-/Kleinbuchstaben, Zahl und Sonderzeichen @$!%*?&.")
+        st.info("ℹ️ Passwort: 8–20 Zeichen, mit Groß-/Kleinbuchstaben, Zahl und Sonderzeichen @$!%*?&.")
 
         with st.form("register_form"):
             first_name = st.text_input("Vorname")
@@ -89,38 +154,37 @@ class LoginManager:
 
         if submit:
             if not all([first_name, last_name, email, username, password, repeat_password, captcha_input]):
-                st.warning("Bitte alle Felder ausfüllen.")
+                st.warning("⚠️ Bitte alle Felder ausfüllen.")
                 return
 
             if username in self.auth_credentials['username'].values:
-                st.error("Benutzername existiert bereits.")
+                st.error("❌ Benutzername existiert bereits.")
                 return
 
             if password != repeat_password:
-                st.error("Passwörter stimmen nicht überein.")
+                st.error("❌ Passwörter stimmen nicht überein.")
                 return
 
             if not self._is_valid_password(password):
-                st.error("Passwort erfüllt nicht die Anforderungen.")
+                st.error("❌ Passwort erfüllt nicht die Anforderungen.")
                 return
 
             if captcha_input != st.session_state.get('captcha'):
-                st.error("Captcha ist falsch.")
+                st.error("❌ Captcha ist falsch.")
                 return
 
             password_hash = self._hash_password(password)
-            new_user = pd.DataFrame([[
-                first_name, last_name, email, username,
-                password_hash, password_hint
-            ]], columns=[
-                'first_name', 'last_name', 'email', 'username',
-                'password_hash', 'password_hint'
-            ])
+            new_user = pd.DataFrame([[first_name, last_name, email, username,
+                                      password_hash, password_hint]],
+                                    columns=[
+                                        'first_name', 'last_name', 'email', 'username',
+                                        'password_hash', 'password_hint'
+                                    ])
 
             self.auth_credentials = pd.concat([self.auth_credentials, new_user], ignore_index=True)
             st.session_state['users'] = self.auth_credentials
             self.data_manager.save_data('users')
-            st.success("Registrierung erfolgreich! Bitte einloggen.")
+            st.success("✅ Registrierung erfolgreich! Bitte einloggen.")
             del st.session_state['captcha']
 
     @staticmethod

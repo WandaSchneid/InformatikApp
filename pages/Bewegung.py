@@ -5,6 +5,7 @@ import streamlit as st
 from streamlit import switch_page
 import base64
 
+# --- Modulpfade erweitern ---
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
@@ -23,6 +24,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Bewegung.jpg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling: Hintergrund & Textfarben ---
 st.markdown(
     f"""
     <style>
@@ -41,9 +43,39 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    h1, h2, h3, h4, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    .stTextInput > label, .stSelectbox > label, .stSlider > label {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown {{
+        color: #333333;
+        font-size: 18px;
+    }}
+    .stButton > button {{
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        margin: auto;
+        color: white;
+        background-color: #0077b6;
+        border: none;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
+    }}
+    div[data-testid="stSlider"] {{
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 1.2em 1em 0.5em 1em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }}
     </style>
     """,
@@ -52,9 +84,6 @@ st.markdown(
 
 # --- Sidebar ausblenden ---
 hide_sidebar()
-
-# --- Titel ---
-# st.title("🏃‍♂️ Bewegung")
 
 # --- Sportarten Dictionary ---
 sportarten = {
@@ -69,41 +98,26 @@ sportarten = {
     "Wassergymnastik": 4.0, "Yoga": 3.0, "Zumba": 8.5
 }
 
-# --- Layout ---
+# --- Layout: Titel zentriert ---
 col_left, col_center, col_right = st.columns([1, 2, 1])
 with col_center:
     st.markdown(
         """
         <div style="background-color:#fff; border-radius:16px; padding: 1em; text-align:center; margin-bottom:1em;">
-            <h1 style="color:#222; margin:0;">🏃‍♂️ Bewegung</h1>
+            <h1 style="color:#1a1a1a; margin:0;">🏃‍♂️ Bewegung</h1>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-# --- Layout ---
+# --- Layout für Eingaben ---
 col_left, col_center, col_right = st.columns([1, 2, 1])
-
 with col_center:
     st.markdown("### 🏃‍♀️ Laufen (min)")
-    with st.container():
-        st.markdown(
-            """
-            <style>
-            div[data-testid="stSlider"] {
-                background: #fff;
-                border-radius: 10px;
-                padding: 1.2em 1em 0.5em 1em;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        laufen_min = st.slider("Laufen", 0, 110, step=5, key="laufen_slider")
+    laufen_min = st.slider("Laufen", 0, 110, step=5, key="laufen_slider")
     laufen_kcal = laufen_min * sportarten["Laufen"]
 
-    st.markdown("### 🧘 Weitere Aktivitaeten")
+    st.markdown("### 🧘 Weitere Aktivitäten")
     sport_keys = list(sportarten.keys())
 
     sport1 = st.selectbox("1. Sportart", sport_keys, key="sport1")
@@ -145,6 +159,5 @@ with col_center:
         st.success("✅ Bewegung für heute gespeichert!")
 
     st.markdown("---")
-
-    if st.button("🔙 Zurueck zum Start"):
+    if st.button("🔙 Zurück zum Start"):
         switch_page("Start.py")

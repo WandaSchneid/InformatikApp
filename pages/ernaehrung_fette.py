@@ -20,6 +20,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Fette.jpeg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling ---
 st.markdown(
     f"""
     <style>
@@ -38,9 +39,36 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    label, .stTextInput > label, .stSelectbox > label, .stNumberInput > label {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown {{
+        color: #333333 !important;
+        font-size: 18px;
+    }}
+    .stSuccess, .stWarning, .stError {{
+        color: #1a1a1a !important;
+    }}
+    .stButton > button {{
+        background-color: #0077b6;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
+    }}
+    .stCaption {{
+        color: #555 !important;
+        font-style: italic;
     }}
     </style>
     """,
@@ -53,7 +81,7 @@ with col_center:
     st.markdown(
         """
         <div style="background-color:#fff; border-radius:16px; padding: 1em; text-align:center; margin-bottom:1em;">
-            <h1 style="color:#222; margin:0;">🧈 Fette</h1>
+            <h1 style="color:#1a1a1a; margin:0;">🧈 Fette</h1>
         </div>
         """,
         unsafe_allow_html=True
@@ -67,6 +95,7 @@ kategorien = ["Fette", "Öle"]
 df = df[df["Kategorie"].str.contains('|'.join(kategorien), case=False, na=False)]
 df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
+# --- Lebensmittel Auswahl ---
 st.header("📊 Lebensmittel auswählen")
 food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
@@ -77,6 +106,7 @@ kcal_total = kcal_pro_100g * (gram_input / 100)
 
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
+# --- Speichern ---
 if st.button("💾 Speichern"):
     heute = datetime.now()
     speichern_tageseintrag(
@@ -98,9 +128,11 @@ if st.button("💾 Speichern"):
     )
     st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
+# --- Zusätzliche Info ---
 if "Bezugseinheit" in daten:
     st.caption(f"ℹ️ Bezugsbasis: {daten['Bezugseinheit']}")
 
+# --- Navigation ---
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
     switch_page("pages/Ernaehrung.py")

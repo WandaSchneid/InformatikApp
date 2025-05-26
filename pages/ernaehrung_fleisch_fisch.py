@@ -7,6 +7,7 @@ from utils.ui_utils import hide_sidebar
 from utils.data_manager import DataManager
 import base64
 
+# --- Seitenkonfiguration ---
 st.set_page_config(page_title="🍎 Fleisch / Fisch", page_icon="🥩", layout="centered")
 hide_sidebar()
 
@@ -19,6 +20,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Fleisch_Fisch.jpg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling für dunkle Schrift ---
 st.markdown(
     f"""
     <style>
@@ -37,9 +39,33 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown {{
+        color: #333333 !important;
+        font-size: 18px;
+    }}
+    label, .stTextInput > label, .stSelectbox > label, .stNumberInput > label {{
+        color: #1a1a1a !important;
+    }}
+    .stButton > button {{
+        background-color: #0077b6;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 10px 20px;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
+    }}
+    .stCaption {{
+        color: #444 !important;
+        font-style: italic;
     }}
     </style>
     """,
@@ -52,7 +78,7 @@ with col_center:
     st.markdown(
         """
         <div style="background-color:#fff; border-radius:16px; padding: 1em; text-align:center; margin-bottom:1em;">
-            <h1 style="color:#222; margin:0;">🥩 Fleisch / Fisch</h1>
+            <h1 style="color:#1a1a1a; margin:0;">🥩 Fleisch / Fisch</h1>
         </div>
         """,
         unsafe_allow_html=True
@@ -60,10 +86,12 @@ with col_center:
 
 st.markdown("Wähle ein Lebensmittel aus der Datenbank und gib die Menge in Gramm ein.")
 
+# --- Daten laden ---
 df = pd.read_excel("data/Ernaehrungsdaten.xlsx", sheet_name="Tabelle1")
 df = df[df["Kategorie"] == "Fleisch / Fisch"]
 df = df.dropna(subset=["Energie, Kalorien (kcal)"])
 
+# --- Auswahl & Eingabe ---
 st.header("📊 Lebensmittel auswählen")
 food_selection = st.selectbox("🍽️ Lebensmittel", df["Name"].unique())
 gram_input = st.number_input("⚖️ Menge in Gramm", min_value=1, max_value=1000, value=100)
@@ -74,6 +102,7 @@ kcal_total = kcal_pro_100g * (gram_input / 100)
 
 st.success(f"📈 {gram_input}g {food_selection} enthalten **{kcal_total:.2f} kcal**.")
 
+# --- Speichern ---
 if st.button("💾 Speichern"):
     heute = datetime.now()
     speichern_tageseintrag(
@@ -96,9 +125,11 @@ if st.button("💾 Speichern"):
     )
     st.success(f"✅ {gram_input}g {food_selection} mit {kcal_total:.2f} kcal gespeichert!")
 
+# --- Zusatzinfo falls vorhanden ---
 if "Bezugseinheit" in auswahl:
     st.caption(f"ℹ️ Bezugsbasis: {auswahl['Bezugseinheit']}")
 
+# --- Zurück-Button ---
 st.markdown("---")
 if st.button("🔙 Zurück zur Ernährung"):
     switch_page("pages/Ernaehrung.py")

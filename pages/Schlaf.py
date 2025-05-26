@@ -5,6 +5,7 @@ import streamlit as st
 from streamlit import switch_page
 import base64
 
+# --- Eigene Module importieren ---
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.login_manager import LoginManager
 from functions.speichern import speichern_tageseintrag
@@ -14,7 +15,7 @@ from utils.data_manager import DataManager
 # --- Seitenkonfiguration ---
 st.set_page_config(page_title="🛋 Schlaf", page_icon="🛋", layout="centered")
 
-# --- Hintergrundbild einfügen ---
+# --- Hintergrundbild laden und umwandeln ---
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
@@ -23,6 +24,7 @@ def get_base64_of_bin_file(bin_file):
 img_path = "docs/images/Schlaf.jpg"
 img_base64 = get_base64_of_bin_file(img_path)
 
+# --- CSS Styling für Text und Layout ---
 st.markdown(
     f"""
     <style>
@@ -41,9 +43,31 @@ st.markdown(
         background: transparent;
     }}
     .block-container {{
-        background: rgba(255,255,255,0.7); /* halbtransparentes Weiß */
+        background: rgba(255,255,255,0.7);
         border-radius: 20px;
         padding: 2rem;
+    }}
+    h1, h2, h3, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+        color: #1a1a1a !important;
+    }}
+    .markdown-text-container p, .stMarkdown,
+    .stTextInput > label, .stSelectbox > label {{
+        color: #333333 !important;
+        font-size: 18px;
+    }}
+    .stButton > button {{
+        border-radius: 25px;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        margin: auto;
+        color: white;
+        background-color: #0077b6;
+        border: none;
+    }}
+    .stButton > button:hover {{
+        background-color: #023e8a;
     }}
     </style>
     """,
@@ -56,7 +80,7 @@ hide_sidebar()
 # --- Titel ---
 st.title("🛋 Schlaf")
 
-# --- Aktueller Tag ---
+# --- Aktuelles Datum ---
 heute = datetime.now()
 
 # --- Eingaben ---
@@ -64,9 +88,15 @@ stunden_optionen = [1.5, 3, 4.5, 5, 6.5, 7, 8.5, 10, 11, 12]
 stunden = st.selectbox("⏱️ Stunden geschlafen:", stunden_optionen, index=6)
 
 bettzeit_eingabe = st.text_input("🕒 Zu Bett gegangen (Format: HH:MM)", value="22:00")
+
+# --- Zeitvalidierung ---
 try:
-    stunde, minute = map(int, bettzeit_eingabe.split(":"))
-    bettzeit = f"{stunde:02d}:{minute:02d}"
+    stunde, minute = map(int, bettzeit_eingabe.strip().split(":"))
+    if 0 <= stunde <= 23 and 0 <= minute <= 59:
+        bettzeit = f"{stunde:02d}:{minute:02d}"
+    else:
+        bettzeit = "00:00"
+        st.warning("⚠️ Bitte gültige Uhrzeit im Format HH:MM angeben (00:00 – 23:59).")
 except:
     bettzeit = "00:00"
     st.warning("⚠️ Bitte Uhrzeit im Format HH:MM eingeben!")
@@ -87,7 +117,7 @@ st.markdown(f"""
 - **Schlafqualität:** *{qualitaet}*
 """)
 
-# --- Speichern-Button ---
+# --- Speichern ---
 if st.button("💾 Schlaf speichern"):
     zusammenfassung = f"Geschlafen: {stunden}h, Zu Bett: {bettzeit} Uhr, Qualität: {qualitaet}"
     speichern_tageseintrag(
