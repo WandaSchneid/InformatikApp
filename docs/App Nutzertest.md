@@ -2,7 +2,7 @@
 
 ## Ziel des Tests
 
-Wir möchten herausfinden, ob unsere Gesundheits-App intuitiv und selbsterklärend ist – insbesondere für Nutzer:innen älterer Generationen.Folgende Fragen stehen dabei im Fokus:
+Wir möchten herausfinden, ob unsere Gesundheits-App intuitiv und selbsterklärend ist – insbesondere für Nutzer:innen älterer Generationen. Folgende Fragen stehen dabei im Fokus:
 
 - Ist die App ohne Anleitung verständlich bedienbar?
 - Besteht grundsätzlich Interesse am Tracking gesundheitlicher Daten?
