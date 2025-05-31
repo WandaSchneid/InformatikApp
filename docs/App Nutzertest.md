@@ -16,10 +16,10 @@ Wir möchten herausfinden, ob unsere Gesundheits-App intuitiv und selbsterkläre
 
 ### 1. Wird die App als sinnvoll und hilfreich empfunden?
 
-✅ **Ja.** Die App deckt alle grundlegenden Bereiche für einen gesunden Lebensstil ab.
-✅ Nutzer:innen erhalten einen klaren Überblick über ihre Kalorienaufnahme, Bewegung und Schlaf.
-✅ Die App richtet sich bewusst an ältere Menschen mit einem besonders einfachen und geradlinigen Design.
-✅ Es sind keine zusätzlichen Geräte wie eine Smartwatch nötig – ein großer Pluspunkt.
+**Ja.** Die App deckt alle grundlegenden Bereiche für einen gesunden Lebensstil ab.
+Nutzer:innen erhalten einen klaren Überblick über ihre Kalorienaufnahme, Bewegung und Schlaf.
+Die App richtet sich bewusst an ältere Menschen mit einem besonders einfachen und geradlinigen Design.
+Es sind keine zusätzlichen Geräte wie eine Smartwatch nötig – ein großer Pluspunkt.
 
 **Besonderheit:**
 Die Kombination aus Einfachheit und umfassender Funktionalität macht die App einzigartig.
@@ -28,34 +28,34 @@ Die Kombination aus Einfachheit und umfassender Funktionalität macht die App ei
 
 ### 2. Wie fühlen sich Nutzer:innen bei der Bedienung der App?
 
-✅ Die Navigation wurde als **intuitiv und sicher** beschrieben.
-✅ Der Aufbau ist logisch, die Rückkehr zur Startseite schnell möglich.
-✅ Die Beschriftungen sind verständlich.
+Die Navigation wurde als **intuitiv und sicher** beschrieben.
+Der Aufbau ist logisch, die Rückkehr zur Startseite schnell möglich.
+Die Beschriftungen sind verständlich.
 
 **Anmerkung:**
 Einzige kleinere Hürde war das Scrollen auf einer Unterseite, das zunächst nicht klar erkennbar war – dies wurde aber schnell verstanden.
 
-✅ Die Auswahl an Lebensmitteln und Sportarten wurde als **umfangreich und passend** empfunden.
-✅ Die **grünen Punkte in der Datenübersicht** erleichtern die Orientierung und werden als sehr hilfreich empfunden.
+Die Auswahl an Lebensmitteln und Sportarten wurde als **umfangreich und passend** empfunden.
+Die **grünen Punkte in der Datenübersicht** erleichtern die Orientierung und werden als sehr hilfreich empfunden.
 
 ---
 
 ### 3. Gab es Rückfragen oder Unklarheiten bei den Hauptfunktionen?
 
-🟡 **Keine grundsätzlichen Verständnisprobleme.**🟡 Im Gespräch wurde jedoch deutlich, dass **Orientierungswerte fehlen**, z. B.:
+Keine grundsätzlichen Verständnisprobleme. Im Gespräch wurde jedoch deutlich, dass **Orientierungswerte fehlen**, z. B.:
 
 - Wie viele Kalorien sind pro Tag empfehlenswert?
 - Wie viel Schlaf ist gesund?
 
-💡 **Vorschlag:** Ergänzung eines Info-Bereichs mit Richtwerten für Ernährung, Bewegung und Schlaf.
+**Vorschlag:** Ergänzung eines Info-Bereichs mit Richtwerten für Ernährung, Bewegung und Schlaf.
 
 ---
 
 ### 4. Hat die App einen positiven Einfluss auf die Lebensweise?
 
-✅ Ja. Die App motiviert zur Selbstbeobachtung und trägt zur Etablierung gesunder Routinen bei.
-✅ Nutzer:innen gaben an, **bewusster zu leben**, ihre Gewohnheiten zu überdenken und neue Rezepte ausprobieren zu wollen.
-✅ Die tägliche Nutzung wurde sogar als kleines **Ritual** beschrieben.
+Ja. Die App motiviert zur Selbstbeobachtung und trägt zur Etablierung gesunder Routinen bei.
+Nutzer:innen gaben an, **bewusster zu leben**, ihre Gewohnheiten zu überdenken und neue Rezepte ausprobieren zu wollen.
+Die tägliche Nutzung wurde sogar als kleines **Ritual** beschrieben.
 
 ---
 
