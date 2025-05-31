@@ -1,8 +1,5 @@
 # BMLD Gesundheits-Tracker
 
-
-# BMLD Gesundheits-Tracker
-
 Diese App dient der **Erfassung und Analyse von Gesundheitsdaten** im Rahmen eines Studienprojekts. Sie richtet sich speziell an Menschen **ab etwa 50 Jahren** und unterstützt diese dabei, ihre **Ernährung**, **Bewegung** und **Schlafgewohnheiten** im Alltag bewusst zu verfolgen und aktiv an ihrer Gesundheit zu arbeiten.
 
 ## ✨ Ziel der App
